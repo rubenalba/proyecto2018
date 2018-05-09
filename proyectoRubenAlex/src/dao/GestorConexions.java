@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class GestorConexions {
 
-	private static String url = "jdbc:mysql://localhost/proyecto"; //hola!
+	private static String url = "jdbc:mysql://192.168.2.172/proyectorubenalex";
 	private static String user = "root" ;
 	private static String pwd = "";
 	private static Connection connexio = null;
