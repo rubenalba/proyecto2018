@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 09-may-2018 19:00:27 by Hibernate Tools 4.0.1.Final -->
+<hibernate-mapping>
+    <class name="pojos.Asistencia" table="asistencia" catalog="proyecto">
+        <composite-id name="id" class="pojos.AsistenciaId">
+            <key-property name="dniAlumno" type="string">
+                <column name="DNI_Alumno" length="9" />
+            </key-property>
+            <key-property name="idUnidadFormativa" type="string">
+                <column name="ID_UnidadFormativa" length="50" />
+            </key-property>
+            <key-property name="idFranja" type="string">
+                <column name="ID_Franja" length="2" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="alumnos" class="pojos.Alumnos" update="false" insert="false" fetch="select">
+            <column name="DNI_Alumno" length="9" not-null="true" />
+        </many-to-one>
+        <many-to-one name="franjas" class="pojos.Franjas" update="false" insert="false" fetch="select">
+            <column name="ID_Franja" length="2" not-null="true" />
+        </many-to-one>
+        <many-to-one name="unidadformativa" class="pojos.Unidadformativa" update="false" insert="false" fetch="select">
+            <column name="ID_UnidadFormativa" length="50" not-null="true" />
+        </many-to-one>
+        <property name="justificante" type="boolean">
+            <column name="Justificante" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

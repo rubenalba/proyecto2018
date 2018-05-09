@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 09-may-2018 19:00:27 by Hibernate Tools 4.0.1.Final -->
+<hibernate-mapping>
+    <class name="pojos.Franjas" table="franjas" catalog="proyecto">
+        <id name="idFranja" type="string">
+            <column name="ID_Franja" length="2" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="profesor" class="pojos.Profesor" fetch="select">
+            <column name="DNI_Profesor" length="9" not-null="true" />
+        </many-to-one>
+        <property name="horaInicio" type="date">
+            <column name="Hora_inicio" length="10" not-null="true" />
+        </property>
+        <property name="horaFin" type="date">
+            <column name="Hora_fin" length="10" not-null="true" />
+        </property>
+        <property name="dia" type="date">
+            <column name="Dia" length="10" not-null="true" />
+        </property>
+        <set name="asistencias" table="asistencia" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_Franja" length="2" not-null="true" />
+            </key>
+            <one-to-many class="pojos.Asistencia" />
+        </set>
+    </class>
+</hibernate-mapping>

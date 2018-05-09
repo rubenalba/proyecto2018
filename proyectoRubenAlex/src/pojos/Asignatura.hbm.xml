@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 09-may-2018 19:00:27 by Hibernate Tools 4.0.1.Final -->
+<hibernate-mapping>
+    <class name="pojos.Asignatura" table="asignatura" catalog="proyecto">
+        <id name="idAsignatura" type="int">
+            <column name="ID_Asignatura" />
+            <generator class="assigned" />
+        </id>
+        <property name="nombreAsignatura" type="string">
+            <column name="Nombre_Asignatura" length="30" not-null="true" />
+        </property>
+        <set name="unidadformativas" table="unidadformativa" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_Asignatura" not-null="true" />
+            </key>
+            <one-to-many class="pojos.Unidadformativa" />
+        </set>
+    </class>
+</hibernate-mapping>
