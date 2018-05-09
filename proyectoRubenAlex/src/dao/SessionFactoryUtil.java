@@ -5,7 +5,7 @@ import org.hibernate.cfg.Configuration;
 
 public class SessionFactoryUtil {
 	private static final SessionFactory sessionFactory;
-
+//44
 	static{
 		 try {
 		    // Create the SessionFactory from hibernate.cfg.xml
