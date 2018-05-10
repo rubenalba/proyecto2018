@@ -39,6 +39,10 @@ public class Profesor implements java.io.Serializable {
 		this.franjases = franjases;
 	}
 
+	public Profesor(String dniProfesor2) {
+		this.dniProfesor=dniProfesor2;
+	}
+
 	public String getDniProfesor() {
 		return this.dniProfesor;
 	}

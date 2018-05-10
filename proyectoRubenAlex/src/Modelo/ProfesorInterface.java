@@ -12,7 +12,7 @@ import pojos.Profesor;
  * @version 1.0
  */
 public interface ProfesorInterface {
-	public void addProfesor (String dniProfesor, String nombre, String idUnidadFormativa, String usuari, String password);
+	public void addProfesor (Profesor profesor);
 	public void eliminarProfesor (String dniProfesor);
 	public void modificarProfesor(Profesor profesorModificado);
 	public Profesor verProfesorByDni (String dniProfesor);
