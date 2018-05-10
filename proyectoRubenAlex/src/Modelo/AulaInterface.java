@@ -10,7 +10,7 @@ import pojos.Aula;
  * @version 1.0  
  */
 public interface AulaInterface {
-	public void addAula (int numAula);
+	public Integer addAula (int numAula);
 	public void eliminarAula (int numAula);
 	public void modificarAula (int numAula);
 	public Aula verAulaByID (int numAula);

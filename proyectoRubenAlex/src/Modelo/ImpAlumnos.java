@@ -29,7 +29,7 @@ public class ImpAlumnos implements AlumnosInterface{
 		String alumnoID = null;
 		try {
 			tx = session.beginTransaction();
-			session.save(alumnoID);
+			session.save(alumno);
 			tx.commit();
 		}catch  (HibernateException e) {
 			if (tx!=null) tx.rollback();
