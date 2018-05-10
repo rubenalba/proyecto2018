@@ -38,8 +38,8 @@
                      <children>
                        <TableView layoutX="50.0" layoutY="74.0" prefHeight="194.0" prefWidth="301.0">
                           <columns>
-                            <TableColumn prefWidth="75.0" />
-                            <TableColumn fx:id="TablaHorario" prefWidth="225.0" text="LUNES" />
+                            <TableColumn fx:id="ColFranja" prefWidth="75.0" />
+                            <TableColumn fx:id="ColHorario" prefWidth="225.0" text="LUNES" />
                           </columns>
                         </TableView>
 

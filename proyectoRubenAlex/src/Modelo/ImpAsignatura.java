@@ -8,24 +8,18 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import dao.SessionFactoryUtil;
-import pojos.Alumnos;
+import pojos.Asignatura;
 import pojos.Aula;
 
-/**
- *
- * @author rubenalba
- * @version 1.0
- */
-public class ImpAula implements AulaInterface{
+public class ImpAsignatura implements AsignaturaInterface{
 	private static SessionFactory factory = SessionFactoryUtil.getSessionFactory();
-
 	@Override
-	public void addAula(Aula aula) {
+	public void addAsignatura(Asignatura assignatura) {
 		Session session = factory.openSession();
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			session.save(aula);
+			session.save(assignatura);
 			tx.commit();
 		}catch  (HibernateException e) {
 			if (tx!=null) tx.rollback();
@@ -33,15 +27,16 @@ public class ImpAula implements AulaInterface{
 		}finally {
 			session.close();
 		}
+
 	}
 
 	@Override
-	public void eliminarAula(int numAula) {
+	public void eliminarAsignatura(int idAsignatura) {
 		Session session = factory.openSession();
 		Transaction tx = null;
 		try{
 			tx = session.beginTransaction();
-			session.remove(new Aula(numAula));
+			session.remove(new Asignatura(idAsignatura));
 		}catch  (HibernateException e) {
 			if (tx!=null) tx.rollback();
 			e.printStackTrace();
@@ -50,13 +45,14 @@ public class ImpAula implements AulaInterface{
 		}
 	}
 
+
 	@Override
-	public void modificarAula(Aula aula) {
+	public void modificarAsignatura(Asignatura asignaturaModificada) {
 		Session session = factory.openSession();
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			session.update(aula);
+			session.update(asignaturaModificada);
 			tx.commit();
 		}catch  (HibernateException e) {
 			if (tx!=null) tx.rollback();
@@ -68,22 +64,22 @@ public class ImpAula implements AulaInterface{
 	}
 
 	@Override
-	public Aula verAulaByID(int numAula) {
+	public Asignatura verAsignaturaById(int idAsignatura) {
 		Session session = factory.openSession();
 		Transaction tx = null;
-		Aula aula = (Aula)session.get(Aula.class, numAula);
+		Asignatura Asignatura = (Asignatura)session.get(Asignatura.class, idAsignatura);
 		session.close();
-		return aula;
+		return Asignatura;
 	}
 
 	@Override
-	public List<Aula> verAllAulas() {
+	public List<Asignatura> verAllAsignaturas() {
 		Session session = factory.openSession();
 		Transaction tx = null;
-		List <Aula> listaAula = null;
+		List <Asignatura> listaAsignatura = null;
 		try {
 			tx = session.beginTransaction();
-			listaAula = session.createQuery("FROM Aula").list();
+			listaAsignatura = session.createQuery("FROM Asignatura").list();
 			tx.commit();
 		}catch  (HibernateException e) {
 			if (tx!=null) tx.rollback();
@@ -91,7 +87,7 @@ public class ImpAula implements AulaInterface{
 		}finally {
 			session.close();
 		}
-		return listaAula;
+		return listaAsignatura;
 	}
 
 }

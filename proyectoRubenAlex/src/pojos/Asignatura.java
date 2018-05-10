@@ -27,6 +27,10 @@ public class Asignatura implements java.io.Serializable {
 		this.unidadformativas = unidadformativas;
 	}
 
+	public Asignatura(int idAsignatura2) {
+		this.idAsignatura=idAsignatura2;
+	}
+
 	public int getIdAsignatura() {
 		return this.idAsignatura;
 	}

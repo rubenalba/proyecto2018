@@ -1,6 +1,6 @@
 package Modelo;
 /**
- * 
+ *
  * @author rubenalba
  * @version 1.0
  */
@@ -23,10 +23,9 @@ public class ImpAlumnos implements AlumnosInterface{
 	private static SessionFactory factory = SessionFactoryUtil.getSessionFactory();
 
 	@Override
-	public String addAlumno(Alumnos alumno) {
+	public void addAlumno(Alumnos alumno) {
 		Session session = factory.openSession();
 		Transaction tx = null;
-		String alumnoID = null;
 		try {
 			tx = session.beginTransaction();
 			session.save(alumno);
@@ -37,7 +36,6 @@ public class ImpAlumnos implements AlumnosInterface{
 		}finally {
 			session.close();
 		}
-		return alumnoID;
 	}
 
 	@Override
@@ -75,7 +73,7 @@ public class ImpAlumnos implements AlumnosInterface{
 
 	}
 
-	@Override
+	/*@Override
 	public List<Asistencia> verAsistencia(String dni) {
 		Session session = factory.openSession();
 		Transaction tx = null;
@@ -119,16 +117,18 @@ public class ImpAlumnos implements AlumnosInterface{
 		List results = query.list();
 		return results;
 	}*/
+
 	@Override
-	public List verAlumnobyName(String nombre) {
+	//Esto deberiamos hacerlo por DNI ya que es el primary key, si lo hacemos por nombre nos devolvera todos los que se llamen igual
+	//Para hacer consultas "especiales" es mejor crear una consulta que nos devuelva todos y a partir de la lista que nos de recoger
+	//Los que necesitemos.
+	public Alumnos verAlumnobyName(String DNI) {
 		Session session = factory.openSession();
 		Transaction tx = null;
-		Alumnos alumno = null;
-		String query = "FROM Alumnos a WHERE a.nombre LIKE "+"'"+"%"+nombre+"%"+"' OR a.apellidos LIKE " + "'"+"%"+ nombre+"%"+"'";
-		Query consulta = session.createQuery(query);
-		List resultados = consulta.list();
-		return resultados;
+		Alumnos alumno = (Alumnos)session.get(Alumnos.class, DNI);
+		session.close();
+		return alumno;
 	}
 
-	
+
 }

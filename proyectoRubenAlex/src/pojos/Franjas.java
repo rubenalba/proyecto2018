@@ -38,6 +38,10 @@ public class Franjas implements java.io.Serializable {
 		this.asistencias = asistencias;
 	}
 
+	public Franjas(String idFranja2) {
+		this.idFranja = idFranja2;
+	}
+
 	public String getIdFranja() {
 		return this.idFranja;
 	}
