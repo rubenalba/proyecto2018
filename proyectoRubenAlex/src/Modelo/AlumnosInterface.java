@@ -12,10 +12,11 @@ import pojos.Aula;
  * @version 1.0
  */
 public interface AlumnosInterface {
-	public void addAlumno (String dni, Aula aula, String nombre, String apellidos, String email);
+	public String addAlumno (Alumnos alumno);
 	public void eliminarAlumno (String dni);
 	public void modificarAlumno (Alumnos alumnoModificado);
 	public List <Asistencia> verAsistencia(String dni);
-	public Asistencia verAsistencias (String dni);
+	public Asistencia verAsistenciasByID (String dni);
+	public List verAlumnobyName(String nombre);
 	
 }
