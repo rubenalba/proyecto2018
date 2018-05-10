@@ -22,7 +22,7 @@
    							<Image fx:id="btnImageAjustes" url="@../Vistas/Imagenes/ajustes.png" />
 						</fx:define>
                         <Button fx:id="BtnAjustes" layoutX="14.0" layoutY="276.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0">
-		                	<!-- AÑADE DICHA IMAGEN AL BOTON-->
+		                	<!-- AÑADE DICHA IMAGEN AL BOTON  as-->
 		                	<graphic>
 		        				<ImageView image="$btnImageAjustes" />
 		     				</graphic>
