@@ -14,5 +14,5 @@ public interface AsignaturaInterface {
 	public void eliminarAsignatura (int idAsignatura);
 	public void modificarAsignatura (Asignatura asignaturaModificada);
 	public List <Asignatura> verAllAsignaturas();
-
+	
 }
