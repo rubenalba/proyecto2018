@@ -17,9 +17,5 @@ public interface ProfesorInterface {
 	public void modificarProfesor(Profesor profesorModificado);
 	public Profesor verProfesorByDni (String dniProfesor);
 	public List <Profesor> verProfesores();
-/*public void addAlumno (String dni, Aula aula, String nombre, String apellidos, String email);
-	public void eliminarAlumno (String dni);
-	public void modificarAlumno (Alumnos alumnoModificado);
-	public List <Asistencia> verAsistencia(String dni);
-	public Asistencia verAsistencias (String dni);*/
+
 }
