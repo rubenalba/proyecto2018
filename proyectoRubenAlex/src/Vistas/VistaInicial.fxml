@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <BorderPane layoutX="185.0" layoutY="86.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <left>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <ListView fx:id="ListaCursos" layoutY="100.0" prefHeight="194.0" prefWidth="140.0" AnchorPane.bottomAnchor="131.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="75.0" />
+                        <Label layoutX="22.0" layoutY="46.0" text="Mis Cursos" AnchorPane.leftAnchor="20.0" />
+                        <Button fx:id="BtnAjustes" layoutX="14.0" layoutY="276.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="53.0" text="Ajustes" />
+                        <Button fx:id="BtnInfo" layoutX="14.0" layoutY="310.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="54.0" text="Informacion" />
+                        <Button fx:id="BtnCerrarSession" layoutX="14.0" layoutY="345.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="53.0" text="Cerrar Session" />
+                     </children>
+                  </AnchorPane>
+               </left>
+               <center>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <TableView layoutX="50.0" layoutY="74.0" prefHeight="194.0" prefWidth="301.0">
+                          <columns>
+                            <TableColumn prefWidth="75.0" />
+                            <TableColumn fx:id="TablaHorario" prefWidth="225.0" text="LUNES" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+               </center>
+            </BorderPane>
+         </children>
+      </AnchorPane>
+   </children>
+</Pane>
