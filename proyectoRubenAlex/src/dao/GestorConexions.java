@@ -5,9 +5,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class GestorConexions {
-
 	private static String url = "jdbc:mysql://localhost/proyecto";
 	private static String user = "root" ;
+
 	private static String pwd = "";
 	private static Connection connexio = null;
 
