@@ -13,6 +13,7 @@ public interface AsignaturaInterface {
 	public void addAsignatura (int idAsignatura, String nombreAsignatura);
 	public void eliminarAsignatura (int idAsignatura);
 	public void modificarAsignatura (Asignatura asignaturaModificada);
+	public Asignatura verAsignaturaById(int idAsignatura);
 	public List <Asignatura> verAllAsignaturas();
 	
 }
