@@ -15,8 +15,8 @@ public interface AlumnosInterface {
 	public void addAlumno (Alumnos alumno);
 	public void eliminarAlumno (String dni);
 	public void modificarAlumno (Alumnos alumnoModificado);
-	/*public List <Asistencia> verAsistencia(String dni);
-	public Asistencia verAsistenciasByID (String dni);*/
+	public List <Asistencia> verAsistencia(String dni);
+	public Asistencia verAsistenciasByID (String dni);
 	public Alumnos verAlumnobyName(String nombre);
-
+	public Alumnos verAlumnobyDNI(String DNI);
 }

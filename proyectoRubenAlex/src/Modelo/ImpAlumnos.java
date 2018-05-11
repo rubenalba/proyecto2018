@@ -73,7 +73,7 @@ public class ImpAlumnos implements AlumnosInterface{
 
 	}
 
-	/*@Override
+	@Override
 	public List<Asistencia> verAsistencia(String dni) {
 		Session session = factory.openSession();
 		Transaction tx = null;
@@ -122,7 +122,7 @@ public class ImpAlumnos implements AlumnosInterface{
 	//Esto deberiamos hacerlo por DNI ya que es el primary key, si lo hacemos por nombre nos devolvera todos los que se llamen igual
 	//Para hacer consultas "especiales" es mejor crear una consulta que nos devuelva todos y a partir de la lista que nos de recoger
 	//Los que necesitemos.
-	public Alumnos verAlumnobyName(String DNI) {
+	public Alumnos verAlumnobyDNI(String DNI) {
 		Session session = factory.openSession();
 		Transaction tx = null;
 		Alumnos alumno = (Alumnos)session.get(Alumnos.class, DNI);
@@ -130,5 +130,11 @@ public class ImpAlumnos implements AlumnosInterface{
 		return alumno;
 	}
 
-
+	public Alumnos verAlumnobyName(String nombre) {
+		Session session = factory.openSession();
+		Transaction tx = null;
+		Alumnos alumno = (Alumnos)session.get(Alumnos.class, nombre);
+		session.close();
+		return alumno;
+	}
 }
