@@ -17,6 +17,11 @@ public interface AlumnosInterface {
 	public void addAlumno (Alumnos alumno);
 	public void eliminarAlumno (String dni);
 	public void modificarAlumno (Alumnos alumnoModificado);
+
+	/*------------------------------------------
+	 * MIRAR PARA HACER UN "VERASISTENCIA" POR ALUMNO EN CADA UF
+	 */
+
 	public List <Asistencia> verAsistencia(String dni);
 	public Asistencia verAsistenciasByID (String dni);
 	//revisar la lista de asistencias y el asistencia x id, creo que deberia ser por UF

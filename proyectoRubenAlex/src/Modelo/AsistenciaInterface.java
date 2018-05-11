@@ -9,16 +9,15 @@ import pojos.Franjas;
 import pojos.Unidadformativa;
 
 /**
- * 
+ *
  * @author rubenalba
  * @version 1.0
  */
 public interface AsistenciaInterface {
-	public void addAsistencia (AsistenciaId id, Alumnos alumnos, Franjas franjas, Unidadformativa unidadformativa,
-			boolean justificante);
+	public void addAsistencia (Asistencia asistencia);
 	public void eliminarAsistencia (AsistenciaId id);
 	public void modificarAsistencia (Asistencia asistenciaModificada);
 	public Asistencia verAsistenciaById (AsistenciaId id);
 	public List<Asistencia> verAllAsistencias ();
-	
+
 }
