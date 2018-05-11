@@ -36,6 +36,10 @@ public class Unidadformativa implements java.io.Serializable {
 		this.asistencias = asistencias;
 	}
 
+	public Unidadformativa(String idUnidadFormativa2) {
+			this.idUnidadFormativa=idUnidadFormativa2;
+	}
+
 	public String getIdUnidadFormativa() {
 		return this.idUnidadFormativa;
 	}

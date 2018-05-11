@@ -10,7 +10,7 @@ import pojos.Profesor;
 import pojos.Unidadformativa;
 
 public interface UnidadFormativaInterface {
-	public void addUnidadFormativa (String idUnidadFormativa, Asignatura asignatura, Profesor profesor, int horas);
+	public void addUnidadFormativa (Unidadformativa unidad);
 	public void eliminarUnidadFormativa (String idUnidadFormativa);
 	public void modificarUnidadFormativa(Unidadformativa unidadFormativaModificada);
 	public Unidadformativa verUnidadformativaByID (String idUnidadFormativa);
