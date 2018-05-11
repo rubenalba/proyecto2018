@@ -16,6 +16,8 @@ import org.hibernate.query.Query;
 import dao.SessionFactoryUtil;
 import pojos.Alumnos;
 import pojos.Asistencia;
+import pojos.Matricula;
+import pojos.Unidadformativa;
 
 
 
@@ -136,5 +138,17 @@ public class ImpAlumnos implements AlumnosInterface{
 		Alumnos alumno = (Alumnos)session.get(Alumnos.class, nombre);
 		session.close();
 		return alumno;
+	}
+
+	@Override
+	public List<Matricula> verMatriculas() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Matricula verMatriculaByUF(Unidadformativa uf) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
