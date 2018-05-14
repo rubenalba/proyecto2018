@@ -11,7 +11,6 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.query.Query;
 
 import dao.SessionFactoryUtil;
 import pojos.Alumnos;
@@ -166,5 +165,23 @@ public class ImpAlumnos implements AlumnosInterface{
 	public Matricula verMatriculaByUF(Unidadformativa uf) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<Alumnos> verTodosAlumnos() {
+		Session session = factory.openSession();
+		Transaction tx = null;
+		List<Alumnos> listaAlumnos = null;
+		try {
+			tx = session.beginTransaction();
+			listaAlumnos = session.createQuery("FROM Alumnos").list();
+			tx.commit();
+		}catch  (HibernateException e) {
+			if (tx!=null) tx.rollback();
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		return listaAlumnos;
 	}
 }
