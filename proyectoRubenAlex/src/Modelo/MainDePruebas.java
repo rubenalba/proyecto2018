@@ -10,6 +10,7 @@ import dao.DAO;
 import dao.SessionFactoryUtil;
 
 import pojos.Alumnos;
+import pojos.Asignatura;
 import pojos.Aula;
 import pojos.Profesor;
 
@@ -18,6 +19,7 @@ public class MainDePruebas {
 	static AlumnosInterface alumno = DAO.getAlumnosInterface();
 	static AulaInterface aulas = DAO.getAulaInterface();
 	static ProfesorInterface pro = DAO.getProfesorInterface();
+	static AsignaturaInterface as = DAO.getAsignaturaInterface();
 
 	public static void main(String[] args) {
 		//crearDatosdepruebaAulaYAlumno(); //PRUEBAS PARA AULA Y ALUMNO, OK + ó - FUNCIONAR FUNCIONA
@@ -30,11 +32,55 @@ public class MainDePruebas {
 		//addProfe();
 		//eliminarProfe();
 		//verAllProfes();
-		verProfeById();
+		//verProfeById();
+		//addAsigna();
+		//eliminarAsig();
+		//verAsigna();
+		verAllAsignaturas();
+		
+		
 		
 	}
 	
 	
+
+	private static void verAllAsignaturas() {
+		List listaAsig = as.verAllAsignaturas();
+		System.out.println("lista de profesores:\n");
+		for (Iterator itPro = listaAsig.iterator(); itPro.hasNext(); ) {
+			Asignatura p = (Asignatura)itPro.next();
+			System.out.println("Nombre: " + p.getNombreAsignatura());
+		}
+		
+	}
+
+
+
+	private static void verAsigna() {
+		int id = 1;
+		Asignatura a = new Asignatura();
+		a = as.verAsignaturaById(id);
+		System.out.println("Nombre: " + a.getNombreAsignatura());
+		
+	}
+
+
+
+	private static void eliminarAsig() {
+		int asi = 1;
+		as.eliminarAsignatura(asi);
+		
+	}
+
+
+
+	private static void addAsigna() {
+		Asignatura asignatura = new Asignatura(2,"Acceso a Datos");
+		as.addAsignatura(asignatura);
+		
+	}
+
+
 
 	private static void verProfeById() {
 		String dni = "47665702H";

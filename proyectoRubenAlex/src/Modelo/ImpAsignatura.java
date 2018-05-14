@@ -8,11 +8,13 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import dao.SessionFactoryUtil;
+import pojos.Alumnos;
 import pojos.Asignatura;
 import pojos.Aula;
 
 public class ImpAsignatura implements AsignaturaInterface{
 	private static SessionFactory factory = SessionFactoryUtil.getSessionFactory();
+	//FUNCIONA; NO TOCAR!!
 	@Override
 	public void addAsignatura(Asignatura assignatura) {
 		Session session = factory.openSession();
@@ -29,14 +31,16 @@ public class ImpAsignatura implements AsignaturaInterface{
 		}
 
 	}
-
+	//FUNCIONA; NO TOCAR!!
 	@Override
 	public void eliminarAsignatura(int idAsignatura) {
 		Session session = factory.openSession();
 		Transaction tx = null;
 		try{
 			tx = session.beginTransaction();
-			session.remove(new Asignatura(idAsignatura));
+			Asignatura asignatura = (Asignatura)session.get(Asignatura.class, idAsignatura);
+			session.delete(asignatura);
+			tx.commit();
 		}catch  (HibernateException e) {
 			if (tx!=null) tx.rollback();
 			e.printStackTrace();
@@ -62,7 +66,7 @@ public class ImpAsignatura implements AsignaturaInterface{
 		}
 
 	}
-
+	//FUNCIONA NO BORRAR!
 	@Override
 	public Asignatura verAsignaturaById(int idAsignatura) {
 		Session session = factory.openSession();
@@ -71,7 +75,7 @@ public class ImpAsignatura implements AsignaturaInterface{
 		session.close();
 		return Asignatura;
 	}
-
+	//FUNCIONA NO BORRAR!
 	@Override
 	public List<Asignatura> verAllAsignaturas() {
 		Session session = factory.openSession();
