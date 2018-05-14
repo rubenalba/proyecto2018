@@ -41,12 +41,25 @@ public class MainDePruebas {
 		//verAllAsignaturas();
 		//addUF();
 		//verUF();
-		eliminarUF();
+		//eliminarUF();
+		verAllUF();
 		
 		
 	}
 	
 	
+
+	private static void verAllUF() {
+		List listaUF = uf.verAllUnidadFormativas();
+		System.out.println("lista de UF:\n");
+		for (Iterator itPro = listaUF.iterator(); itPro.hasNext(); ) {
+			Unidadformativa p = (Unidadformativa)itPro.next();
+			System.out.println("Nombre: " + p.getIdUnidadFormativa());
+		}
+		
+	}
+
+
 
 	private static void eliminarUF() {
 	uf.eliminarUnidadFormativa("M1");
@@ -68,7 +81,7 @@ public class MainDePruebas {
 	private static void addUF() {
 		Asignatura a = as.verAsignaturaById(1);
 		Profesor p = pro.verProfesorByDni("47665702H");
-	Unidadformativa ufo = new Unidadformativa("M1",a,p,33);
+	Unidadformativa ufo = new Unidadformativa("M3",a,p,33);
 	uf.addUnidadFormativa(ufo);
 		
 	}

@@ -78,7 +78,7 @@ public class ImpUnidadFormativa implements UnidadFormativaInterface{
 		session.close();
 		return unidad;
 	}
-
+	//FUNCIONA; NO TOCAR
 	@Override
 	public List<Unidadformativa> verAllUnidadFormativas() {
 		Session session = factory.openSession();
