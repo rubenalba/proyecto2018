@@ -49,7 +49,7 @@ public class MainDePruebas {
 	
 
 	private static void eliminarUF() {
-		
+	uf.eliminarUnidadFormativa("M1");
 		
 	}
 
