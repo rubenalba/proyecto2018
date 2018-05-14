@@ -12,6 +12,8 @@ import dao.SessionFactoryUtil;
 import pojos.Alumnos;
 import pojos.Asignatura;
 import pojos.Aula;
+import pojos.Matricula;
+import pojos.MatriculaId;
 import pojos.Profesor;
 import pojos.Unidadformativa;
 
@@ -21,7 +23,8 @@ public class MainDePruebas {
 	static AulaInterface aulas = DAO.getAulaInterface();
 	static ProfesorInterface pro = DAO.getProfesorInterface();
 	static AsignaturaInterface as = DAO.getAsignaturaInterface();
-	static UnidadFormativaInterface uf = (UnidadFormativaInterface) DAO.getUnidadFormativaInterface();
+	static UnidadFormativaInterface uf = DAO.getUnidadFormativaInterface();
+	static MatriculaInterface mt = DAO.getMatriculaInterface();
 
 	public static void main(String[] args) {
 		//crearDatosdepruebaAulaYAlumno(); //PRUEBAS PARA AULA Y ALUMNO, OK + ó - FUNCIONAR FUNCIONA
@@ -42,12 +45,26 @@ public class MainDePruebas {
 		//addUF();
 		//verUF();
 		//eliminarUF();
-		verAllUF();
+		//verAllUF();
+		matricular();
 		
 		
 	}
 	
 	
+
+	private static void matricular() {
+		MatriculaId m = new MatriculaId("47665701H", "M1");
+		Alumnos a = new Alumnos();
+		a = alumno.verAlumnobyDNI("47665701H");
+		Unidadformativa u = new Unidadformativa();
+		u = uf.verUnidadformativaByID("M1");
+		
+		MainDePruebas.mt.matricularAlumno(m, a, u);
+		
+	}
+
+
 
 	private static void verAllUF() {
 		List listaUF = uf.verAllUnidadFormativas();
