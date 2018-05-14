@@ -57,9 +57,8 @@ public class VistaIniciController {
 	@FXML
 	public void initialize() {
 		setVisibleFranja(false);
-
-
 	}
+
 	@FXML
 	public void añadirFranja(){
 		setVisibleFranja(true);
