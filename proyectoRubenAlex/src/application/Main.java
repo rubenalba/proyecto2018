@@ -13,9 +13,8 @@ import javafx.scene.layout.BorderPane;
 public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws IOException {
-			Parent root = FXMLLoader.load(getClass().getResource("../Vistas/VistaInicial.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("../Vistas/VistaLogin.fxml"));
 			Scene scene = new Scene(root);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.show();
 

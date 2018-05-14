@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.image.*?>
-
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vistas.VistaIniciController">
    <children>
@@ -16,7 +15,8 @@
                      <children>
                         <ListView fx:id="ListaCursos" layoutY="100.0" prefHeight="194.0" prefWidth="140.0" AnchorPane.bottomAnchor="131.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="75.0" />
                         <Label layoutX="22.0" layoutY="46.0" text="Mis Cursos" AnchorPane.leftAnchor="20.0" />
-						<!-- AÑADIR IMAGEN A UN BOTON-->
+
+                        <!-- AÑADIR IMAGEN A UN BOTON-->
 						<fx:define>
 							<!-- DEFINE UNA IMAGEN -->
    							<Image fx:id="btnImageAjustes" url="@../Vistas/Imagenes/ajustes.png" />
@@ -28,20 +28,60 @@
 		     				</graphic>
   						</Button>
 						<!--  HASTA AQUÍ -->
-                        <Button fx:id="BtnInfo" layoutX="14.0" layoutY="310.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="54.0" text="Informacion" />
-                        <Button fx:id="BtnCerrarSession" layoutX="14.0" layoutY="345.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="53.0" text="Cerrar Session" />
+
+
+						<!--  BOTON INFO -->
+						<fx:define>
+							<Image fx:id="btnImageInfo" url="@../Vistas/Imagenes/info-icon.png" />
+						</fx:define>
+                        <Button fx:id="BtnInfo" layoutX="10.0" layoutY="310.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="54.0">
+							<graphic>
+		        				<ImageView image="$btnImageInfo" />
+		     				</graphic>
+						</Button>
+
+						<!--  CERRAR SESSION BOTON -->
+						<fx:define>
+							<!-- DEFINE UNA IMAGEN -->
+   							<Image fx:id="btnImageExit" url="@../Vistas/Imagenes/exit-icon.png" />
+						</fx:define>
+                        <Button fx:id="BtnCerrarSession" layoutX="14.0" layoutY="345.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="53.0" onAction="#cerrarSesion">
+                     		<graphic>
+		        				<ImageView image="$btnImageExit" />
+		     				</graphic>
+                     	</Button>
                      </children>
                   </AnchorPane>
                </left>
                <center>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                      <children>
-                       <TableView layoutX="50.0" layoutY="74.0" prefHeight="194.0" prefWidth="301.0">
+                        <TableView layoutX="50.0" layoutY="74.0" prefHeight="194.0" prefWidth="301.0">
                           <columns>
-                            <TableColumn fx:id="ColFranja" prefWidth="75.0" />
-                            <TableColumn fx:id="ColHorario" prefWidth="225.0" text="LUNES" />
+                            <TableColumn prefWidth="75.0" />
+                            <TableColumn fx:id="TablaHorario" prefWidth="225.0" text="LUNES" />
                           </columns>
                         </TableView>
+                        <ChoiceBox fx:id="idFranjaCB" layoutX="50.0" layoutY="280.0" prefHeight="25.0" prefWidth="79.0" />
+                        <ChoiceBox fx:id="UFranjaCB" layoutX="143.0" layoutY="280.0" prefWidth="150.0" />
+                        <fx:define>
+							<!-- DEFINE UNA IMAGEN -->
+   							<Image fx:id="btnImageConfirm" url="@../Vistas/Imagenes/confirm-icon.png" />
+						</fx:define>
+                        <Button fx:id="ConfirmFranjaCB" layoutX="303.0" layoutY="275.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="48.0" onAction="#confirmarAñadirFranja">
+							<graphic>
+		        				<ImageView image="$btnImageConfirm" />
+		     				</graphic>
+		     			</Button>
+                        <fx:define>
+							<!-- DEFINE UNA IMAGEN -->
+   							<Image fx:id="btnImageAdd" url="@../Vistas/Imagenes/add-icon.png" />
+						</fx:define>
+                        <Button fx:id="addFranja" layoutX="350.0" layoutY="100.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="26.0" onAction="#añadirFranja">
+                    		<graphic>
+		        				<ImageView image="$btnImageAdd" />
+		     				</graphic>
+						</Button>
 
                      </children>
                   </AnchorPane>
