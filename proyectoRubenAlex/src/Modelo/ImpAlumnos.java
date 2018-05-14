@@ -23,7 +23,11 @@ import pojos.Unidadformativa;
 
 public class ImpAlumnos implements AlumnosInterface{
 	private static SessionFactory factory = SessionFactoryUtil.getSessionFactory();
-
+	
+	/**
+	 *  Añade alumnos a la base de datos pasándole el alumno
+	 *   @pararm Alumno alumno   
+	 */
 	@Override
 	public void addAlumno(Alumnos alumno) {
 		Session session = factory.openSession();
@@ -40,6 +44,10 @@ public class ImpAlumnos implements AlumnosInterface{
 		}
 	}
 
+	/**
+	 *  Elimina alumnos a la base de datos pasándole el dni
+	 *   @pararm String dni   
+	 */
 	@Override
 	public void eliminarAlumno(String dni) {
 		Session session = factory.openSession();
@@ -57,7 +65,11 @@ public class ImpAlumnos implements AlumnosInterface{
 		}
 
 	}
-
+	
+	/**
+	 *  modifica alumnos a la base de datos pasándole el alumno
+	 *   @pararm Alumno alumno   
+	 */
 	@Override
 	public void modificarAlumno(Alumnos alumnoModificado) {
 		Session session = factory.openSession();
@@ -74,7 +86,11 @@ public class ImpAlumnos implements AlumnosInterface{
 		}
 
 	}
-
+	
+	/**
+	 *  Obtiene la lista de asistencias del alumno que se le pasa por medio del DNI
+	 *   @pararm String dni  
+	 */
 	@Override
 	public List<Asistencia> verAsistencia(String dni) {
 		Session session = factory.openSession();
@@ -82,7 +98,7 @@ public class ImpAlumnos implements AlumnosInterface{
 		List <Asistencia> listaAsistencia = null;
 		try {
 			tx = session.beginTransaction();
-			listaAsistencia = session.createQuery("FROM Asistencia").list();
+			listaAsistencia = session.createQuery("FROM Asistencia").list(); //AÑADIR UF
 			tx.commit();
 		}catch  (HibernateException e) {
 			if (tx!=null) tx.rollback();

@@ -13,8 +13,10 @@ public class MainDePruebas {
 	static AulaInterface aulas = DAO.getAulaInterface();
 
 	public static void main(String[] args) {
-		crearDatosdepruebaAulaYAlumno(); //PRUEBAS PARA AULA Y ALUMNO, OK + ó - FUNCIONAR FUNCIONA
+		//crearDatosdepruebaAulaYAlumno(); //PRUEBAS PARA AULA Y ALUMNO, OK + ó - FUNCIONAR FUNCIONA
+		eliminarDatosDePruebaAulaYAlumno();
 	}
+	
 	public static void crearDatosdepruebaAulaYAlumno() {
 		//EL AULA SE CREA CORRECTAMENTE Y EL ALUMNO EN LA BD, PERO SALE MENSAJE DE EN EL TERMINAL
 		Aula aula = new Aula (2);
@@ -31,6 +33,18 @@ public class MainDePruebas {
 		} catch (Exception e) {
 			System.out.println("No se ha creado nada");
 		}
+	}
+	
+	
+	private static void eliminarDatosDePruebaAulaYAlumno() {
+		//EL ALUMNO SE ELIMINA PERO TAMBIÉN HAY MENSAJES DE ERROR EN EL TERMINAL, PERO LO ELIMINA DE BD
+	/*	String dni = "47665701H";
+		try {
+			alumno.eliminarAlumno(dni);
+			System.out.println("Alumno eliminado");
+		} catch (Exception e) {
+			System.out.println("No se ha eliminado nada");
+		}*/
 	}
 }
 
