@@ -167,6 +167,7 @@ public class ImpAlumnos implements AlumnosInterface{
 		return null;
 	}
 
+	//FUNCIONA, NO TOCAR!!
 	@Override
 	public List<Alumnos> verTodosAlumnos() {
 		Session session = factory.openSession();
