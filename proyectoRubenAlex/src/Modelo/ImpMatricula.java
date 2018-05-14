@@ -14,8 +14,19 @@ public class ImpMatricula  implements MatriculaInterface{
 	private static SessionFactory factory = SessionFactoryUtil.getSessionFactory();
 	
 	@Override
-	public void matricularAlumno(MatriculaId id, Alumnos alumnos, Unidadformativa unidadformativa) {
-		
+	public void matricularAlumno(MatriculaId id) {
+		Session session = factory.openSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			session.save(id);
+			tx.commit();
+		}catch  (HibernateException e) {
+			if (tx!=null) tx.rollback();
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
 		
 	}
 

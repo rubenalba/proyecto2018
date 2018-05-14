@@ -52,15 +52,16 @@ public class MainDePruebas {
 	}
 	
 	
-
+//PARADO AQUI
 	private static void matricular() {
 		MatriculaId m = new MatriculaId("47665701H", "M1");
-		Alumnos a = new Alumnos();
-		a = alumno.verAlumnobyDNI("47665701H");
-		Unidadformativa u = new Unidadformativa();
-		u = uf.verUnidadformativaByID("M1");
 		
-		MainDePruebas.mt.matricularAlumno(m, a, u);
+		try {
+			mt.matricularAlumno(m);
+			System.out.println("si");
+		} catch (Exception e) {
+			System.out.println("no");
+		}
 		
 	}
 
