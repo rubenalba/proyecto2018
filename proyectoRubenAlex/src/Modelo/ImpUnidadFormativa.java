@@ -8,12 +8,14 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import dao.SessionFactoryUtil;
+import pojos.Alumnos;
 import pojos.Asignatura;
 import pojos.Profesor;
 import pojos.Unidadformativa;
 
 public class ImpUnidadFormativa implements UnidadFormativaInterface{
 	private static SessionFactory factory = SessionFactoryUtil.getSessionFactory();
+	//FUNCIONA NO ELIMINAR!!
 	@Override
 	public void addUnidadFormativa(Unidadformativa unidad) {
 		Session session = factory.openSession();
@@ -30,15 +32,17 @@ public class ImpUnidadFormativa implements UnidadFormativaInterface{
 		}
 
 	}
-
+	//FUNCIONA NO ELIMINAR!!
 	@Override
 	public void eliminarUnidadFormativa(String idUnidadFormativa) {
 		Session session = factory.openSession();
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			session.remove(new Unidadformativa(idUnidadFormativa));
+			Unidadformativa uf = (Unidadformativa)session.get(Unidadformativa.class, idUnidadFormativa);
+			session.delete(uf);
 			tx.commit();
+			
 		}catch  (HibernateException e) {
 			if (tx!=null) tx.rollback();
 			e.printStackTrace();
@@ -64,7 +68,8 @@ public class ImpUnidadFormativa implements UnidadFormativaInterface{
 		}
 
 	}
-
+	
+	//FUNCIONA NO ELIMINAR!!
 	@Override
 	public Unidadformativa verUnidadformativaByID(String idUnidadFormativa) {
 		Session session = factory.openSession();

@@ -6,7 +6,7 @@
 	<classpathentry kind="lib" path="lib/classmate-1.3.0.jar"/>
 	<classpathentry kind="lib" path="lib/dom4j-1.6.1.jar"/>
 	<classpathentry kind="lib" path="lib/hibernate-commons-annotations-5.0.1.Final.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-core-5.2.17.Final.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-core-5.2.17.Final.jar" sourcepath="/Users/rubenalba/.m2/repository/org/hibernate/hibernate-core/5.2.17.Final/hibernate-core-5.2.17.Final-sources.jar"/>
 	<classpathentry kind="lib" path="lib/hibernate-jpa-2.1-api-1.0.0.Final.jar"/>
 	<classpathentry kind="lib" path="lib/jandex-2.0.3.Final.jar"/>
 	<classpathentry kind="lib" path="lib/javassist-3.22.0-GA.jar"/>

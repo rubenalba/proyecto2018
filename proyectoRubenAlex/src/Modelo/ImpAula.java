@@ -18,7 +18,8 @@ import pojos.Aula;
  */
 public class ImpAula implements AulaInterface{
 	private static SessionFactory factory = SessionFactoryUtil.getSessionFactory();
-
+	
+	//FUNCIONA, NO TOCAR!!
 	@Override
 	public void addAula(Aula aula) {
 		Session session = factory.openSession();
@@ -34,14 +35,16 @@ public class ImpAula implements AulaInterface{
 			session.close();
 		}
 	}
-
+	//MODIFICADO EL MÉTODO DE CÓMO SE BORRA. FUNCIONA, NO TOCAR!!
 	@Override
 	public void eliminarAula(int numAula) {
 		Session session = factory.openSession();
 		Transaction tx = null;
 		try{
 			tx = session.beginTransaction();
-			session.remove(new Aula(numAula));
+			Aula aula = (Aula)session.get(Aula.class, numAula);
+			session.delete(aula);
+			tx.commit();
 		}catch  (HibernateException e) {
 			if (tx!=null) tx.rollback();
 			e.printStackTrace();
