@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import dao.SessionFactoryUtil;
+import pojos.Alumnos;
 import pojos.Aula;
 import pojos.Profesor;
 
@@ -29,14 +30,16 @@ public class ImpProfesor implements ProfesorInterface{
 			session.close();
 		}
 	}
-
+	
 	@Override
 	public void eliminarProfesor(String dniProfesor) {
 		Session session = factory.openSession();
 		Transaction tx = null;
 		try{
 			tx = session.beginTransaction();
-			session.remove(new Profesor(dniProfesor));
+			Profesor pro = (Profesor)session.get(Profesor.class, dniProfesor);
+			session.delete(pro);
+			tx.commit();
 		}catch  (HibernateException e) {
 			if (tx!=null) tx.rollback();
 			e.printStackTrace();

@@ -8,6 +8,7 @@ package Modelo;
 import java.util.List;
 
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -22,7 +23,7 @@ import pojos.Unidadformativa;
 
 public class ImpAlumnos implements AlumnosInterface{
 	private static SessionFactory factory = SessionFactoryUtil.getSessionFactory();
-	
+	//Funciona, no tocar!!
 	/**
 	 *  Añade alumnos a la base de datos pasándole el alumno
 	 *   @pararm Alumno alumno   
@@ -42,7 +43,7 @@ public class ImpAlumnos implements AlumnosInterface{
 			session.close();
 		}
 	}
-
+	//Funciona, no tocar!!
 	/**
 	 *  Elimina alumnos a la base de datos pasándole el dni
 	 *   @pararm String dni   
@@ -136,9 +137,7 @@ public class ImpAlumnos implements AlumnosInterface{
 	}*/
 
 	@Override
-	//Esto deberiamos hacerlo por DNI ya que es el primary key, si lo hacemos por nombre nos devolvera todos los que se llamen igual
-	//Para hacer consultas "especiales" es mejor crear una consulta que nos devuelva todos y a partir de la lista que nos de recoger
-	//Los que necesitemos.
+	//FUNCIONA, NO TOCAR!!
 	public Alumnos verAlumnobyDNI(String DNI) {
 		Session session = factory.openSession();
 		Transaction tx = null;
@@ -147,25 +146,8 @@ public class ImpAlumnos implements AlumnosInterface{
 		return alumno;
 	}
 
-	public Alumnos verAlumnobyName(String nombre) {
-		Session session = factory.openSession();
-		Transaction tx = null;
-		Alumnos alumno = (Alumnos)session.get(Alumnos.class, nombre);
-		session.close();
-		return alumno;
-	}
 
-	@Override
-	public List<Matricula> verMatriculas() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	public Matricula verMatriculaByUF(Unidadformativa uf) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	//FUNCIONA, NO TOCAR!!
 	@Override
@@ -184,5 +166,38 @@ public class ImpAlumnos implements AlumnosInterface{
 			session.close();
 		}
 		return listaAlumnos;
+	}
+	//FUNCIONA, NO TOCAR!!
+	@Override
+	public List<Alumnos> verAlumnobyName(String nombre) {
+		Session session = factory.openSession();
+		Transaction tx = null;
+		Alumnos alum = null;
+		String hql = "FROM Alumnos a WHERE a.nombre LIKE " + "'" + "%"+nombre + "%" + "' OR a.apellidos LIKE " + "'" + "%" + nombre + "%" + "'";
+		Query query = session.createQuery(hql);
+		List resultado = query.list();
+		try {
+			tx = session.beginTransaction();
+			alum = (Alumnos)session.get(Alumnos.class, nombre);
+		}catch (HibernateException e) {
+			if (tx!=null) tx.rollback();
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		return resultado;
+	}
+	
+
+	@Override
+	public List<Matricula> verMatriculas() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Matricula verMatriculaByUF(Unidadformativa uf) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
