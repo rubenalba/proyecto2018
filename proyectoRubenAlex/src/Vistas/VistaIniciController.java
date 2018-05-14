@@ -5,6 +5,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
@@ -31,33 +32,45 @@ public class VistaIniciController {
 	@FXML
 	private Button BtnAjustes;
 
+    @FXML
+    private Button addFranja;
+
+    @FXML
+    private Button ConfirmFranjaCB;
+
+    @FXML
+    private ChoiceBox<?> idFranjaCB;
+
+    @FXML
+    private ChoiceBox<?> UFranjaCB;
+
+    boolean franjaVisible = true;
+
 	@FXML
 	public void initialize() {
+		setVisibleFranja(false);
+
 		if (this.ColHorario != null) {
 			//this.ColHorario.setMinWidth(80);
 			//this.ColHorario.setMaxWidth(80);
 
-			this.ColHorario.setCellValueFactory(
-                    new Callback<TableColumn.CellDataFeatures<String, String>,
-                    ObservableValue<String>>() {
-
-						@Override
-						public ObservableValue<String> call(CellDataFeatures<String, String> param) {
-							// TODO Auto-generated method stub
-							return null;
-						}
-
-
-
-            });
-			this.ColHorario.setCellFactory(new ColumnButton<String, String>("asd"){
-				@Override
-				public void buttonAction(String element) {
-					// TODO Auto-generated method stub
-
-				}
-			});
 		}
+
+	}
+	@FXML
+	public void añadirFranja(){
+		setVisibleFranja(true);
+	}
+
+	@FXML
+	public void confirmarAñadirFranja(){
+		setVisibleFranja(false);
+	}
+
+	public void setVisibleFranja(boolean state){
+			ConfirmFranjaCB.setVisible(state);
+			idFranjaCB.setVisible(state);
+			UFranjaCB.setVisible(state);
 
 	}
 }
