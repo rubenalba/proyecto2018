@@ -11,9 +11,6 @@
         <property name="nombre" type="string">
             <column name="Nombre" length="25" not-null="true" />
         </property>
-        <property name="idUnidadFormativa" type="string">
-            <column name="ID_UnidadFormativa" length="50" not-null="true" />
-        </property>
         <property name="usuari" type="string">
             <column name="Usuari" length="20" not-null="true" />
         </property>

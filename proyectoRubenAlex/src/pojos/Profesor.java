@@ -11,7 +11,6 @@ public class Profesor implements java.io.Serializable {
 
 	private String dniProfesor;
 	private String nombre;
-	private String idUnidadFormativa;
 	private String usuari;
 	private String password;
 	private Set<Unidadformativa> unidadformativas = new HashSet<Unidadformativa>(0);
@@ -20,19 +19,17 @@ public class Profesor implements java.io.Serializable {
 	public Profesor() {
 	}
 
-	public Profesor(String dniProfesor, String nombre, String idUnidadFormativa, String usuari, String password) {
+	public Profesor(String dniProfesor, String nombre, String usuari, String password) {
 		this.dniProfesor = dniProfesor;
 		this.nombre = nombre;
-		this.idUnidadFormativa = idUnidadFormativa;
 		this.usuari = usuari;
 		this.password = password;
 	}
 
-	public Profesor(String dniProfesor, String nombre, String idUnidadFormativa, String usuari, String password,
+	public Profesor(String dniProfesor, String nombre, String usuari, String password,
 			Set<Unidadformativa> unidadformativas, Set<Franjas> franjases) {
 		this.dniProfesor = dniProfesor;
 		this.nombre = nombre;
-		this.idUnidadFormativa = idUnidadFormativa;
 		this.usuari = usuari;
 		this.password = password;
 		this.unidadformativas = unidadformativas;
@@ -59,13 +56,7 @@ public class Profesor implements java.io.Serializable {
 		this.nombre = nombre;
 	}
 
-	public String getIdUnidadFormativa() {
-		return this.idUnidadFormativa;
-	}
 
-	public void setIdUnidadFormativa(String idUnidadFormativa) {
-		this.idUnidadFormativa = idUnidadFormativa;
-	}
 
 	public String getUsuari() {
 		return this.usuari;

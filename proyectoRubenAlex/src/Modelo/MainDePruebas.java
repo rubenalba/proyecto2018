@@ -17,6 +17,7 @@ public class MainDePruebas {
 	SessionFactory factory = SessionFactoryUtil.getSessionFactory();
 	static AlumnosInterface alumno = DAO.getAlumnosInterface();
 	static AulaInterface aulas = DAO.getAulaInterface();
+	static ProfesorInterface pro = DAO.getProfesorInterface();
 
 	public static void main(String[] args) {
 		//crearDatosdepruebaAulaYAlumno(); //PRUEBAS PARA AULA Y ALUMNO, OK + ó - FUNCIONAR FUNCIONA
@@ -26,13 +27,59 @@ public class MainDePruebas {
 		//verTodasAulas();
 		//verAlumnoByName();
 		//verAlumnoDNI();
-		addProfe();
+		//addProfe();
+		//eliminarProfe();
+		//verAllProfes();
+		verProfeById();
+		
 	}
 	
 	
 
+	private static void verProfeById() {
+		String dni = "47665702H";
+		Profesor profes = new Profesor();
+		profes = pro.verProfesorByDni(dni);
+		System.out.println("Profesor por id: " + profes.getNombre());
+		
+	}
+
+
+
+	private static void verAllProfes() {
+		List listaProfes = pro.verProfesores();
+		System.out.println("lista de profesores:\n");
+		for (Iterator itPro = listaProfes.iterator(); itPro.hasNext(); ) {
+			Profesor p = (Profesor)itPro.next();
+			System.out.println("Nombre: " + p.getNombre());
+		}
+		
+	}
+
+
+
+	private static void eliminarProfe() {
+		String dni = "47665702H";
+		try {
+			pro.eliminarProfesor(dni);
+			System.out.println("eliminado");
+		} catch (Exception e) {
+			System.out.println("no");
+		}
+		
+	}
+
+
+
 	private static void addProfe() {
-		Profesor pro = new Profesor();
+		Profesor prof = new Profesor("47665702H", "Eloy Albiach", "eloyAl","a1");
+		try {
+			pro.addProfesor(prof);
+			System.out.println("añadido");
+		} catch (Exception e) {
+			System.out.println("no añadido");
+		}
+		
 		
 	}
 
@@ -73,18 +120,8 @@ public class MainDePruebas {
 		System.out.println("Lista de alumnos:\n");
 		for (Iterator itAlumno = listaAlumnos.iterator();itAlumno.hasNext();) {
 			Alumnos alu = (Alumnos)itAlumno.next();
-			System.out.println("Nombre: " + alu.getNombre()+ " " + alu.getApellidos() + ", DNI: " + alu.getDni());
-			
+			System.out.println("Nombre: " + alu.getNombre()+ " " + alu.getApellidos() + ", DNI: " + alu.getDni());	
 		}
-		/*List usuariosListados = user.verAllUsuers();
-				System.out.println("Lista de usuarios :\n");
-				for (Iterator itUser = usuariosListados.iterator();itUser.hasNext(); ) {
-					Usuaris usuar = (Usuaris)itUser.next();
-					System.out.println("ID usuario: " +usuar.getIdUsuari() +"Nombre:"+ usuar.getNom()+ " " + usuar.getCognoms() 
-					+"\n" );
-				}
-				}*/
-		
 	}
 
 	public static void crearDatosdepruebaAulaYAlumno() {

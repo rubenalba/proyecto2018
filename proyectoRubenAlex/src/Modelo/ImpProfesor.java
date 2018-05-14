@@ -14,7 +14,8 @@ import pojos.Profesor;
 
 public class ImpProfesor implements ProfesorInterface{
 	private static SessionFactory factory = SessionFactoryUtil.getSessionFactory();
-
+	
+	//Funciona NO TOCAR!!!
 	@Override
 	public void addProfesor(Profesor profesor) {
 		Session session = factory.openSession();
@@ -30,7 +31,7 @@ public class ImpProfesor implements ProfesorInterface{
 			session.close();
 		}
 	}
-	
+	//FUNCIONA, NO TOCAR!!
 	@Override
 	public void eliminarProfesor(String dniProfesor) {
 		Session session = factory.openSession();
@@ -65,7 +66,7 @@ public class ImpProfesor implements ProfesorInterface{
 		}
 
 	}
-
+	//FUNCIONA NO BORRAR!
 	@Override
 	public Profesor verProfesorByDni(String dniProfesor) {
 		Session session = factory.openSession();
@@ -74,7 +75,7 @@ public class ImpProfesor implements ProfesorInterface{
 		session.close();
 		return profesor;
 	}
-
+	//FUNCIONA NO BORRAR!
 	@Override
 	public List<Profesor> verProfesores() {
 		Session session = factory.openSession();
