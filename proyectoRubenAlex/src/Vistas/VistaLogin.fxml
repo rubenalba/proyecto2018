@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vistas.VistaLoginController">
+   <children>
+      <Button fx:id="btnLogin" layoutX="124.0" layoutY="240.0" mnemonicParsing="false" text="Login" onAction="#login"/>
+      <TextField fx:id="IdUsuari" layoutX="65.0" layoutY="97.0" />
+      <TextField fx:id="IdPassword" layoutX="65.0" layoutY="163.0" />
+      <Label layoutX="65.0" layoutY="74.0" text="Usuari" />
+      <Label layoutX="65.0" layoutY="142.0" text="Password" />
+   </children>
+</AnchorPane>
