@@ -14,6 +14,7 @@ import pojos.Unidadformativa;
 
 public class ImpUnidadFormativa implements UnidadFormativaInterface{
 	private static SessionFactory factory = SessionFactoryUtil.getSessionFactory();
+	//FUNCIONA NO ELIMINAR!!
 	@Override
 	public void addUnidadFormativa(Unidadformativa unidad) {
 		Session session = factory.openSession();

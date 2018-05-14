@@ -13,6 +13,7 @@ import pojos.Alumnos;
 import pojos.Asignatura;
 import pojos.Aula;
 import pojos.Profesor;
+import pojos.Unidadformativa;
 
 public class MainDePruebas {
 	SessionFactory factory = SessionFactoryUtil.getSessionFactory();
@@ -20,6 +21,7 @@ public class MainDePruebas {
 	static AulaInterface aulas = DAO.getAulaInterface();
 	static ProfesorInterface pro = DAO.getProfesorInterface();
 	static AsignaturaInterface as = DAO.getAsignaturaInterface();
+	static UnidadFormativaInterface uf = (UnidadFormativaInterface) DAO.getUnidadFormativaInterface();
 
 	public static void main(String[] args) {
 		//crearDatosdepruebaAulaYAlumno(); //PRUEBAS PARA AULA Y ALUMNO, OK + ó - FUNCIONAR FUNCIONA
@@ -36,13 +38,42 @@ public class MainDePruebas {
 		//addAsigna();
 		//eliminarAsig();
 		//verAsigna();
-		verAllAsignaturas();
-		
+		//verAllAsignaturas();
+		//addUF();
+		//verUF();
+		eliminarUF();
 		
 		
 	}
 	
 	
+
+	private static void eliminarUF() {
+		
+		
+	}
+
+
+
+	private static void verUF() {
+		String nom = "M1";
+		Unidadformativa u = new Unidadformativa();
+		u = uf.verUnidadformativaByID(nom);
+		System.out.println("Nombre UF: " + u.getIdUnidadFormativa() + ", Duración:" + u.getHoras() + ", Asignatura:" +u.getAsignatura().getNombreAsignatura()+ ", Profesor: " + u.getProfesor().getNombre() );
+		
+	}
+
+
+
+	private static void addUF() {
+		Asignatura a = as.verAsignaturaById(1);
+		Profesor p = pro.verProfesorByDni("47665702H");
+	Unidadformativa ufo = new Unidadformativa("M1",a,p,33);
+	uf.addUnidadFormativa(ufo);
+		
+	}
+
+
 
 	private static void verAllAsignaturas() {
 		List listaAsig = as.verAllAsignaturas();
