@@ -14,13 +14,13 @@ public class Franjas implements java.io.Serializable {
 	private Profesor profesor;
 	private Date horaInicio;
 	private Date horaFin;
-	private Date dia;
+	private String dia;
 	private Set<Asistencia> asistencias = new HashSet<Asistencia>(0);
 
 	public Franjas() {
 	}
 
-	public Franjas(String idFranja, Profesor profesor, Date horaInicio, Date horaFin, Date dia) {
+	public Franjas(String idFranja, Profesor profesor, Date horaInicio, Date horaFin, String dia) {
 		this.idFranja = idFranja;
 		this.profesor = profesor;
 		this.horaInicio = horaInicio;
@@ -28,7 +28,7 @@ public class Franjas implements java.io.Serializable {
 		this.dia = dia;
 	}
 
-	public Franjas(String idFranja, Profesor profesor, Date horaInicio, Date horaFin, Date dia,
+	public Franjas(String idFranja, Profesor profesor, Date horaInicio, Date horaFin, String dia,
 			Set<Asistencia> asistencias) {
 		this.idFranja = idFranja;
 		this.profesor = profesor;
@@ -74,11 +74,11 @@ public class Franjas implements java.io.Serializable {
 		this.horaFin = horaFin;
 	}
 
-	public Date getDia() {
+	public String getDia() {
 		return this.dia;
 	}
 
-	public void setDia(Date dia) {
+	public void setDia(String dia) {
 		this.dia = dia;
 	}
 
