@@ -1,5 +1,6 @@
 package Modelo;
 
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -7,19 +8,23 @@ import org.hibernate.Transaction;
 
 import dao.SessionFactoryUtil;
 import pojos.Alumnos;
+import pojos.Asistencia;
+import pojos.Matricula;
 import pojos.MatriculaId;
+import pojos.Profesor;
 import pojos.Unidadformativa;
 
 public class ImpMatricula  implements MatriculaInterface{
 	private static SessionFactory factory = SessionFactoryUtil.getSessionFactory();
-	
+
+	//FUNCIONA; NO TOCAR
 	@Override
-	public void matricularAlumno(MatriculaId id) {
+	public void matricularAlumno(Matricula matricula) {
 		Session session = factory.openSession();
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			session.save(id);
+			session.save(matricula);
 			tx.commit();
 		}catch  (HibernateException e) {
 			if (tx!=null) tx.rollback();
@@ -27,19 +32,15 @@ public class ImpMatricula  implements MatriculaInterface{
 		}finally {
 			session.close();
 		}
-		
+
 	}
 
-	@Override
-	public void addNota(MatriculaId id, Alumnos alumnos, Unidadformativa unidadformativa, Double nota) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 	@Override
 	public void modificarNota(MatriculaId id, Double nota) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -47,5 +48,49 @@ public class ImpMatricula  implements MatriculaInterface{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	//FUNCIONA NO TOCAR!!
+	@Override
+	public Matricula verMatricula(MatriculaId id) {
+		Session session = factory.openSession();
+		Transaction tx = null;
+		Matricula mat = null;
+		try {
+			tx = session.beginTransaction();
+			mat = (Matricula)session.get(Matricula.class, id);
 
+			Hibernate.initialize(mat.getAlumnos());
+			Hibernate.initialize(mat.getUnidadformativa());
+		}catch  (HibernateException e) {
+			if (tx!=null) tx.rollback();
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+
+		return mat;
+	}
+	//FUNCIONA NO TOCAR!!
+	@Override
+	public void eliminarMatricula(MatriculaId id) {
+		Session session = factory.openSession();
+		Transaction tx = null;
+		try{
+			tx = session.beginTransaction();
+			Matricula mat = (Matricula)session.get(Matricula.class, id);
+			session.delete(mat);
+			tx.commit();
+		}catch  (HibernateException e) {
+			if (tx!=null) tx.rollback();
+			e.printStackTrace();
+		}finally {
+			session.close();
+
+		}
+	}
+
+	@Override
+	public void addNota(MatriculaId id, Double nota) {
+		
+		
+	}
 }

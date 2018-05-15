@@ -1,9 +1,14 @@
 package Modelo;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
+import org.hibernate.Hibernate;
 import org.hibernate.SessionFactory;
 
 import dao.DAO;
@@ -12,6 +17,7 @@ import dao.SessionFactoryUtil;
 import pojos.Alumnos;
 import pojos.Asignatura;
 import pojos.Aula;
+import pojos.Franjas;
 import pojos.Matricula;
 import pojos.MatriculaId;
 import pojos.Profesor;
@@ -25,44 +31,154 @@ public class MainDePruebas {
 	static AsignaturaInterface as = DAO.getAsignaturaInterface();
 	static UnidadFormativaInterface uf = DAO.getUnidadFormativaInterface();
 	static MatriculaInterface mt = DAO.getMatriculaInterface();
+	static FranjaInterface f = DAO.getFranjaInterface();
 
-	public static void main(String[] args) {
-		//crearDatosdepruebaAulaYAlumno(); //PRUEBAS PARA AULA Y ALUMNO, OK + ó - FUNCIONAR FUNCIONA
-		//eliminarDatosDePruebaAulaYAlumno();
-		//modificiarAlumnoYAula();
-		//verTodosAlumnos();
-		//verTodasAulas();
-		//verAlumnoByName();
-		//verAlumnoDNI();
-		//addProfe();
-		//eliminarProfe();
-		//verAllProfes();
-		//verProfeById();
-		//addAsigna();
-		//eliminarAsig();
-		//verAsigna();
-		//verAllAsignaturas();
-		//addUF();
-		//verUF();
-		//eliminarUF();
-		//verAllUF();
-		matricular();
-		
+	public static void main(String[] args) throws ParseException {
+		//crearDatosdepruebaAulaYAlumno(); // OK
+		//eliminarDatosDePruebaAulaYAlumno(); OK 
+		//modificiarAlumnoYAula(); OK 
+		//verTodosAlumnos(); OK
+		//verTodasAulas(); OK
+		//verAlumnoByName(); OK
+		//verAlumnoDNI(); OK
+		//addProfe(); OK
+		//eliminarProfe(); OK
+		//verAllProfes(); OK
+		//verProfeById(); OK
+		//addAsigna(); OK
+		//eliminarAsig(); OK
+		//verAsigna(); OK
+		//verAllAsignaturas(); OK
+		//addUF(); OK
+		//verUF(); OK
+		//eliminarUF(); OK
+		//verAllUF(); OK
+		//matricular(); //OK
+		//verMatriculas(); OK
+		//eliminarMatricula(); //OK
+		//addNota(); SIN HACER!!!!
+		//addFranja(); OK
+		//verFranjaById(); OK
+		//eliminarFranja(); OK
+		//verAllFranjas(); OK
+
+	}
+
+
+	private static void verAllFranjas() {
+		List listaFtanja = f.verAlFranjas();
+		System.out.println("Lista de Franjas:\n");
+		for (Iterator itF = listaFtanja.iterator(); itF.hasNext();) {
+			Franjas f = (Franjas)itF.next();
+			System.out.println("Nombre: " + f.getIdFranja() + ", Hora Inicio: " + f.getHoraInicio() + ", Hora Fin: " + f.getHoraFin());
+			
+		}
+	
 		
 	}
-	
-	
-//PARADO AQUI
-	private static void matricular() {
-		MatriculaId m = new MatriculaId("47665701H", "M1");
+
+
+	private static void eliminarFranja() {
+		String id = "F1";
+		f.eliminarFranja(id);
 		
+	}
+
+
+	private static void verFranjaById() {
+		String id = "F1";
+		Franjas fra = new Franjas();
+		fra = f.verFranjaByID(id);
+		System.out.println("Franja: " + fra.getIdFranja() + ", Hora inicio: " + fra.getHoraInicio() + ", Hora fin: " + fra.getHoraFin());
+		
+	}
+
+
+	private static void addFranja() throws ParseException {
+		String idFranja ="F6";
+		Profesor p = new Profesor();
+		p = pro.verProfesorByDni("47665702H");
+		String inicio = "20:20";
+		String hfinal = "21:15";
+		DateFormat dateF = new SimpleDateFormat("HH:mm");
+		Date horaInicio = dateF.parse(inicio);
+		Date horaFin = dateF.parse(hfinal);
+		String dia = "Lunes";
+		Franjas franja = new Franjas(idFranja, p, horaInicio, horaFin, dia);
 		try {
-			mt.matricularAlumno(m);
+			f.addFranja(franja);
 			System.out.println("si");
 		} catch (Exception e) {
 			System.out.println("no");
 		}
 		
+
+	}
+
+
+	private static void addNota() {
+		String id = "47665701H";
+		String ufs = "M1";
+		Double nota = 7.3;
+		MatriculaId mat = new MatriculaId(id,ufs);
+		try {
+			mt.addNota(mat,  nota);
+			System.out.println("si");
+		} catch (Exception e) {
+			System.out.println("no");
+		}
+
+
+	}
+
+
+	private static void eliminarMatricula() {
+		String id = "47665701H";
+		String uf = "M1";
+		MatriculaId mat = new MatriculaId(id,uf);
+		Matricula m = new Matricula();
+		m = mt.verMatricula(mat);
+		try {
+			mt.eliminarMatricula(mat);
+			System.out.println("si");
+		} catch (Exception e) {
+			System.out.println("No");
+		}
+
+	}
+
+
+	private static void verMatriculas() {
+		String id = "47665701H";
+		String uf = "M1";
+		MatriculaId mat = new MatriculaId(id,uf);
+		Matricula m = new Matricula();
+		m = mt.verMatricula(mat);
+		System.out.println("DNI: " + m.getAlumnos().getDni() +", Nombre: "+m.getAlumnos().getNombre() + " " + m.getAlumnos().getApellidos() +  ", Asignatura: "+ m.getUnidadformativa().getAsignatura().getNombreAsignatura());
+		//Hibernate.initialize(m.getAlumnos());
+		//Hibernate.initialize(m.getUnidadformativa());
+		//Hibernate.initialize(m.getAlumnos().getMatriculas());
+		//Hibernate.initialize(m.getUnidadformativa().getMatriculas());
+
+	}
+
+
+
+	private static void matricular() {
+		MatriculaId m = new MatriculaId("47665701H", "M1");
+		Alumnos a = new Alumnos();
+		a = alumno.verAlumnobyDNI("47665701H");
+		Unidadformativa u = new Unidadformativa();
+		u = uf.verUnidadformativaByID("M1");
+
+		Matricula matricula = new Matricula(m,a,u);
+		try {
+			mt.matricularAlumno(matricula);
+			System.out.println("si");
+		} catch (Exception e) {
+			System.out.println("no");
+		}
+
 	}
 
 
@@ -74,14 +190,14 @@ public class MainDePruebas {
 			Unidadformativa p = (Unidadformativa)itPro.next();
 			System.out.println("Nombre: " + p.getIdUnidadFormativa());
 		}
-		
+
 	}
 
 
 
 	private static void eliminarUF() {
-	uf.eliminarUnidadFormativa("M1");
-		
+		uf.eliminarUnidadFormativa("M1");
+
 	}
 
 
@@ -91,7 +207,7 @@ public class MainDePruebas {
 		Unidadformativa u = new Unidadformativa();
 		u = uf.verUnidadformativaByID(nom);
 		System.out.println("Nombre UF: " + u.getIdUnidadFormativa() + ", Duración:" + u.getHoras() + ", Asignatura:" +u.getAsignatura().getNombreAsignatura()+ ", Profesor: " + u.getProfesor().getNombre() );
-		
+
 	}
 
 
@@ -99,9 +215,9 @@ public class MainDePruebas {
 	private static void addUF() {
 		Asignatura a = as.verAsignaturaById(1);
 		Profesor p = pro.verProfesorByDni("47665702H");
-	Unidadformativa ufo = new Unidadformativa("M3",a,p,33);
-	uf.addUnidadFormativa(ufo);
-		
+		Unidadformativa ufo = new Unidadformativa("M3",a,p,33);
+		uf.addUnidadFormativa(ufo);
+
 	}
 
 
@@ -113,7 +229,7 @@ public class MainDePruebas {
 			Asignatura p = (Asignatura)itPro.next();
 			System.out.println("Nombre: " + p.getNombreAsignatura());
 		}
-		
+
 	}
 
 
@@ -123,7 +239,7 @@ public class MainDePruebas {
 		Asignatura a = new Asignatura();
 		a = as.verAsignaturaById(id);
 		System.out.println("Nombre: " + a.getNombreAsignatura());
-		
+
 	}
 
 
@@ -131,7 +247,7 @@ public class MainDePruebas {
 	private static void eliminarAsig() {
 		int asi = 1;
 		as.eliminarAsignatura(asi);
-		
+
 	}
 
 
@@ -139,7 +255,7 @@ public class MainDePruebas {
 	private static void addAsigna() {
 		Asignatura asignatura = new Asignatura(2,"Acceso a Datos");
 		as.addAsignatura(asignatura);
-		
+
 	}
 
 
@@ -149,7 +265,7 @@ public class MainDePruebas {
 		Profesor profes = new Profesor();
 		profes = pro.verProfesorByDni(dni);
 		System.out.println("Profesor por id: " + profes.getNombre());
-		
+
 	}
 
 
@@ -161,7 +277,7 @@ public class MainDePruebas {
 			Profesor p = (Profesor)itPro.next();
 			System.out.println("Nombre: " + p.getNombre());
 		}
-		
+
 	}
 
 
@@ -174,7 +290,7 @@ public class MainDePruebas {
 		} catch (Exception e) {
 			System.out.println("no");
 		}
-		
+
 	}
 
 
@@ -187,8 +303,8 @@ public class MainDePruebas {
 		} catch (Exception e) {
 			System.out.println("no añadido");
 		}
-		
-		
+
+
 	}
 
 
@@ -197,7 +313,7 @@ public class MainDePruebas {
 		String DNI = "47665701H";
 		Alumnos dni = alumno.verAlumnobyDNI(DNI);
 		System.out.println("Enconrado: " + dni.getNombre() + " " + dni.getApellidos());
-		
+
 	}
 
 	private static void verAlumnoByName() {
@@ -208,8 +324,8 @@ public class MainDePruebas {
 			Alumnos a = (Alumnos)itAlumno.next();
 			System.out.println("Alumnos Encontrados: " + a.getNombre() + " " + a.getApellidos());
 		}
-	
-		
+
+
 	}
 
 	private static void verTodasAulas() {
@@ -219,11 +335,11 @@ public class MainDePruebas {
 			Aula aula = (Aula) itAula.next();
 			System.out.println("Aula nº: " + aula.getNumAula());
 		}
-		
+
 	}
 
 	private static void verTodosAlumnos() {
-		
+
 		List listaAlumnos = alumno.verTodosAlumnos();
 		System.out.println("Lista de alumnos:\n");
 		for (Iterator itAlumno = listaAlumnos.iterator();itAlumno.hasNext();) {
@@ -249,10 +365,10 @@ public class MainDePruebas {
 			System.out.println("No se ha creado nada");
 		}
 	}
-	
+
 	private static void eliminarDatosDePruebaAulaYAlumno() {
 		//EL ALUMNO SE ELIMINA PERO TAMBIÉN HAY MENSAJES DE ERROR EN EL TERMINAL, PERO LO ELIMINA DE BD
-	/*	String dni = "47665701H";
+		/*	String dni = "47665701H";
 		try {
 			alumno.eliminarAlumno(dni);
 			System.out.println("Alumno eliminado");
@@ -267,7 +383,7 @@ public class MainDePruebas {
 			System.out.println("No se ha eliminado nada");
 		}
 	}
-	
+
 	private static void modificiarAlumnoYAula() {
 		Aula  aula = new Aula(1);
 		Alumnos al = new Alumnos("01234567A", aula, "Alex", "Rienda", "alexrien95@gmail.com");

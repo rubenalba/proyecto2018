@@ -9,12 +9,15 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import dao.SessionFactoryUtil;
+import pojos.Alumnos;
 import pojos.Aula;
 import pojos.Franjas;
 import pojos.Profesor;
 
 public class ImpFranjas implements FranjaInterface{
 	private static SessionFactory factory = SessionFactoryUtil.getSessionFactory();
+	
+	//FUNCIONA NO BORRAR!!
 	@Override
 	public void addFranja(Franjas franja) {
 		Session session = factory.openSession();
@@ -30,14 +33,15 @@ public class ImpFranjas implements FranjaInterface{
 			session.close();
 		}
 	}
-
+	//FUNCIONA NO BORRAR!
 	@Override
 	public void eliminarFranja(String idFranja) {
 		Session session = factory.openSession();
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			session.remove(new Franjas(idFranja));
+			Franjas franja = (Franjas)session.get(Franjas.class, idFranja);
+			session.delete(franja);
 			tx.commit();
 		}catch  (HibernateException e) {
 			if (tx!=null) tx.rollback();
@@ -63,7 +67,7 @@ public class ImpFranjas implements FranjaInterface{
 		}
 	}
 
-
+	//FUNCIONA NO TOCAR!!
 	@Override
 	public List<Franjas> verAlFranjas() {
 		Session session = factory.openSession();
@@ -81,7 +85,7 @@ public class ImpFranjas implements FranjaInterface{
 		}
 		return listaFranjas;
 	}
-
+	//FUNCIONA NO BORRAR
 	@Override
 	public Franjas verFranjaByID(String idFranja) {
 		Session session = factory.openSession();
