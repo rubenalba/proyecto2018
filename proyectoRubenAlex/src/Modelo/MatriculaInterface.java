@@ -2,6 +2,7 @@ package Modelo;
 
 
 import pojos.Alumnos;
+import pojos.Matricula;
 import pojos.MatriculaId;
 import pojos.Unidadformativa;
 
@@ -11,9 +12,11 @@ import pojos.Unidadformativa;
  * @version 1.0
  */
 public interface MatriculaInterface {
-	public void matricularAlumno(MatriculaId id);
-	public void addNota (MatriculaId id, Alumnos alumnos, Unidadformativa unidadformativa, Double nota);
+	public void matricularAlumno(Matricula matricula);
+	public void addNota (MatriculaId id, Double nota);
 	public void modificarNota (MatriculaId id, Double nota);
+	public void eliminarMatricula (MatriculaId id);
 	public Boolean validarNota(Double nota);
+	public Matricula verMatricula(MatriculaId id);
 
 }

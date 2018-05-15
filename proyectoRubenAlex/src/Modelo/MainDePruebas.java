@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
+import org.hibernate.Hibernate;
 import org.hibernate.SessionFactory;
 
 import dao.DAO;
@@ -27,40 +28,94 @@ public class MainDePruebas {
 	static MatriculaInterface mt = DAO.getMatriculaInterface();
 
 	public static void main(String[] args) {
-		//crearDatosdepruebaAulaYAlumno(); //PRUEBAS PARA AULA Y ALUMNO, OK + ó - FUNCIONAR FUNCIONA
-		//eliminarDatosDePruebaAulaYAlumno();
-		//modificiarAlumnoYAula();
-		//verTodosAlumnos();
-		//verTodasAulas();
-		//verAlumnoByName();
-		//verAlumnoDNI();
-		//addProfe();
-		//eliminarProfe();
-		//verAllProfes();
-		//verProfeById();
-		//addAsigna();
-		//eliminarAsig();
-		//verAsigna();
-		//verAllAsignaturas();
-		//addUF();
-		//verUF();
-		//eliminarUF();
-		//verAllUF();
-		matricular();
-		
-		
+		//crearDatosdepruebaAulaYAlumno(); // OK
+		//eliminarDatosDePruebaAulaYAlumno(); OK 
+		//modificiarAlumnoYAula(); OK 
+		//verTodosAlumnos(); OK
+		//verTodasAulas(); OK
+		//verAlumnoByName(); OK
+		//verAlumnoDNI(); OK
+		//addProfe(); OK
+		//eliminarProfe(); OK
+		//verAllProfes(); OK
+		//verProfeById(); OK
+		//addAsigna(); OK
+		//eliminarAsig(); OK
+		//verAsigna(); OK
+		//verAllAsignaturas(); OK
+		//addUF(); OK
+		//verUF(); OK
+		//eliminarUF(); OK
+		//verAllUF(); OK
+		//matricular(); //OK
+		//verMatriculas(); OK
+		//eliminarMatricula(); //OK
+		addNota();
+		 
 	}
 	
 	
-//PARADO AQUI
+private static void addNota() {
+	String id = "47665701H";
+	String ufs = "M1";
+	Double nota = 7.3;
+	MatriculaId mat = new MatriculaId(id,ufs);
+	try {
+		mt.addNota(mat,  nota);
+		System.out.println("si");
+	} catch (Exception e) {
+		System.out.println("no");
+	}
+	
+		
+	}
+
+
+private static void eliminarMatricula() {
+	String id = "47665701H";
+	String uf = "M1";
+	MatriculaId mat = new MatriculaId(id,uf);
+	Matricula m = new Matricula();
+	m = mt.verMatricula(mat);
+	try {
+		mt.eliminarMatricula(mat);
+		System.out.println("si");
+	} catch (Exception e) {
+		System.out.println("No");
+	}
+		
+	}
+
+
+private static void verMatriculas() {
+		String id = "47665701H";
+		String uf = "M1";
+		MatriculaId mat = new MatriculaId(id,uf);
+		Matricula m = new Matricula();
+		m = mt.verMatricula(mat);
+		System.out.println("DNI: " + m.getAlumnos().getDni() +", Nombre: "+m.getAlumnos().getNombre() + " " + m.getAlumnos().getApellidos() +  ", Asignatura: "+ m.getUnidadformativa().getAsignatura().getNombreAsignatura());
+		//Hibernate.initialize(m.getAlumnos());
+		//Hibernate.initialize(m.getUnidadformativa());
+		//Hibernate.initialize(m.getAlumnos().getMatriculas());
+		//Hibernate.initialize(m.getUnidadformativa().getMatriculas());
+		
+	}
+
+
+	
 	private static void matricular() {
 		MatriculaId m = new MatriculaId("47665701H", "M1");
+		Alumnos a = new Alumnos();
+		a = alumno.verAlumnobyDNI("47665701H");
+		Unidadformativa u = new Unidadformativa();
+		u = uf.verUnidadformativaByID("M1");
 		
+		Matricula matricula = new Matricula(m,a,u);
 		try {
-			mt.matricularAlumno(m);
+			mt.matricularAlumno(matricula);
 			System.out.println("si");
 		} catch (Exception e) {
-			System.out.println("no");
+		System.out.println("no");
 		}
 		
 	}
