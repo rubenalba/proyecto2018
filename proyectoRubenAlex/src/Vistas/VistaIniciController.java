@@ -1,8 +1,14 @@
 package Vistas;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import Modelo.ProfesorInterface;
 import application.Main;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,9 +25,10 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import pojos.Franjas;
+import dao.DAOManager;
 
 public class VistaIniciController {
-
+	static ProfesorInterface pr = DAOManager.getProfesorIface();
 	@FXML
 	private Button BtnInfo;
 
@@ -32,7 +39,7 @@ public class VistaIniciController {
 	private TableColumn<Franjas, String> ColFranja;
 
 	@FXML
-	private ListView<?> ListaCursos;
+	private ListView<String> ListaCursos;
 
 	@FXML
 	private Button BtnCerrarSession;
@@ -57,7 +64,9 @@ public class VistaIniciController {
 	@FXML
 	public void initialize() {
 		setVisibleFranja(false);
+		cargarCursos();
 	}
+	private ObservableList<String> cursosList;
 
 	@FXML
 	public void añadirFranja(){
@@ -98,7 +107,18 @@ public class VistaIniciController {
 			Actual2.close();
 			e.printStackTrace();
 	    }
-
 	}
+
+	public void cargarCursos(){
+		//cursosList = FXCollections.observableArrayList(pr.asignaturasImpartidas());
+		//ListaCursos.setItems(cursosList);
+
+		/*List <String> cursos = pr.asignaturasImpartidas();
+
+		ObservableList<String> cursosimpartidos = FXCollections.observableArrayList(cursos);
+
+		ListaCursos.setItems(cursosimpartidos);*/
+	}
+
 }
 

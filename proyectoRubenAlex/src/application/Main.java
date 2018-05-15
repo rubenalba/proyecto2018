@@ -24,4 +24,9 @@ public class Main extends Application {
 		launch(args);
 	}
 
+	/*
+	 *	SELECT asignatura.id_asignatura, unidadformativa.ID_UnidadFormativa
+		FROM unidadformativa inner Join asignatura
+		WHERE unidadformativa.DNI_Profesor LIKE "11111111p" AND asignatura.ID_Asignatura = unidadformativa.ID_Asignatura;
+	 */
 }
