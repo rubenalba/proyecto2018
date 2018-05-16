@@ -1,8 +1,12 @@
 package Vistas;
 
+import java.io.IOException;
+
 import application.Main;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -23,9 +27,15 @@ public class VistaLoginController {
     private TextField IdPassword;
 
     @FXML
-    public void login() {
+    public void login(ActionEvent event) throws IOException {
 
-	    Stage Actual = (Stage) btnLogin.getScene().getWindow();
+    	
+    	Parent root = FXMLLoader.load(getClass().getResource("Home.fxml"));
+    	 Scene scene = new Scene(root);
+	        Stage stage = new Stage();
+	        stage.setScene(scene);
+	        stage.show();   
+    	/*Stage Actual = (Stage) btnLogin.getScene().getWindow();
 		Actual.close();
 		try{
 			FXMLLoader loader = new FXMLLoader(Main.class.getResource("../Vistas/VistaInicial.fxml"));
@@ -46,7 +56,7 @@ public class VistaLoginController {
 			Stage Actual2 = (Stage) btnLogin.getScene().getWindow();
 			Actual2.close();
 			e.printStackTrace();
-	    }
+	    }*/
     }
 }
 
