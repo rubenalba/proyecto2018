@@ -15,26 +15,31 @@ import javafx.scene.control.ListView;
 import pojos.Asignatura;
 
 
-public class HomeController {//implements Initializable{
+public class HomeController implements Initializable{
 static AsignaturaInterface a = DAO.getAsignaturaInterface();
     @FXML
-    private ListView<Asignatura> lista;
+    private ListView<String> lista;
    
-   /* @Override
-	public void initialize(URL location, ResourceBundle resources) {
-		cargaLista();
-		
-	}*/
+ 
+    
     private void cargaLista() {
-    	ObservableList<Asignatura> asig;
+    	ObservableList<String> asig;
     	asig = FXCollections.observableArrayList();
     	List <Asignatura> listaAsignaturas = a.verAllAsignaturas();
     	for (Iterator listaAsig = listaAsignaturas.iterator();listaAsig.hasNext();) {
     		Asignatura asignat = (Asignatura)listaAsig.next();
-    		asig.add(asignat);
+    		asig.add(asignat.getNombreAsignatura());
     	}
     	lista.setItems(asig);
     }
+
+
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		cargaLista();
+		
+	}
 
 
 	

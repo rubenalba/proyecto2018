@@ -32,7 +32,7 @@
          <font>
             <Font name="KG Second Chances Solid" size="18.0" />
          </font></Label>
-      <Label layoutX="113.0" layoutY="28.0" style="-fx-background-color: transparent;" text="Alumnus" textFill="WHITE">
+      <Label layoutX="113.0" layoutY="28.0" style="-fx-background-color: transparent;" text="Alumni" textFill="WHITE">
          <font>
             <Font name="KG Second Chances Sketch" size="47.0" />
          </font>

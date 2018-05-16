@@ -12,6 +12,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -30,16 +31,16 @@ public class VistaLoginController {
     public void login(ActionEvent event) throws IOException {
 
     	
-    	Parent root = FXMLLoader.load(getClass().getResource("Home.fxml"));
+    	/*Parent root = FXMLLoader.load(getClass().getResource("V.fxml"));
     	 Scene scene = new Scene(root);
 	        Stage stage = new Stage();
 	        stage.setScene(scene);
-	        stage.show();   
-    	/*Stage Actual = (Stage) btnLogin.getScene().getWindow();
+	        stage.show();   */
+    	Stage Actual = (Stage) btnLogin.getScene().getWindow();
 		Actual.close();
 		try{
-			FXMLLoader loader = new FXMLLoader(Main.class.getResource("../Vistas/VistaInicial.fxml"));
-			Pane ventanaDos = (Pane) loader.load();
+			FXMLLoader loader = new FXMLLoader(Main.class.getResource("../Vistas/Home.fxml"));
+			AnchorPane ventanaDos = (AnchorPane) loader.load();
 			Stage ventana = new Stage();
 
 			Scene sceneDos = new Scene(ventanaDos);
@@ -56,7 +57,7 @@ public class VistaLoginController {
 			Stage Actual2 = (Stage) btnLogin.getScene().getWindow();
 			Actual2.close();
 			e.printStackTrace();
-	    }*/
+	    }
     }
 }
 
