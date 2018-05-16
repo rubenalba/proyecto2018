@@ -1,5 +1,6 @@
 package Modelo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.HibernateException;
@@ -10,6 +11,7 @@ import org.hibernate.query.Query;
 
 import dao.SessionFactoryUtil;
 import pojos.Alumnos;
+import pojos.Asignatura;
 import pojos.Aula;
 import pojos.Profesor;
 
@@ -100,19 +102,18 @@ public class ImpProfesor implements ProfesorInterface{
 		Session session = factory.openSession();
 		System.out.println(session.isConnected());
 		Transaction tx = null;
-		List<String> idAsignaturas = null;
+		List<String> idAsignaturas = new ArrayList<String>();
+		List<Asignatura> listaAsignaturas;
 		String dni = "11111111p";
-		String sql = "FROM Asignatura a WHERE a.Nombre_Asignatura LIKE 'M3' ";//+
-					/* "FROM Unidadformativa inner Join Asignatura " +
-					 "WHERE Unidadformativa.DNI_Profesor LIKE '" +
-					 dni + "' AND Asignatura.ID_Asignatura = Unidadformativa.ID_Asignatura";*/
+		String sql = "SELECT a "+
+					" FROM Unidadformativa u left Join Asignatura a "+
+					" WHERE u.profesor LIKE :dni AND (a.idAsignatura = u.asignatura.idAsignatura)";
 		try {
 			tx = session.beginTransaction();
 			Query query = session.createQuery(sql);
-			idAsignaturas = query.list();
-			for (String string : idAsignaturas) {
-				System.out.println(string);
-			}
+		//	query.setParameter("dni", "11111111p");
+			listaAsignaturas = query.list();
+
 			tx.commit();
 		}catch  (HibernateException e) {
 			if (tx!=null) tx.rollback();
