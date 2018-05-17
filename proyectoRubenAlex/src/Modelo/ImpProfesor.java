@@ -3,10 +3,12 @@ package Modelo;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.query.Query;
 
 import dao.SessionFactoryUtil;
@@ -14,6 +16,7 @@ import pojos.Alumnos;
 import pojos.Asignatura;
 import pojos.Aula;
 import pojos.Profesor;
+import pojos.Unidadformativa;
 
 public class ImpProfesor implements ProfesorInterface{
 	private static SessionFactory factory = SessionFactoryUtil.getSessionFactory();
@@ -100,20 +103,18 @@ public class ImpProfesor implements ProfesorInterface{
 	@Override
 	public List<String> asignaturasImpartidas(){
 		Session session = factory.openSession();
-		System.out.println(session.isConnected());
 		Transaction tx = null;
+		List<Unidadformativa> listaUnidades;
 		List<String> idAsignaturas = new ArrayList<String>();
-		List<Asignatura> listaAsignaturas;
 		String dni = "11111111p";
-		String sql = "SELECT a "+
-					" FROM Unidadformativa u left Join Asignatura a "+
-					" WHERE u.profesor LIKE :dni AND (a.idAsignatura = u.asignatura.idAsignatura)";
 		try {
 			tx = session.beginTransaction();
-			Query query = session.createQuery(sql);
-		//	query.setParameter("dni", "11111111p");
-			listaAsignaturas = query.list();
-
+			Criteria query = session.createCriteria(Unidadformativa.class);
+			query.add(Restrictions.like("profesor.dniProfesor", dni));
+			listaUnidades = query.list();
+			for (Unidadformativa unidad : listaUnidades) {
+				idAsignaturas.add(unidad.getAsignatura().getNombreAsignatura());
+			}
 			tx.commit();
 		}catch  (HibernateException e) {
 			if (tx!=null) tx.rollback();
@@ -122,6 +123,33 @@ public class ImpProfesor implements ProfesorInterface{
 			session.close();
 		}
 		return idAsignaturas;
+	}
+
+	@Override
+	public List<String> UFSimpartidas(String asignatura){
+		Session session = factory.openSession();
+		Transaction tx = null;
+		List<Unidadformativa> listaUnidades;
+		List<String> nombreUfs = new ArrayList<String>();
+		String dni = "11111111p";
+		try {
+			tx = session.beginTransaction();
+			Criteria query = session.createCriteria(Unidadformativa.class);
+			query.add(Restrictions.like("profesor.dniProfesor", dni));
+			listaUnidades = query.list();
+			for (Unidadformativa unidad : listaUnidades) {
+				if (unidad.getAsignatura().getNombreAsignatura().equals(asignatura)){
+					nombreUfs.add(unidad.getIdUnidadFormativa());
+				}
+			}
+			tx.commit();
+		}catch  (HibernateException e) {
+			if (tx!=null) tx.rollback();
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		return nombreUfs;
 	}
 
 }

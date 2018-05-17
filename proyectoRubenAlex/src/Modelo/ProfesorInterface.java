@@ -18,5 +18,6 @@ public interface ProfesorInterface {
 	public Profesor verProfesorByDni (String dniProfesor);
 	public List <Profesor> verProfesores();
 	public List<String> asignaturasImpartidas();
+	public List<String> UFSimpartidas(String asignatura);
 
 }

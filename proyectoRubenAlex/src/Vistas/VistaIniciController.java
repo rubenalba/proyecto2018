@@ -6,6 +6,7 @@ import java.util.List;
 import Modelo.ProfesorInterface;
 import application.Main;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -25,10 +26,10 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import pojos.Franjas;
-import dao.DAO;
+import dao.DAOManager;
 
 public class VistaIniciController {
-	static ProfesorInterface pr = DAO.getProfesorInterface();
+	static ProfesorInterface pr = DAOManager.getProfesorIface();
 	@FXML
 	private Button BtnInfo;
 
@@ -42,7 +43,7 @@ public class VistaIniciController {
 	private ListView<String> ListaCursos;
 
 	@FXML
-	private Button BtnCerrarSession;
+	private Button BtnCerrarSession, BtnVolverConfig;
 
 	@FXML
 	private Button BtnAjustes;
@@ -63,7 +64,9 @@ public class VistaIniciController {
 
 	@FXML
 	public void initialize() {
-		setVisibleFranja(false);
+		//setVisibleFranja(false);
+		//AnchorPane vistaInicial;
+		//if (loader.is)
 		cargarCursos();
 	}
 	private ObservableList<String> cursosList;
@@ -94,6 +97,7 @@ public class VistaIniciController {
 			AnchorPane ventanaDos = (AnchorPane) loader.load();
 			Stage ventana = new Stage();
 			Scene sceneDos = new Scene(ventanaDos);
+			sceneDos.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 	        ventana.setScene(sceneDos);
 	        ventana.show();
 
@@ -110,15 +114,68 @@ public class VistaIniciController {
 	}
 
 	public void cargarCursos(){
-		//cursosList = FXCollections.observableArrayList(pr.asignaturasImpartidas());
-		//ListaCursos.setItems(cursosList);
-
-		/*List <String> cursos = pr.asignaturasImpartidas();
-
+		List <String> cursos = pr.asignaturasImpartidas();
 		ObservableList<String> cursosimpartidos = FXCollections.observableArrayList(cursos);
-
-		ListaCursos.setItems(cursosimpartidos);*/
+		ListaCursos.setItems(cursosimpartidos);
+		ListaCursos.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+			public void changed(
+				ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				System.out.println("Has seleccionado" + newValue);
+				verUFAsignaturaSelected(newValue);
+			}
+		});
 	}
+	@FXML
+	public void configuracion(){
+		try {
+			Stage Actual = (Stage) BtnAjustes.getScene().getWindow();
+
+			FXMLLoader loader = new FXMLLoader(Main.class.getResource("../Vistas/VistaConfiguracion.fxml"));
+			AnchorPane ventanaDos = (AnchorPane) loader.load();
+			Scene sceneDos = new Scene(ventanaDos);
+			Actual.setScene(sceneDos);
+			Actual.show();
+		} catch (Exception e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText("Error al abrir la configuracion");
+			alert.setContentText("El programa se cerrara.");
+			alert.showAndWait();
+			Stage Actual2 = (Stage) BtnAjustes.getScene().getWindow();
+			Actual2.close();
+			e.printStackTrace();
+	    }
+	}
+
+	@FXML
+	public void volver(){
+		try {
+			Stage Actual = (Stage) BtnVolverConfig.getScene().getWindow();
+
+			FXMLLoader loader = new FXMLLoader(Main.class.getResource("../Vistas/VistaInicial.fxml"));
+			AnchorPane ventanaDos = (AnchorPane) loader.load();
+			Scene sceneDos = new Scene(ventanaDos);
+			Actual.setScene(sceneDos);
+			Actual.show();
+		} catch (Exception e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText("Error al abrir la configuracion");
+			alert.setContentText("El programa se cerrara.");
+			alert.showAndWait();
+			Stage Actual2 = (Stage) BtnVolverConfig.getScene().getWindow();
+			Actual2.close();
+			e.printStackTrace();
+	    }
+	}
+
+	@FXML
+	public void verUFAsignaturaSelected(String asignatura){
+		List <String> ufs = pr.UFSimpartidas(asignatura);
+		ObservableList<String>ufsimpartidas = FXCollections.observableArrayList(ufs);
+		ListaCursos.setItems(ufsimpartidas);
+	}
+
 
 }
 
