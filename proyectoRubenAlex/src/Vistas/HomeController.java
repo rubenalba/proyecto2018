@@ -8,6 +8,8 @@ import java.util.ResourceBundle;
 import Modelo.AsignaturaInterface;
 import Modelo.ProfesorInterface;
 import dao.DAO;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -33,7 +35,10 @@ static ProfesorInterface p = DAO.getProfesorInterface();
  
     
     private void cargaLista() {
-    	ObservableList<String> asig;
+    	List<String>asig = p.asignaturasImpartidas(profesorActual.getDniProfesor());
+    	ObservableList<String> cursosImpartidos = FXCollections.observableArrayList(asig);
+    	lista.setItems(cursosImpartidos);
+    	/*ObservableList<String> asig;
     	asig = FXCollections.observableArrayList();
     	List <Asignatura> listaAsignaturas = a.verAllAsignaturas();
     	for (Iterator listaAsig = listaAsignaturas.iterator();listaAsig.hasNext();) {
@@ -41,9 +46,19 @@ static ProfesorInterface p = DAO.getProfesorInterface();
     		asig.add(asignat.getNombreAsignatura());
     		System.out.println(usuarioActual + "usuarioActivo");
     	}
-    	lista.setItems(asig);
+    	lista.setItems(asig);*/
+    	/*	List <String> cursos = pr.asignaturasImpartidas();
+		ObservableList<String> cursosimpartidos = FXCollections.observableArrayList(cursos);
+		ListaCursos.setItems(cursosimpartidos);
+		ListaCursos.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+			public void changed(
+				ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				System.out.println("Has seleccionado" + newValue);
+				verUFAsignaturaSelected(newValue);
+			}
+		});*/
     }
-
+    
 
 
 	@Override

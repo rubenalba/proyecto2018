@@ -12,18 +12,11 @@ public class LoginProfesor {
 	
 	
 	public boolean login (String id, String pwd) throws SQLException{
-		Profesor profeLogin = new Profesor();
-		Profesor profeTemporal = new Profesor();
-		profeLogin = p.verProfesorByUser(id);
-		if (profeLogin == null)return false;
-		else {
-		profeTemporal.setPassword(pwd);
-		
-		if (profeLogin.getPassword().equals(profeTemporal.getPassword())) {
-			return true;
-		}
-		return false;
-	}
+		///Encriptar con Hash
+		Profesor profeLogin = p.verProfesorByUser(id);
+		if (profeLogin == null) return false;
+		return profeLogin.getPassword().equals(pwd);
+
 	}
 	
 }

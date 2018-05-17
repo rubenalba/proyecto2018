@@ -114,7 +114,7 @@ public class VistaIniciController {
 	}
 
 	public void cargarCursos(){
-		List <String> cursos = pr.asignaturasImpartidas();
+		List <String> cursos = pr.asignaturasImpartidas(null);
 		ObservableList<String> cursosimpartidos = FXCollections.observableArrayList(cursos);
 		ListaCursos.setItems(cursosimpartidos);
 		ListaCursos.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {

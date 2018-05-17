@@ -45,7 +45,7 @@ public class MainDePruebas {
 		//eliminarProfe(); OK
 		//verAllProfes(); OK
 		//verProfeById(); OK
-		//addAsigna(); OK
+		addAsigna();
 		//eliminarAsig(); OK
 		//verAsigna(); OK
 		//verAllAsignaturas(); OK
@@ -263,8 +263,9 @@ public class MainDePruebas {
 
 
 	private static void addAsigna() {
-		Asignatura asignatura = new Asignatura(2,"Acceso a Datos");
+		Asignatura asignatura = new Asignatura(3,"M3");
 		as.addAsignatura(asignatura);
+		
 
 	}
 

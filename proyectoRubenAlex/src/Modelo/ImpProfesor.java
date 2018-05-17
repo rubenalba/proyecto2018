@@ -117,21 +117,21 @@ public class ImpProfesor implements ProfesorInterface{
 		}
 		return listaProfesor;
 	}
-
+	//NO TOCAR
 	@Override
-	public List<String> asignaturasImpartidas(){
+	public List<String> asignaturasImpartidas(String usuarioActivo){
 		Session session = factory.openSession();
 		Transaction tx = null;
 		List<Unidadformativa> listaUnidades;
 		List<String> idAsignaturas = new ArrayList<String>();
-		String dni = "11111111p";
-		List<Asignatura> listaAsignaturas = null;
 		try {
 			tx = session.beginTransaction();
 			Criteria query = session.createCriteria(Unidadformativa.class);
-			query.add(Restrictions.like("profesor.dniProfesor", dni));
+			query.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+			query.add(Restrictions.like("profesor.dniProfesor", usuarioActivo));
 			listaUnidades = query.list();
 			for (Unidadformativa unidad : listaUnidades) {
+				if(!idAsignaturas.contains(unidad.getAsignatura().getNombreAsignatura()))
 				idAsignaturas.add(unidad.getAsignatura().getNombreAsignatura());
 			}
 			tx.commit();
@@ -170,5 +170,6 @@ public class ImpProfesor implements ProfesorInterface{
 		}
 		return nombreUfs;
 	}
+	
 
 }

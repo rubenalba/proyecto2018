@@ -9,9 +9,9 @@
    <children>
       <ImageView fitHeight="631.0" fitWidth="1031.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../Desktop/_DSC0072_2.png" />
+            <Image url="@../../../../../Desktop/fondo_2_2.png" />
          </image>
       </ImageView>
-      <ListView fx:id="lista" layoutX="67.0" layoutY="188.0" prefHeight="348.0" prefWidth="200.0" rotate="-0.1" stylesheets="@../../../../../Desktop/lisStyle.css" />
+      <ListView fx:id="lista" layoutX="63.0" layoutY="191.0" prefHeight="355.0" prefWidth="201.0" stylesheets="@../../../../../Desktop/lisStyle.css" />
    </children>
 </AnchorPane>
