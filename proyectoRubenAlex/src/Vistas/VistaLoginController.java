@@ -1,8 +1,16 @@
 package Vistas;
 
+import java.io.IOException;
+import java.sql.SQLException;
+
+import Modelo.ProfesorInterface;
 import application.Main;
+import dao.DAO;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -12,44 +20,80 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import pojos.LoginProfesor;
+import pojos.Profesor;
 
 public class VistaLoginController {
-    @FXML
-    private TextField IdUsuari;
+	static ProfesorInterface p = DAO.getProfesorInterface();
 
-    @FXML
-    private Button btnLogin;
+	@FXML
+	private TextField IdUsuari;
 
-    @FXML
-    private TextField IdPassword;
+	@FXML
+	private Button btnLogin;
 
-    @FXML
-    public void login() {
+	@FXML
+	private TextField IdPassword;
 
-	    Stage Actual = (Stage) btnLogin.getScene().getWindow();
-		Actual.close();
-		try{
-			FXMLLoader loader = new FXMLLoader(Main.class.getResource("../Vistas/VistaInicial.fxml"));
-			AnchorPane ventanaDos = (AnchorPane) loader.load();
-			Stage ventana = new Stage();
+	public static String usuarioActivo;
 
-			Scene sceneDos = new Scene(ventanaDos);
-			sceneDos.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-	        ventana.setScene(sceneDos);
-	        ventana.show();
+	public String getUsuarioActivo() {
+		return usuarioActivo;
+	}
 
-	    } catch (Exception e) {
-			/*Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Error");
-			alert.setHeaderText("Error desconocido");
-			alert.setContentText("Error desconocido impide el correcto funcionamiento, cerrando");
+	public void setUsuarioActivo(String usuarioActivo) {
+		this.usuarioActivo = usuarioActivo;
+	}
+
+
+	@FXML
+	private void closeWindow(ActionEvent event) {
+		cerrarVentana(event);
+	}
+	private void cerrarVentana(ActionEvent event) {
+		Node source = (Node)event.getSource();
+		Stage stage= (Stage)source.getScene().getWindow();
+		stage.close();
+	}
+	@FXML
+	public void login(ActionEvent event) throws IOException, SQLException {
+
+		String id = IdUsuari.getText();
+		String contraseña = IdPassword.getText();
+
+
+
+		System.out.println("Llega hasta aquí" + id + contraseña);
+
+		LoginProfesor logg = new LoginProfesor ();
+		boolean verificar = logg.login(id, contraseña);
+		if (verificar) {
+
+			closeWindow(event);
+			usuarioActivo = id;
+			System.out.println(usuarioActivo);
+			Profesor profesorEntrada = new Profesor();
+			profesorEntrada = p.verProfesorByUser(id);
+			Parent root = FXMLLoader.load(getClass().getResource("Home.fxml"));
+			Scene scene = new Scene(root);
+			Stage stage = new Stage();
+			stage.setScene(scene);
+			stage.show();
+
+		}else {
+
+			Alert alert = new Alert (AlertType.ERROR);
+			alert.setTitle("Credenciales incorrectos");
+			alert.setHeaderText("El password o el usuario son incorrectos");
 			alert.showAndWait();
-			Stage Actual2 = (Stage) btnLogin.getScene().getWindow();
-			Actual2.close();*/
-			e.printStackTrace();
-	    }
-    }
+
+		}
+
+	}
 }
+
+
+
 
 
 

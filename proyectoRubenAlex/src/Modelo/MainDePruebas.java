@@ -35,8 +35,8 @@ public class MainDePruebas {
 
 	public static void main(String[] args) throws ParseException {
 		//crearDatosdepruebaAulaYAlumno(); // OK
-		//eliminarDatosDePruebaAulaYAlumno(); OK 
-		//modificiarAlumnoYAula(); OK 
+		//eliminarDatosDePruebaAulaYAlumno(); OK
+		//modificiarAlumnoYAula(); OK
 		//verTodosAlumnos(); OK
 		//verTodasAulas(); OK
 		//verAlumnoByName(); OK
@@ -61,8 +61,18 @@ public class MainDePruebas {
 		//verFranjaById(); OK
 		//eliminarFranja(); OK
 		//verAllFranjas(); OK
+		//verProfesorByUser(); OK
 
 	}
+
+
+	private static void verProfesorByUser() {
+	Profesor p = new Profesor();
+	p = pro.verProfesorByUser("eloyAl");
+	System.out.println(p.getDniProfesor() + " " + p.getNombre());
+
+	}
+
 
 
 	private static void verAllFranjas() {
@@ -71,17 +81,17 @@ public class MainDePruebas {
 		for (Iterator itF = listaFtanja.iterator(); itF.hasNext();) {
 			Franjas f = (Franjas)itF.next();
 			System.out.println("Nombre: " + f.getIdFranja() + ", Hora Inicio: " + f.getHoraInicio() + ", Hora Fin: " + f.getHoraFin());
-			
+
 		}
-	
-		
+
+
 	}
 
 
 	private static void eliminarFranja() {
 		String id = "F1";
 		f.eliminarFranja(id);
-		
+
 	}
 
 
@@ -90,7 +100,7 @@ public class MainDePruebas {
 		Franjas fra = new Franjas();
 		fra = f.verFranjaByID(id);
 		System.out.println("Franja: " + fra.getIdFranja() + ", Hora inicio: " + fra.getHoraInicio() + ", Hora fin: " + fra.getHoraFin());
-		
+
 	}
 
 
@@ -111,7 +121,7 @@ public class MainDePruebas {
 		} catch (Exception e) {
 			System.out.println("no");
 		}
-		
+
 
 	}
 
@@ -344,7 +354,7 @@ public class MainDePruebas {
 		System.out.println("Lista de alumnos:\n");
 		for (Iterator itAlumno = listaAlumnos.iterator();itAlumno.hasNext();) {
 			Alumnos alu = (Alumnos)itAlumno.next();
-			System.out.println("Nombre: " + alu.getNombre()+ " " + alu.getApellidos() + ", DNI: " + alu.getDni());	
+			System.out.println("Nombre: " + alu.getNombre()+ " " + alu.getApellidos() + ", DNI: " + alu.getDni());
 		}
 	}
 
@@ -405,7 +415,7 @@ public class MainDePruebas {
 		String busqueda = search.nextLine();
 		Float buscar = Float.parseFloat(busqueda);
 		return buscar;
-	}	
+	}
 }
 
 

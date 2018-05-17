@@ -49,7 +49,7 @@
 							<!-- DEFINE UNA IMAGEN -->
    							<Image fx:id="btnImageExit" url="@../Vistas/Imagenes/exit-icon.png" />
 						</fx:define>
-                        <Button fx:id="BtnCerrarSession" layoutX="14.0" layoutY="345.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="53.0" onAction="#cerrarSesion">
+                        <Button fx:id="BtnCerrarSession" layoutX="14.0" layoutY="345.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="53.0">
                      		<graphic>
 		        				<ImageView image="$btnImageExit" />
 		     				</graphic>

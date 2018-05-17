@@ -3,6 +3,7 @@ package Modelo;
 import java.util.List;
 
 import pojos.Alumnos;
+import pojos.Asignatura;
 import pojos.Asistencia;
 import pojos.Aula;
 import pojos.Profesor;
@@ -19,5 +20,5 @@ public interface ProfesorInterface {
 	public List <Profesor> verProfesores();
 	public List<String> asignaturasImpartidas();
 	public List<String> UFSimpartidas(String asignatura);
-
+	public Profesor verProfesorByUser(String userProfesor);
 }

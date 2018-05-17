@@ -81,6 +81,24 @@ public class ImpProfesor implements ProfesorInterface{
 		session.close();
 		return profesor;
 	}
+
+	@Override
+	public Profesor verProfesorByUser(String userProfesor) {
+		/*Session session = factory.openSession();
+		Transaction tx = null;
+		Clients cliente  = null;
+		String hql = "FROM Clients C WHERE C.nom LIKE " + "'"+ "%"+clienteID + "%" + "' OR C.cognoms LIKE " +"'"+ "%" + clienteID + "%"+ "'" ;
+		Query query = session.createQuery(hql);
+		List results = query.list();
+		return results;*/
+		Session session = factory.openSession();
+		Transaction tx = null;
+		Profesor profesor = null;
+		String hql = "FROM Profesor p WHERE p.usuari LIKE " +"'"+ userProfesor + "'";
+		Query query = session.createQuery(hql);
+		profesor = (Profesor) query.uniqueResult();
+		return profesor;
+	}
 	//FUNCIONA NO BORRAR!
 	@Override
 	public List<Profesor> verProfesores() {
@@ -107,6 +125,7 @@ public class ImpProfesor implements ProfesorInterface{
 		List<Unidadformativa> listaUnidades;
 		List<String> idAsignaturas = new ArrayList<String>();
 		String dni = "11111111p";
+		List<Asignatura> listaAsignaturas = null;
 		try {
 			tx = session.beginTransaction();
 			Criteria query = session.createCriteria(Unidadformativa.class);

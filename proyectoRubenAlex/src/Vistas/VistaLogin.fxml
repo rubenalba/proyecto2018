@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -19,8 +20,10 @@
          <font>
             <Font name="KG Second Chances Solid" size="18.0" />
          </font></Button>
-      <TextField fx:id="IdUsuari" layoutX="64.0" layoutY="131.0" opacity="0.29" prefWidth="211.0" />
-      <TextField fx:id="IdPassword" layoutX="62.0" layoutY="192.0" opacity="0.2" prefHeight="27.0" prefWidth="211.0" />
+      <TextField fx:id="IdUsuari" layoutX="64.0" layoutY="131.0" opacity="0.2" prefWidth="211.0" style="-fx-opacity: 0.2;">
+         <font>
+            <Font name="KG Second Chances Solid" size="13.0" />
+         </font></TextField>
       <Label layoutX="65.0" layoutY="103.0" prefWidth="77.0" style="-fx-text-fill: white;" text="Usuari">
          <font>
             <Font name="KG Second Chances Sketch" size="18.0" />
@@ -29,10 +32,11 @@
          <font>
             <Font name="KG Second Chances Solid" size="18.0" />
          </font></Label>
-      <Label layoutX="113.0" layoutY="28.0" style="-fx-background-color: transparent;" text="Alumnus" textFill="WHITE">
+      <Label layoutX="113.0" layoutY="28.0" style="-fx-background-color: transparent;" text="Alumni" textFill="WHITE">
          <font>
             <Font name="KG Second Chances Sketch" size="47.0" />
          </font>
       </Label>
+      <PasswordField fx:id="IdPassword" layoutX="65.0" layoutY="192.0" opacity="0.2" prefHeight="27.0" prefWidth="211.0" />
    </children>
 </AnchorPane>

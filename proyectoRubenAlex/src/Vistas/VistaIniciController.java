@@ -26,10 +26,10 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import pojos.Franjas;
-import dao.DAOManager;
+import dao.DAO;
 
 public class VistaIniciController {
-	static ProfesorInterface pr = DAOManager.getProfesorIface();
+	static ProfesorInterface pr = DAO.getProfesorInterface();
 	@FXML
 	private Button BtnInfo;
 
