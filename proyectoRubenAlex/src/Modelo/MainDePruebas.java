@@ -76,7 +76,7 @@ public class MainDePruebas {
 
 
 	private static void consulta() {
-		List<Asignatura >as = pro.asignaturasImpartidas();
+		List<Asignatura> as = pro.asignaturasImpartidas();
 		for (Asignatura object : as) {
 			System.out.println(object.getIdAsignatura());
 		}

@@ -12,6 +12,6 @@
             <Image url="@../../../../../Desktop/_DSC0072_2.png" />
          </image>
       </ImageView>
-      <ListView fx:id="lista" layoutX="67.0" layoutY="188.0" prefHeight="356.0" prefWidth="200.0" rotate="-0.3" style="-fx-border-color: black;" stylesheets="@../../../../../Desktop/lisStyle.css" />
+      <ListView fx:id="lista" layoutX="67.0" layoutY="188.0" prefHeight="348.0" prefWidth="200.0" rotate="-0.1" stylesheets="@../../../../../Desktop/lisStyle.css" />
    </children>
 </AnchorPane>
