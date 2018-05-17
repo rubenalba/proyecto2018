@@ -61,7 +61,26 @@ public class MainDePruebas {
 		//verFranjaById(); OK
 		//eliminarFranja(); OK
 		//verAllFranjas(); OK
+		//consulta();
+		verProfesorByUser();
 
+	}
+
+
+	private static void verProfesorByUser() {
+	Profesor p = new Profesor();
+	p = pro.verProfesorByUser("eloyAl");
+	System.out.println(p.getDniProfesor() + " " + p.getNombre());
+		
+	}
+
+
+	private static void consulta() {
+		List<Asignatura >as = pro.asignaturasImpartidas();
+		for (Asignatura object : as) {
+			System.out.println(object.getIdAsignatura());
+		}
+		
 	}
 
 

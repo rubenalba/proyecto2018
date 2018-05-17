@@ -37,6 +37,6 @@
             <Font name="KG Second Chances Sketch" size="47.0" />
          </font>
       </Label>
-      <PasswordField layoutX="65.0" layoutY="192.0" opacity="0.2" prefHeight="27.0" prefWidth="211.0" />
+      <PasswordField fx:id="IdPassword" layoutX="65.0" layoutY="192.0" opacity="0.2" prefHeight="27.0" prefWidth="211.0" />
    </children>
 </AnchorPane>

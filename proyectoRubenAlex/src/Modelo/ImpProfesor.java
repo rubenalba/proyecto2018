@@ -10,6 +10,7 @@ import org.hibernate.query.Query;
 
 import dao.SessionFactoryUtil;
 import pojos.Alumnos;
+import pojos.Asignatura;
 import pojos.Aula;
 import pojos.Profesor;
 
@@ -76,6 +77,24 @@ public class ImpProfesor implements ProfesorInterface{
 		session.close();
 		return profesor;
 	}
+	
+	@Override
+	public Profesor verProfesorByUser(String userProfesor) {
+		/*Session session = factory.openSession();
+		Transaction tx = null;
+		Clients cliente  = null;
+		String hql = "FROM Clients C WHERE C.nom LIKE " + "'"+ "%"+clienteID + "%" + "' OR C.cognoms LIKE " +"'"+ "%" + clienteID + "%"+ "'" ;
+		Query query = session.createQuery(hql);
+		List results = query.list();
+		return results;*/
+		Session session = factory.openSession();
+		Transaction tx = null;
+		Profesor profesor = null;
+		String hql = "FROM Profesor p WHERE p.usuari LIKE " +"'"+ userProfesor + "'";
+		Query query = session.createQuery(hql);
+		profesor = (Profesor) query.uniqueResult();
+		return profesor;
+	}
 	//FUNCIONA NO BORRAR!
 	@Override
 	public List<Profesor> verProfesores() {
@@ -96,20 +115,19 @@ public class ImpProfesor implements ProfesorInterface{
 	}
 
 	@Override
-	public List<String> asignaturasImpartidas(){
+	public List<Asignatura> asignaturasImpartidas(){
 		Session session = factory.openSession();
 		System.out.println(session.isConnected());
 		Transaction tx = null;
 		List<String> idAsignaturas = null;
 		String dni = "11111111p";
-		String sql = "FROM Asignatura a WHERE a.Nombre_Asignatura LIKE 'M3' ";//+
-					/* "FROM Unidadformativa inner Join Asignatura " +
-					 "WHERE Unidadformativa.DNI_Profesor LIKE '" +
-					 dni + "' AND Asignatura.ID_Asignatura = Unidadformativa.ID_Asignatura";*/
+		List<Asignatura> listaAsignaturas = null;
+		String sql = "SELECT a FROM Unidadformativa u LEFT JOIN Asignatura a WHERE u.profesor LIKE :dni AND (a.idAsignatura = u.asignatura) ";
 		try {
 			tx = session.beginTransaction();
 			Query query = session.createQuery(sql);
-			idAsignaturas = query.list();
+			query.setParameter("dni", "11111111p");
+			listaAsignaturas = query.list();
 			for (String string : idAsignaturas) {
 				System.out.println(string);
 			}
@@ -120,7 +138,7 @@ public class ImpProfesor implements ProfesorInterface{
 		}finally {
 			session.close();
 		}
-		return idAsignaturas;
+		return listaAsignaturas;
 	}
 
 }
