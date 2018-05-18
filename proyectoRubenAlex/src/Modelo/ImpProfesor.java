@@ -118,7 +118,7 @@ public class ImpProfesor implements ProfesorInterface{
 	}
 	//NO TOCAR
 	@Override
-	public List<String> asignaturasImpartidas(String usuarioActivo){
+	public List<String> asignaturasImpartidas(String dniProfesor){
 		Session session = factory.openSession();
 		Transaction tx = null;
 		List<Unidadformativa> listaUnidades;
@@ -127,7 +127,7 @@ public class ImpProfesor implements ProfesorInterface{
 			tx = session.beginTransaction();
 			Criteria query = session.createCriteria(Unidadformativa.class);
 			query.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-			query.add(Restrictions.like("profesor.dniProfesor", usuarioActivo));
+			query.add(Restrictions.like("profesor.dniProfesor", dniProfesor));
 			listaUnidades = query.list();
 			for (Unidadformativa unidad : listaUnidades) {
 				String lista = unidad.getAsignatura().getCiclo().getNombreCiclo()+ " /"+unidad.getAsignatura().getNombreAsignatura();
