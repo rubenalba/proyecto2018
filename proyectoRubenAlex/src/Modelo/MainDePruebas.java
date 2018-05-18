@@ -34,14 +34,14 @@ public class MainDePruebas {
 	static FranjaInterface f = DAO.getFranjaInterface();
 
 	public static void main(String[] args) throws ParseException {
-		crearDatosdepruebaAulaYAlumno(); // OK
+		//crearDatosdepruebaAulaYAlumno(); // OK
 		//eliminarDatosDePruebaAulaYAlumno(); OK
 		//modificiarAlumnoYAula(); OK
 		//verTodosAlumnos(); OK
 		//verTodasAulas(); OK
 		//verAlumnoByName(); OK
 		//verAlumnoDNI(); OK
-		//addProfe(); 
+		addProfe(); 
 		//eliminarProfe(); OK
 		//verAllProfes(); OK
 		//verProfeById(); OK
@@ -62,7 +62,13 @@ public class MainDePruebas {
 		//eliminarFranja(); OK
 		//verAllFranjas(); OK
 		//verProfesorByUser(); OK
+		//consultas();
+	}
 
+
+	private static void consultas() {
+		
+		
 	}
 
 
@@ -104,25 +110,25 @@ public class MainDePruebas {
 	}
 
 
-	/*private static void addFranja() throws ParseException {
+	private static void addFranja() throws ParseException {
 		String idFranja ="F6";
 		Profesor p = new Profesor();
 		p = pro.verProfesorByDni("47665702H");
 		String inicio = "20:20";
 		String hfinal = "21:15";
 		Asignatura a = new Asignatura();
-		as.verAsignaturaById();
+		as.verAsignaturaById(1);
 		DateFormat dateF = new SimpleDateFormat("HH:mm");
 		Date horaInicio = dateF.parse(inicio);
 		Date horaFin = dateF.parse(hfinal);
 		String dia = "Lunes";
-		Franjas franja = new Franjas(idFranja, p, horaInicio, horaFin, dia);
+		Franjas franja = new Franjas(idFranja,a, p, horaInicio, horaFin, dia);
 		try {
 			f.addFranja(franja);
 			System.out.println("si");
 		} catch (Exception e) {
 			System.out.println("no");
-		}*/
+		}
 
 
 	}
@@ -130,7 +136,7 @@ public class MainDePruebas {
 
 	private static void addNota() {
 		String id = "47665701H";
-		String ufs = "M1";
+		int ufs = 1;
 		Double nota = 7.3;
 		MatriculaId mat = new MatriculaId(id,ufs);
 		try {
@@ -146,7 +152,7 @@ public class MainDePruebas {
 
 	private static void eliminarMatricula() {
 		String id = "47665701H";
-		String uf = "M1";
+		int uf = 1;
 		MatriculaId mat = new MatriculaId(id,uf);
 		Matricula m = new Matricula();
 		m = mt.verMatricula(mat);
@@ -162,7 +168,7 @@ public class MainDePruebas {
 
 	private static void verMatriculas() {
 		String id = "47665701H";
-		String uf = "M1";
+		int uf = 1;
 		MatriculaId mat = new MatriculaId(id,uf);
 		Matricula m = new Matricula();
 		m = mt.verMatricula(mat);
@@ -177,7 +183,7 @@ public class MainDePruebas {
 
 
 	private static void matricular() {
-		MatriculaId m = new MatriculaId("47665701H", "M1");
+		MatriculaId m = new MatriculaId("47665701H", 1);
 		Alumnos a = new Alumnos();
 		a = alumno.verAlumnobyDNI("47665701H");
 		Unidadformativa u = new Unidadformativa();
@@ -227,7 +233,7 @@ public class MainDePruebas {
 	private static void addUF() {
 		Asignatura a = as.verAsignaturaById(1);
 		Profesor p = pro.verProfesorByDni("47665702H");
-		Unidadformativa ufo = new Unidadformativa("M3",a,p,33);
+		Unidadformativa ufo = new Unidadformativa(1,a,p,"UF2",33);
 		uf.addUnidadFormativa(ufo);
 
 	}
@@ -309,7 +315,7 @@ public class MainDePruebas {
 
 
 	private static void addProfe() {
-		Profesor prof = new Profesor("47665707H", "ops", "cris","cristina");
+		Profesor prof = new Profesor("000000v", "Prueba", "pruebas","1111");
 		try {
 			pro.addProfesor(prof);
 			System.out.println("añadido");
