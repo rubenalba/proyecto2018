@@ -126,7 +126,7 @@ public class VistaIniciController {
 	}
 
 	public void cargarCursos(){
-		List <String> cursos = pr.asignaturasImpartidas("11111111p");
+		List <String> cursos = pr.asignaturasImpartidas(profesorActivo.getDniProfesor());
 		ObservableList<String> cursosimpartidos = FXCollections.observableArrayList(cursos);
 		ListaCursos.setItems(cursosimpartidos);
 		ListaCursos.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
@@ -183,7 +183,7 @@ public class VistaIniciController {
 
 	@FXML
 	public void verUFAsignaturaSelected(String asignatura){
-		List <String> ufs = pr.UFSimpartidas(asignatura);
+		List <String> ufs = pr.UFSimpartidas(asignatura, profesorActivo.getDniProfesor());
 		ObservableList<String>ufsimpartidas = FXCollections.observableArrayList(ufs);
 		ListaUfs.setItems(ufsimpartidas);
 	}
