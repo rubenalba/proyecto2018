@@ -5,93 +5,42 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vistas.VistaIniciController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vistas.VistaIniciController">
    <children>
-      <AnchorPane prefHeight="400.0" prefWidth="600.0">
+      <AnchorPane prefHeight="500.0" prefWidth="800.0">
          <children>
             <BorderPane layoutX="185.0" layoutY="86.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <left>
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                  <AnchorPane prefHeight="500.0" prefWidth="355.0" BorderPane.alignment="CENTER">
                      <children>
-                        <ListView fx:id="ListaCursos" layoutY="100.0" prefHeight="194.0" prefWidth="140.0" AnchorPane.bottomAnchor="131.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="75.0"/>
+                        <ListView fx:id="ListaCursos" layoutX="21.0" layoutY="75.0" prefHeight="294.0" prefWidth="139.0" AnchorPane.bottomAnchor="131.0" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="190.0" AnchorPane.topAnchor="75.0" />
                         <Label layoutX="22.0" layoutY="46.0" text="Mis Cursos" AnchorPane.leftAnchor="20.0" />
-
-
-						<Button fx:id="BtnListView" layoutX="300.0" layoutY="85.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="50.0" text="Cursos" />
-
-
-                        <!-- AÑADIR IMAGEN A UN BOTON-->
-						<fx:define>
-							<!-- DEFINE UNA IMAGEN -->
-   							<Image fx:id="btnImageAjustes" url="@../Vistas/Imagenes/ajustes.png" />
-						</fx:define>
-                        <Button fx:id="BtnAjustes" layoutX="14.0" layoutY="276.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" onAction="#configuracion">
-		                	<!-- AÑADE DICHA IMAGEN AL BOTON  as-->
-		                	<graphic>
-		        				<ImageView image="$btnImageAjustes" />
-		     				</graphic>
-  						</Button>
-						<!--  HASTA AQUÍ -->
-
-
-						<!--  BOTON INFO -->
-						<fx:define>
-							<Image fx:id="btnImageInfo" url="@../Vistas/Imagenes/info-icon.png" />
-						</fx:define>
-                        <Button fx:id="BtnInfo" layoutX="10.0" layoutY="310.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="54.0">
-							<graphic>
-		        				<ImageView image="$btnImageInfo" />
-		     				</graphic>
-						</Button>
-
-						<!--  CERRAR SESSION BOTON -->
-						<fx:define>
-							<!-- DEFINE UNA IMAGEN -->
-   							<Image fx:id="btnImageExit" url="@../Vistas/Imagenes/exit-icon.png" />
-						</fx:define>
-                        <Button fx:id="BtnCerrarSession" layoutX="14.0" layoutY="345.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="53.0">
-                     		<graphic>
-		        				<ImageView image="$btnImageExit" />
-		     				</graphic>
-                     	</Button>
+                        <Button fx:id="BtnAjustes" layoutX="17.0" layoutY="387.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="50.0" style="-fx-background-image: www;" text="Ajustes" />
+                        <Button fx:id="BtnInfo" layoutX="15.0" layoutY="418.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="54.0" text="Informacion" />
+                        <Button fx:id="BtnCerrarSession" layoutX="15.0" layoutY="450.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="53.0" text="Cerrar Session" />
+                        <ListView fx:id="ListaUfs" layoutX="252.0" layoutY="75.0" prefHeight="295.0" prefWidth="103.0" AnchorPane.bottomAnchor="131.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" />
+                        <Label layoutX="189.0" layoutY="46.0" text="UFs" />
                      </children>
                   </AnchorPane>
                </left>
-               <center>
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <right>
+                  <AnchorPane prefHeight="500.0" prefWidth="412.0" BorderPane.alignment="CENTER">
                      <children>
-                        <TableView layoutX="50.0" layoutY="74.0" prefHeight="194.0" prefWidth="301.0">
+                        <ChoiceBox fx:id="idFranjaCB" layoutX="214.0" layoutY="280.0" prefHeight="25.0" prefWidth="79.0" AnchorPane.leftAnchor="50.0" />
+                        <ChoiceBox fx:id="UFranjaCB" layoutX="140.0" layoutY="280.0" prefWidth="150.0" />
+                        <Button fx:id="ConfirmFranjaCB" layoutX="303.0" layoutY="280.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="48.0" text="Button" />
+                        <Button fx:id="addFranja" layoutX="363.0" layoutY="99.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="26.0" text="Button" />
+                        <TableView layoutX="214.0" layoutY="82.0" prefHeight="194.0" prefWidth="302.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="60.0">
                           <columns>
                             <TableColumn prefWidth="75.0" />
                             <TableColumn fx:id="TablaHorario" prefWidth="225.0" text="LUNES" />
                           </columns>
                         </TableView>
-                        <ChoiceBox fx:id="idFranjaCB" layoutX="50.0" layoutY="280.0" prefHeight="25.0" prefWidth="79.0" />
-                        <ChoiceBox fx:id="UFranjaCB" layoutX="143.0" layoutY="280.0" prefWidth="150.0" />
-                        <fx:define>
-							<!-- DEFINE UNA IMAGEN -->
-   							<Image fx:id="btnImageConfirm" url="@../Vistas/Imagenes/confirm-icon.png" />
-						</fx:define>
-                        <Button fx:id="ConfirmFranjaCB" layoutX="303.0" layoutY="275.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="48.0" onAction="#confirmarAñadirFranja">
-							<graphic>
-		        				<ImageView image="$btnImageConfirm" />
-		     				</graphic>
-		     			</Button>
-                        <fx:define>
-							<!-- DEFINE UNA IMAGEN -->
-   							<Image fx:id="btnImageAdd" url="@../Vistas/Imagenes/add-icon.png" />
-						</fx:define>
-                        <Button fx:id="addFranja" layoutX="350.0" layoutY="100.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="26.0" onAction="#añadirFranja">
-                    		<graphic>
-		        				<ImageView image="$btnImageAdd" />
-		     				</graphic>
-						</Button>
-
                      </children>
                   </AnchorPane>
-               </center>
+               </right>
             </BorderPane>
          </children>
       </AnchorPane>
    </children>
-</AnchorPane>
+</Pane>

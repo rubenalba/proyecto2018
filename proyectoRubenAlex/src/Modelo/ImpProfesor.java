@@ -137,8 +137,8 @@ public class ImpProfesor implements ProfesorInterface{
 			query.add(Restrictions.like("profesor.dniProfesor", usuarioActivo));
 			listaUnidades = query.list();
 			for (Unidadformativa unidad : listaUnidades) {
-				if(!idAsignaturas.contains(unidad.getAsignatura().getNombreAsignatura()))
-					idAsignaturas.add(unidad.getAsignatura().getNombreAsignatura());
+				String lista = unidad.getAsignatura().getCiclo().getNombreCiclo()+ " /"+unidad.getAsignatura().getNombreAsignatura();
+				if(!idAsignaturas.contains(lista)) idAsignaturas.add(lista);
 			}
 			tx.commit();
 		}catch  (HibernateException e) {
@@ -152,6 +152,9 @@ public class ImpProfesor implements ProfesorInterface{
 
 	@Override
 	public List<String> UFSimpartidas(String asignatura){
+		String[] parts = asignatura.split(" /");
+		String asig = parts[1];
+		String modul = parts[0];
 		Session session = factory.openSession();
 		Transaction tx = null;
 		List<Unidadformativa> listaUnidades;
@@ -163,8 +166,9 @@ public class ImpProfesor implements ProfesorInterface{
 			query.add(Restrictions.like("profesor.dniProfesor", dni));
 			listaUnidades = query.list();
 			for (Unidadformativa unidad : listaUnidades) {
-				if (unidad.getAsignatura().getNombreAsignatura().equals(asignatura)){
-					nombreUfs.add(unidad.getIdUnidadFormativa()); 
+				if (unidad.getAsignatura().getCiclo().getNombreCiclo().equals(modul) && unidad.getAsignatura().getNombreAsignatura().equals(asig)){
+					nombreUfs.add(unidad.getNombreUf());
+
 				}
 			}
 			tx.commit();
@@ -176,6 +180,7 @@ public class ImpProfesor implements ProfesorInterface{
 		}
 		return nombreUfs;
 	}
+
 	public SecretKey passWordKeyGeneration(String pwd) {
 		SecretKey skey = null;
 		int keysize = 128;

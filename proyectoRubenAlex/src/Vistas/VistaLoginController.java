@@ -74,7 +74,7 @@ public class VistaLoginController {
 			System.out.println(usuarioActivo);
 			Profesor profesorEntrada = new Profesor();
 			profesorEntrada = p.verProfesorByUser(id);
-			Parent root = FXMLLoader.load(getClass().getResource("Home.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("../Vistas/VistaInicial.fxml"));
 			Scene scene = new Scene(root);
 			Stage stage = new Stage();
 			stage.setScene(scene);
@@ -83,7 +83,7 @@ public class VistaLoginController {
 		}else {
 
 			Alert alert = new Alert (AlertType.ERROR);
-			alert.setTitle("Credenciales incorrectos");
+			alert.setTitle("Credenciales  incorrectos");
 			alert.setHeaderText("El password o el usuario son incorrectos");
 			alert.showAndWait();
 
