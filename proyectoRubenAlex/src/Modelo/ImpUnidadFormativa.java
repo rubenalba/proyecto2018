@@ -71,7 +71,7 @@ public class ImpUnidadFormativa implements UnidadFormativaInterface{
 	
 	//FUNCIONA NO ELIMINAR!!
 	@Override
-	public Unidadformativa verUnidadformativaByID(String idUnidadFormativa) {
+	public Unidadformativa verUnidadformativaByID(int idUnidadFormativa) {
 		Session session = factory.openSession();
 		Transaction tx = null;
 		Unidadformativa unidad = (Unidadformativa)session.get(Unidadformativa.class, idUnidadFormativa);

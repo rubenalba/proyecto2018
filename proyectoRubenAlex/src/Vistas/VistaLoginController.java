@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import Modelo.ProfesorInterface;
-import application.Main;
 import dao.DAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,9 +15,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import pojos.LoginProfesor;
 import pojos.Profesor;

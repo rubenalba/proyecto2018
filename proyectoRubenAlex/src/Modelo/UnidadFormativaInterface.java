@@ -13,6 +13,6 @@ public interface UnidadFormativaInterface {
 	public void addUnidadFormativa (Unidadformativa unidad);
 	public void eliminarUnidadFormativa (String idUnidadFormativa);
 	public void modificarUnidadFormativa(Unidadformativa unidadFormativaModificada);
-	public Unidadformativa verUnidadformativaByID (String idUnidadFormativa);
+	public Unidadformativa verUnidadformativaByID (int idUnidadFormativa);
 	public List <Unidadformativa> verAllUnidadFormativas();
 }
