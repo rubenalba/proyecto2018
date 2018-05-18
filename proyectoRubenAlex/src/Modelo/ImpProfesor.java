@@ -151,7 +151,7 @@ public class ImpProfesor implements ProfesorInterface{
 	}
 
 	@Override
-	public List<String> UFSimpartidas(String asignatura){
+	public List<String> UFSimpartidas(String asignatura, String dni){
 		String[] parts = asignatura.split(" /");
 		String asig = parts[1];
 		String modul = parts[0];
@@ -159,7 +159,6 @@ public class ImpProfesor implements ProfesorInterface{
 		Transaction tx = null;
 		List<Unidadformativa> listaUnidades;
 		List<String> nombreUfs = new ArrayList<String>();
-		String dni = "11111111p";
 		try {
 			tx = session.beginTransaction();
 			Criteria query = session.createCriteria(Unidadformativa.class);

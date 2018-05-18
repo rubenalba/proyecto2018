@@ -1,5 +1,6 @@
 package Vistas;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -126,7 +127,7 @@ public class VistaIniciController {
 	}
 
 	public void cargarCursos(){
-		List <String> cursos = pr.asignaturasImpartidas("11111111p");
+		List <String> cursos = pr.asignaturasImpartidas(profesorActivo.getDniProfesor());
 		ObservableList<String> cursosimpartidos = FXCollections.observableArrayList(cursos);
 		ListaCursos.setItems(cursosimpartidos);
 		ListaCursos.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
@@ -183,9 +184,28 @@ public class VistaIniciController {
 
 	@FXML
 	public void verUFAsignaturaSelected(String asignatura){
-		List <String> ufs = pr.UFSimpartidas(asignatura);
+		List <String> ufs = pr.UFSimpartidas(asignatura, profesorActivo.getDniProfesor());
 		ObservableList<String>ufsimpartidas = FXCollections.observableArrayList(ufs);
 		ListaUfs.setItems(ufsimpartidas);
+		ListaUfs.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+			public void changed(
+				ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				Stage Actual = (Stage) ListaUfs.getScene().getWindow();
+
+				FXMLLoader loader = new FXMLLoader(Main.class.getResource("../Vistas/VistaListaAlumnos.fxml"));
+				AnchorPane ventanaDos;
+				try {
+					ventanaDos = (AnchorPane) loader.load();
+					Scene sceneDos = new Scene(ventanaDos);
+					Actual.setScene(sceneDos);
+					Actual.show();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			}
+		});
 	}
 
 
