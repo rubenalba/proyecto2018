@@ -26,6 +26,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import pojos.Franjas;
+import pojos.Profesor;
 import dao.DAO;
 
 public class VistaIniciController {
@@ -40,7 +41,7 @@ public class VistaIniciController {
 	private TableColumn<Franjas, String> ColFranja;
 
 	@FXML
-	private ListView<String> ListaCursos;
+	private ListView<String> ListaCursos, ListaUfs;
 
 	@FXML
 	private Button BtnCerrarSession, BtnVolverConfig;
@@ -62,8 +63,11 @@ public class VistaIniciController {
 
     boolean franjaVisible = true;
 
+    private static Profesor profesorActivo;
+
 	@FXML
 	public void initialize() {
+		profesorActivo=getProfesorActivo();
 		//setVisibleFranja(false);
 		//AnchorPane vistaInicial;
 		//if (loader.is)
@@ -71,6 +75,14 @@ public class VistaIniciController {
 	}
 	private ObservableList<String> cursosList;
 
+
+	public Profesor getProfesorActivo(){
+		return profesorActivo;
+	}
+
+	public void setProfesorActivo(String usuarioActivo){
+		profesorActivo = pr.verProfesorByUser(usuarioActivo);
+	}
 	@FXML
 	public void añadirFranja(){
 		setVisibleFranja(true);
@@ -114,7 +126,7 @@ public class VistaIniciController {
 	}
 
 	public void cargarCursos(){
-		List <String> cursos = pr.asignaturasImpartidas(null);
+		List <String> cursos = pr.asignaturasImpartidas("11111111p");
 		ObservableList<String> cursosimpartidos = FXCollections.observableArrayList(cursos);
 		ListaCursos.setItems(cursosimpartidos);
 		ListaCursos.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
@@ -173,7 +185,7 @@ public class VistaIniciController {
 	public void verUFAsignaturaSelected(String asignatura){
 		List <String> ufs = pr.UFSimpartidas(asignatura);
 		ObservableList<String>ufsimpartidas = FXCollections.observableArrayList(ufs);
-		ListaCursos.setItems(ufsimpartidas);
+		ListaUfs.setItems(ufsimpartidas);
 	}
 
 

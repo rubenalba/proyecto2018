@@ -74,6 +74,8 @@ public class VistaLoginController {
 			System.out.println(usuarioActivo);
 			Profesor profesorEntrada = new Profesor();
 			profesorEntrada = p.verProfesorByUser(id);
+			VistaIniciController a = new VistaIniciController();
+			a.setProfesorActivo(usuarioActivo);
 			Parent root = FXMLLoader.load(getClass().getResource("../Vistas/VistaInicial.fxml"));
 			Scene scene = new Scene(root);
 			Stage stage = new Stage();
