@@ -200,7 +200,7 @@ public class VistaIniciController {
 					Actual.setScene(sceneDos);
 					Actual.show();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
+					// TODO Auto-generat ed catch block
 					e.printStackTrace();
 				}
 
