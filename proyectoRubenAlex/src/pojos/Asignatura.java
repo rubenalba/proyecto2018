@@ -1,5 +1,5 @@
 package pojos;
-// Generated 09-may-2018 19:00:27 by Hibernate Tools 4.0.1.Final
+// Generated 18-may-2018 15:35:07 by Hibernate Tools 4.0.1.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -10,7 +10,9 @@ import java.util.Set;
 public class Asignatura implements java.io.Serializable {
 
 	private int idAsignatura;
+	private Ciclo ciclo;
 	private String nombreAsignatura;
+	private Set<Franjas> franjases = new HashSet<Franjas>(0);
 	private Set<Unidadformativa> unidadformativas = new HashSet<Unidadformativa>(0);
 
 	public Asignatura() {
@@ -21,14 +23,13 @@ public class Asignatura implements java.io.Serializable {
 		this.nombreAsignatura = nombreAsignatura;
 	}
 
-	public Asignatura(int idAsignatura, String nombreAsignatura, Set<Unidadformativa> unidadformativas) {
+	public Asignatura(int idAsignatura, Ciclo ciclo, String nombreAsignatura, Set<Franjas> franjases,
+			Set<Unidadformativa> unidadformativas) {
 		this.idAsignatura = idAsignatura;
+		this.ciclo = ciclo;
 		this.nombreAsignatura = nombreAsignatura;
+		this.franjases = franjases;
 		this.unidadformativas = unidadformativas;
-	}
-
-	public Asignatura(int idAsignatura2) {
-		this.idAsignatura=idAsignatura2;
 	}
 
 	public int getIdAsignatura() {
@@ -39,12 +40,28 @@ public class Asignatura implements java.io.Serializable {
 		this.idAsignatura = idAsignatura;
 	}
 
+	public Ciclo getCiclo() {
+		return this.ciclo;
+	}
+
+	public void setCiclo(Ciclo ciclo) {
+		this.ciclo = ciclo;
+	}
+
 	public String getNombreAsignatura() {
 		return this.nombreAsignatura;
 	}
 
 	public void setNombreAsignatura(String nombreAsignatura) {
 		this.nombreAsignatura = nombreAsignatura;
+	}
+
+	public Set<Franjas> getFranjases() {
+		return this.franjases;
+	}
+
+	public void setFranjases(Set<Franjas> franjases) {
+		this.franjases = franjases;
 	}
 
 	public Set<Unidadformativa> getUnidadformativas() {

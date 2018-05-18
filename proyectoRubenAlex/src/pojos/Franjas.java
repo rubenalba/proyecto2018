@@ -1,5 +1,5 @@
 package pojos;
-// Generated 09-may-2018 19:00:27 by Hibernate Tools 4.0.1.Final
+// Generated 18-may-2018 15:35:07 by Hibernate Tools 4.0.1.Final
 
 import java.util.Date;
 import java.util.HashSet;
@@ -11,6 +11,7 @@ import java.util.Set;
 public class Franjas implements java.io.Serializable {
 
 	private String idFranja;
+	private Asignatura asignatura;
 	private Profesor profesor;
 	private Date horaInicio;
 	private Date horaFin;
@@ -20,26 +21,25 @@ public class Franjas implements java.io.Serializable {
 	public Franjas() {
 	}
 
-	public Franjas(String idFranja, Profesor profesor, Date horaInicio, Date horaFin, String dia) {
+	public Franjas(String idFranja, Asignatura asignatura, Profesor profesor, Date horaInicio, Date horaFin,
+			String dia) {
 		this.idFranja = idFranja;
+		this.asignatura = asignatura;
 		this.profesor = profesor;
 		this.horaInicio = horaInicio;
 		this.horaFin = horaFin;
 		this.dia = dia;
 	}
 
-	public Franjas(String idFranja, Profesor profesor, Date horaInicio, Date horaFin, String dia,
+	public Franjas(String idFranja, Asignatura asignatura, Profesor profesor, Date horaInicio, Date horaFin, String dia,
 			Set<Asistencia> asistencias) {
 		this.idFranja = idFranja;
+		this.asignatura = asignatura;
 		this.profesor = profesor;
 		this.horaInicio = horaInicio;
 		this.horaFin = horaFin;
 		this.dia = dia;
 		this.asistencias = asistencias;
-	}
-
-	public Franjas(String idFranja2) {
-		this.idFranja = idFranja2;
 	}
 
 	public String getIdFranja() {
@@ -48,6 +48,14 @@ public class Franjas implements java.io.Serializable {
 
 	public void setIdFranja(String idFranja) {
 		this.idFranja = idFranja;
+	}
+
+	public Asignatura getAsignatura() {
+		return this.asignatura;
+	}
+
+	public void setAsignatura(Asignatura asignatura) {
+		this.asignatura = asignatura;
 	}
 
 	public Profesor getProfesor() {

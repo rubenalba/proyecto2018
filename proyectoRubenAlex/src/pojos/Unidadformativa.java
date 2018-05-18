@@ -1,5 +1,5 @@
 package pojos;
-// Generated 09-may-2018 19:00:27 by Hibernate Tools 4.0.1.Final
+// Generated 18-may-2018 15:35:07 by Hibernate Tools 4.0.1.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -9,9 +9,10 @@ import java.util.Set;
  */
 public class Unidadformativa implements java.io.Serializable {
 
-	private String idUnidadFormativa;
+	private int idUnidadFormativa;
 	private Asignatura asignatura;
 	private Profesor profesor;
+	private String nombreUf;
 	private int horas;
 	private Set<Matricula> matriculas = new HashSet<Matricula>(0);
 	private Set<Asistencia> asistencias = new HashSet<Asistencia>(0);
@@ -19,32 +20,31 @@ public class Unidadformativa implements java.io.Serializable {
 	public Unidadformativa() {
 	}
 
-	public Unidadformativa(String idUnidadFormativa, Asignatura asignatura, Profesor profesor, int horas) {
+	public Unidadformativa(int idUnidadFormativa, Asignatura asignatura, Profesor profesor, String nombreUf,
+			int horas) {
 		this.idUnidadFormativa = idUnidadFormativa;
 		this.asignatura = asignatura;
 		this.profesor = profesor;
+		this.nombreUf = nombreUf;
 		this.horas = horas;
 	}
 
-	public Unidadformativa(String idUnidadFormativa, Asignatura asignatura, Profesor profesor, int horas,
+	public Unidadformativa(int idUnidadFormativa, Asignatura asignatura, Profesor profesor, String nombreUf, int horas,
 			Set<Matricula> matriculas, Set<Asistencia> asistencias) {
 		this.idUnidadFormativa = idUnidadFormativa;
 		this.asignatura = asignatura;
 		this.profesor = profesor;
+		this.nombreUf = nombreUf;
 		this.horas = horas;
 		this.matriculas = matriculas;
 		this.asistencias = asistencias;
 	}
 
-	public Unidadformativa(String idUnidadFormativa2) {
-			this.idUnidadFormativa=idUnidadFormativa2;
-	}
-
-	public String getIdUnidadFormativa() {
+	public int getIdUnidadFormativa() {
 		return this.idUnidadFormativa;
 	}
 
-	public void setIdUnidadFormativa(String idUnidadFormativa) {
+	public void setIdUnidadFormativa(int idUnidadFormativa) {
 		this.idUnidadFormativa = idUnidadFormativa;
 	}
 
@@ -62,6 +62,14 @@ public class Unidadformativa implements java.io.Serializable {
 
 	public void setProfesor(Profesor profesor) {
 		this.profesor = profesor;
+	}
+
+	public String getNombreUf() {
+		return this.nombreUf;
+	}
+
+	public void setNombreUf(String nombreUf) {
+		this.nombreUf = nombreUf;
 	}
 
 	public int getHoras() {

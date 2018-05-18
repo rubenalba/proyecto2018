@@ -34,18 +34,18 @@ public class MainDePruebas {
 	static FranjaInterface f = DAO.getFranjaInterface();
 
 	public static void main(String[] args) throws ParseException {
-		//crearDatosdepruebaAulaYAlumno(); // OK
+		crearDatosdepruebaAulaYAlumno(); // OK
 		//eliminarDatosDePruebaAulaYAlumno(); OK
 		//modificiarAlumnoYAula(); OK
 		//verTodosAlumnos(); OK
 		//verTodasAulas(); OK
 		//verAlumnoByName(); OK
 		//verAlumnoDNI(); OK
-		//addProfe(); OK
+		//addProfe(); 
 		//eliminarProfe(); OK
 		//verAllProfes(); OK
 		//verProfeById(); OK
-		addAsigna();
+		//addAsigna();
 		//eliminarAsig(); OK
 		//verAsigna(); OK
 		//verAllAsignaturas(); OK
@@ -104,12 +104,14 @@ public class MainDePruebas {
 	}
 
 
-	private static void addFranja() throws ParseException {
+	/*private static void addFranja() throws ParseException {
 		String idFranja ="F6";
 		Profesor p = new Profesor();
 		p = pro.verProfesorByDni("47665702H");
 		String inicio = "20:20";
 		String hfinal = "21:15";
+		Asignatura a = new Asignatura();
+		as.verAsignaturaById();
 		DateFormat dateF = new SimpleDateFormat("HH:mm");
 		Date horaInicio = dateF.parse(inicio);
 		Date horaFin = dateF.parse(hfinal);
@@ -120,7 +122,7 @@ public class MainDePruebas {
 			System.out.println("si");
 		} catch (Exception e) {
 			System.out.println("no");
-		}
+		}*/
 
 
 	}
@@ -307,7 +309,7 @@ public class MainDePruebas {
 
 
 	private static void addProfe() {
-		Profesor prof = new Profesor("47665702H", "Eloy Albiach", "eloyAl","a1");
+		Profesor prof = new Profesor("47665707H", "ops", "cris","cristina");
 		try {
 			pro.addProfesor(prof);
 			System.out.println("añadido");
@@ -360,7 +362,7 @@ public class MainDePruebas {
 	}
 
 	public static void crearDatosdepruebaAulaYAlumno() {
-		//EL AULA SE CREA CORRECTAMENTE Y EL ALUMNO EN LA BD, PERO SALE MENSAJE DE EN EL TERMINAL
+		
 		Aula aula = new Aula (2);
 		try {
 			aulas.addAula(aula);

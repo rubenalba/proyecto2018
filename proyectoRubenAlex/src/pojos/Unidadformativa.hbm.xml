@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 09-may-2018 19:00:27 by Hibernate Tools 4.0.1.Final -->
+<!-- Generated 18-may-2018 15:35:08 by Hibernate Tools 4.0.1.Final -->
 <hibernate-mapping>
     <class name="pojos.Unidadformativa" table="unidadformativa" catalog="proyecto">
-        <id name="idUnidadFormativa" type="string">
-            <column name="ID_UnidadFormativa" length="50" />
+        <id name="idUnidadFormativa" type="int">
+            <column name="ID_UnidadFormativa" />
             <generator class="assigned" />
         </id>
         <many-to-one name="asignatura" class="pojos.Asignatura" fetch="select">
@@ -14,18 +14,21 @@
         <many-to-one name="profesor" class="pojos.Profesor" fetch="select">
             <column name="DNI_Profesor" length="9" not-null="true" />
         </many-to-one>
+        <property name="nombreUf" type="string">
+            <column name="NombreUF" length="50" not-null="true" />
+        </property>
         <property name="horas" type="int">
             <column name="horas" not-null="true" />
         </property>
         <set name="matriculas" table="matricula" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="ID_UnidadFormativa" length="50" not-null="true" />
+                <column name="ID_UnidadFormativa" not-null="true" />
             </key>
             <one-to-many class="pojos.Matricula" />
         </set>
         <set name="asistencias" table="asistencia" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="ID_UnidadFormativa" length="50" not-null="true" />
+                <column name="ID_UnidadFormativa" not-null="true" />
             </key>
             <one-to-many class="pojos.Asistencia" />
         </set>

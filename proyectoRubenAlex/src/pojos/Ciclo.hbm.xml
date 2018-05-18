@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 18-may-2018 15:35:08 by Hibernate Tools 4.0.1.Final -->
+<hibernate-mapping>
+    <class name="pojos.Ciclo" table="ciclo" catalog="proyecto">
+        <id name="idCiclo" type="int">
+            <column name="ID_Ciclo" />
+            <generator class="assigned" />
+        </id>
+        <property name="nombreCiclo" type="string">
+            <column name="Nombre_Ciclo" length="15" not-null="true" />
+        </property>
+        <set name="asignaturas" table="asignatura" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_Ciclo" />
+            </key>
+            <one-to-many class="pojos.Asignatura" />
+        </set>
+    </class>
+</hibernate-mapping>

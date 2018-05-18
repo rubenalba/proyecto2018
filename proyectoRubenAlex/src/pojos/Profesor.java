@@ -1,5 +1,5 @@
 package pojos;
-// Generated 09-may-2018 19:00:27 by Hibernate Tools 4.0.1.Final
+// Generated 18-may-2018 15:35:07 by Hibernate Tools 4.0.1.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -13,6 +13,7 @@ public class Profesor implements java.io.Serializable {
 	private String nombre;
 	private String usuari;
 	private String password;
+	private String passwordTemp;
 	private Set<Unidadformativa> unidadformativas = new HashSet<Unidadformativa>(0);
 	private Set<Franjas> franjases = new HashSet<Franjas>(0);
 
@@ -26,18 +27,15 @@ public class Profesor implements java.io.Serializable {
 		this.password = password;
 	}
 
-	public Profesor(String dniProfesor, String nombre, String usuari, String password,
+	public Profesor(String dniProfesor, String nombre, String usuari, String password, String passwordTemp,
 			Set<Unidadformativa> unidadformativas, Set<Franjas> franjases) {
 		this.dniProfesor = dniProfesor;
 		this.nombre = nombre;
 		this.usuari = usuari;
 		this.password = password;
+		this.passwordTemp = passwordTemp;
 		this.unidadformativas = unidadformativas;
 		this.franjases = franjases;
-	}
-
-	public Profesor(String dniProfesor2) {
-		this.dniProfesor=dniProfesor2;
 	}
 
 	public String getDniProfesor() {
@@ -56,8 +54,6 @@ public class Profesor implements java.io.Serializable {
 		this.nombre = nombre;
 	}
 
-
-
 	public String getUsuari() {
 		return this.usuari;
 	}
@@ -72,6 +68,14 @@ public class Profesor implements java.io.Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getPasswordTemp() {
+		return this.passwordTemp;
+	}
+
+	public void setPasswordTemp(String passwordTemp) {
+		this.passwordTemp = passwordTemp;
 	}
 
 	public Set<Unidadformativa> getUnidadformativas() {
