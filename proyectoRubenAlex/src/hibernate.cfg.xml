@@ -3,7 +3,7 @@
 "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-    <session-factory>
+    <session-factory name="ConexionProyecto">
         <property name="hibernate.bytecode.use_reflection_optimizer">false</property>
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="hibernate.connection.url">jdbc:mysql://localhost/proyecto</property>
@@ -16,6 +16,7 @@
         <mapping resource="pojos/Asistencia.hbm.xml" />
         <mapping resource="pojos/Matricula.hbm.xml" />
         <mapping resource="pojos/Aula.hbm.xml" />
+        <mapping resource="pojos/Ciclo.hbm.xml" />
         <mapping resource="pojos/Franjas.hbm.xml" />
         <mapping resource="pojos/Alumnos.hbm.xml" />
         <mapping resource="pojos/Profesor.hbm.xml" />
