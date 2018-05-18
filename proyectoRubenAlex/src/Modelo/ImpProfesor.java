@@ -90,13 +90,6 @@ public class ImpProfesor implements ProfesorInterface{
 
 	@Override
 	public Profesor verProfesorByUser(String userProfesor) {
-		/*Session session = factory.openSession();
-		Transaction tx = null;
-		Clients cliente  = null;
-		String hql = "FROM Clients C WHERE C.nom LIKE " + "'"+ "%"+clienteID + "%" + "' OR C.cognoms LIKE " +"'"+ "%" + clienteID + "%"+ "'" ;
-		Query query = session.createQuery(hql);
-		List results = query.list();
-		return results;*/
 		Session session = factory.openSession();
 		Transaction tx = null;
 		Profesor profesor = null;
@@ -179,6 +172,8 @@ public class ImpProfesor implements ProfesorInterface{
 		}
 		return nombreUfs;
 	}
+	
+	
 
 	public SecretKey passWordKeyGeneration(String pwd) {
 		SecretKey skey = null;
@@ -213,5 +208,7 @@ public class ImpProfesor implements ProfesorInterface{
 		return dats;
 
 	}
+	
+	/////SELECT a.Nombre from alumnos a, matricula m, unidadformativa f WHERE a.DNI Like m.DNI_Alumno and m.ID_UnidadFormativa like f.ID_UnidadFormativa and f.DNI_Profesor like '32435465V'
 
 }

@@ -37,11 +37,11 @@ public class MainDePruebas {
 		//crearDatosdepruebaAulaYAlumno(); // OK
 		//eliminarDatosDePruebaAulaYAlumno(); OK
 		//modificiarAlumnoYAula(); OK
-		//verTodosAlumnos(); OK
+		//verTodosAlumnos(); //OK
 		//verTodasAulas(); OK
 		//verAlumnoByName(); OK
 		//verAlumnoDNI(); OK
-		addProfe(); 
+		//addProfe(); 
 		//eliminarProfe(); OK
 		//verAllProfes(); OK
 		//verProfeById(); OK
@@ -53,21 +53,27 @@ public class MainDePruebas {
 		//verUF(); OK
 		//eliminarUF(); OK
 		//verAllUF(); OK
-		//matricular(); //OK
+		matricular(); //OK
 		//verMatriculas(); OK
 		//eliminarMatricula(); //OK
 		//addNota(); SIN HACER!!!!
 		//addFranja(); OK
 		//verFranjaById(); OK
 		//eliminarFranja(); OK
-		//verAllFranjas(); OK
+		//verAllFranjas(); //OK
 		//verProfesorByUser(); OK
-		//consultas();
+		consultas();
 	}
 
 
 	private static void consultas() {
-		
+		Profesor p = pro.verProfesorByDni("32435465V");
+		List<String> asi = pro.asignaturasImpartidas("32435465V");
+		System.out.println("Las asignaturas que imparte "+ p.getNombre()+ " son: ");
+		for (String string : asi) {
+			System.out.println(string);
+		}
+	
 		
 	}
 
@@ -183,11 +189,11 @@ public class MainDePruebas {
 
 
 	private static void matricular() {
-		MatriculaId m = new MatriculaId("47665701H", 1);
+		MatriculaId m = new MatriculaId("47665701H", 11);
 		Alumnos a = new Alumnos();
 		a = alumno.verAlumnobyDNI("47665701H");
 		Unidadformativa u = new Unidadformativa();
-		u = uf.verUnidadformativaByID("M1");
+		u = uf.verUnidadformativaByID(3);
 
 		Matricula matricula = new Matricula(m,a,u);
 		try {
@@ -221,9 +227,9 @@ public class MainDePruebas {
 
 
 	private static void verUF() {
-		String nom = "M1";
+		
 		Unidadformativa u = new Unidadformativa();
-		u = uf.verUnidadformativaByID(nom);
+		u = uf.verUnidadformativaByID(5);
 		System.out.println("Nombre UF: " + u.getIdUnidadFormativa() + ", Duración:" + u.getHoras() + ", Asignatura:" +u.getAsignatura().getNombreAsignatura()+ ", Profesor: " + u.getProfesor().getNombre() );
 
 	}
