@@ -164,7 +164,7 @@ public class ImpProfesor implements ProfesorInterface{
 			listaUnidades = query.list();
 			for (Unidadformativa unidad : listaUnidades) {
 				if (unidad.getAsignatura().getNombreAsignatura().equals(asignatura)){
-					nombreUfs.add(unidad.getIdUnidadFormativa());
+					nombreUfs.add(unidad.getIdUnidadFormativa()); /
 				}
 			}
 			tx.commit();
