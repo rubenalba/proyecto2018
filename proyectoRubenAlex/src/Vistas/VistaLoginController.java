@@ -83,7 +83,7 @@ public class VistaLoginController {
 		}else {
 
 			Alert alert = new Alert (AlertType.ERROR);
-			alert.setTitle("Credenciales incorrectos");
+			alert.setTitle("Credenciales  incorrectos");
 			alert.setHeaderText("El password o el usuario son incorrectos");
 			alert.showAndWait();
 
