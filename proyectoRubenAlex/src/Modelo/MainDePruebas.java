@@ -315,7 +315,7 @@ public class MainDePruebas {
 
 
 	private static void addProfe() {
-		Profesor prof = new Profesor("000000v", "Prueba", "pruebas","1111");
+		Profesor prof = new Profesor("0013547H", "Prueba", "hola","1111");
 		try {
 			pro.addProfesor(prof);
 			System.out.println("añadido");
