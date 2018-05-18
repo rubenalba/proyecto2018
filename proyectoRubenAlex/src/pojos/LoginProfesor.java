@@ -20,7 +20,7 @@ public class LoginProfesor {
 	
 	public boolean login (String id, String pwd) throws SQLException{
 		Profesor profeLogin = p.verProfesorByUser(id);
-		SecretKey skey = passWordKeyGeneration(pwd);
+		SecretKey skey = passWordKeyGeneration(profeLogin.getDniProfesor());
 		pwd = encryptedData(skey, pwd);
 		if (profeLogin == null) return false;
 		System.out.println(profeLogin.getPassword());

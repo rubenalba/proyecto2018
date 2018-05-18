@@ -30,7 +30,7 @@ public class ImpProfesor implements ProfesorInterface{
 		Session session = factory.openSession();
 		Transaction tx = null;
 		SecretKey skey = passWordKeyGeneration(profesor.getDniProfesor());
-		String newPwd = encryptedData(skey, profesor.getDniProfesor());
+		String newPwd = encryptedData(skey, profesor.getPassword());
 		profesor.setPassword(newPwd);
 		try {
 			tx = session.beginTransaction();
