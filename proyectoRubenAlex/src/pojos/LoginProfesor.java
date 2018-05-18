@@ -16,11 +16,11 @@ import dao.DAO;
 
 public class LoginProfesor {
 	ProfesorInterface p = DAO.getProfesorInterface();
-	
-	
+
+
 	public boolean login (String id, String pwd) throws SQLException{
 		Profesor profeLogin = p.verProfesorByUser(id);
-		SecretKey skey = passWordKeyGeneration(pwd);
+		SecretKey skey = passWordKeyGeneration(profeLogin.getDniProfesor());
 		pwd = encryptedData(skey, pwd);
 		if (profeLogin == null) return false;
 		System.out.println(profeLogin.getPassword());
@@ -28,14 +28,14 @@ public class LoginProfesor {
 		return profeLogin.getPassword().equals(pwd);
 
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
 	public SecretKey passWordKeyGeneration(String pwd) {
 		SecretKey skey = null;
 		int keysize = 128;
@@ -68,5 +68,5 @@ public class LoginProfesor {
 		return dats;
 
 	}
-	
+
 }
