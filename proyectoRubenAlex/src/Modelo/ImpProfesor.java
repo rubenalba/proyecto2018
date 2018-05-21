@@ -10,6 +10,7 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
 import org.hibernate.Criteria;
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -17,13 +18,19 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.query.Query;
 import Decoder.BASE64Encoder;
+import dao.DAO;
 import dao.SessionFactoryUtil;
+import pojos.Alumnos;
+import pojos.Asignatura;
+import pojos.Asistencia;
 import pojos.Profesor;
 import pojos.Unidadformativa;
 
 public class ImpProfesor implements ProfesorInterface{
 	private static SessionFactory factory = SessionFactoryUtil.getSessionFactory();
-
+	static AlumnosInterface a = DAO.getAlumnosInterface();
+	static AsignaturaInterface as = DAO.getAsignaturaInterface();
+	static UnidadFormativaInterface uf = DAO.getUnidadFormativaInterface();
 	//Funciona NO TOCAR!!!
 	@Override
 	public void addProfesor(Profesor profesor) {
@@ -98,6 +105,86 @@ public class ImpProfesor implements ProfesorInterface{
 		profesor = (Profesor) query.uniqueResult();
 		return profesor;
 	}
+	public List<Asignatura> misAsignaturas(Profesor profesor){
+		Session session = factory.openSession();
+		Transaction tx = null;
+		List<Integer> asignaturasMias = null;
+		List<Asignatura> asignaturasEnviadas = new ArrayList<>();
+		try {
+			tx = session.beginTransaction();
+			String sql = "select DISTINCT  u.ID_Asignatura "
+					+ "from asignatura a, unidadformativa u "
+					+ "where a.ID_Asignatura = u.ID_Asignatura "
+					+ "and u.DNI_Profesor = " + "'" +profesor.getDniProfesor()+ "'";
+			asignaturasMias = session.createNativeQuery(sql).list();
+			for (Integer asignatura : asignaturasMias) {
+				Asignatura a = as.verAsignaturaById(asignatura);
+				asignaturasEnviadas.add(a);
+				//Hibernate.initialize(a.getCiclo());
+			}
+			
+		}catch  (HibernateException e) {
+			if (tx!=null) tx.rollback();
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		return asignaturasEnviadas;
+	}
+	
+	public List<Unidadformativa>misUFs (Profesor profesor, Asignatura idAsignatura){
+		Session session = factory.openSession();
+		Transaction tx = null;
+		List<Unidadformativa>ufsMias = new ArrayList<Unidadformativa>();
+		List<Integer>idUF = new ArrayList<>();
+		try {
+			tx = session.beginTransaction();
+			String sql ="select u.ID_UnidadFormativa "
+					+ "from unidadformativa u "
+					+ "where u.DNI_Profesor = " + "'"+ profesor.getDniProfesor() + "'" 
+					+ " and u.ID_Asignatura = " +  "'"+ idAsignatura.getIdAsignatura()+ "'";
+			idUF = session.createSQLQuery(sql).list();
+			for (Integer integer : idUF) {
+				 Unidadformativa u = uf.verUnidadformativaByID(integer);
+				 ufsMias.add(u);
+			}
+		}catch  (HibernateException e) {
+			if (tx!=null) tx.rollback();
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		return ufsMias;
+		
+	}
+	//Obtener el dni para luego buscarlo por dni
+	public List<Alumnos> misAlumnosByAsignatura(Profesor profesor, Unidadformativa uf){
+		Session session = factory.openSession();
+		Transaction tx = null;
+		List <String> alumnos = null;
+		List<Alumnos> lista = new ArrayList<Alumnos>(); 
+		try {
+			tx = session.beginTransaction();
+			String sql = "Select a.DNI "
+					+ " from Alumnos a, Matricula m, Unidadformativa f "
+					+ " WHERE a.DNI Like m.DNI_Alumno and m.ID_UnidadFormativa "
+					+ " like f.ID_UnidadFormativa "
+					+ " and f.DNI_Profesor like " + "'" +  profesor.getDniProfesor() + "'"
+					+ " and f.ID_UnidadFormativa = " + uf.getIdUnidadFormativa();
+			alumnos = session.createSQLQuery(sql).list();
+			for (String string : alumnos) {
+				Alumnos alu = a.verAlumnobyDNI(string);
+				//Hibernate.initialize(alu.getMatriculas());
+				lista.add(alu);
+			}
+		}catch  (HibernateException e) {
+			if (tx!=null) tx.rollback();
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		return lista;
+	}
 	//FUNCIONA NO BORRAR!
 	@Override
 	public List<Profesor> verProfesores() {
@@ -116,7 +203,7 @@ public class ImpProfesor implements ProfesorInterface{
 		}
 		return listaProfesor;
 	}
-	//NO TOCAR
+	//SIN USO
 	@Override
 	public List<String> asignaturasImpartidas(String dniProfesor){
 		Session session = factory.openSession();
@@ -142,7 +229,7 @@ public class ImpProfesor implements ProfesorInterface{
 		}
 		return idAsignaturas;
 	}
-
+	//Sin uso 
 	@Override
 	public List<String> UFSimpartidas(String asignatura, String dni){
 		String[] parts = asignatura.split(" /");
@@ -160,7 +247,6 @@ public class ImpProfesor implements ProfesorInterface{
 			for (Unidadformativa unidad : listaUnidades) {
 				if (unidad.getAsignatura().getCiclo().getNombreCiclo().equals(modul) && unidad.getAsignatura().getNombreAsignatura().equals(asig)){
 					nombreUfs.add(unidad.getNombreUf());
-
 				}
 			}
 			tx.commit();
@@ -172,8 +258,8 @@ public class ImpProfesor implements ProfesorInterface{
 		}
 		return nombreUfs;
 	}
-	
-	
+
+
 
 	public SecretKey passWordKeyGeneration(String pwd) {
 		SecretKey skey = null;
@@ -208,7 +294,8 @@ public class ImpProfesor implements ProfesorInterface{
 		return dats;
 
 	}
-	
+
+
 	/////SELECT a.Nombre from alumnos a, matricula m, unidadformativa f WHERE a.DNI Like m.DNI_Alumno and m.ID_UnidadFormativa like f.ID_UnidadFormativa and f.DNI_Profesor like '32435465V'
 
 }

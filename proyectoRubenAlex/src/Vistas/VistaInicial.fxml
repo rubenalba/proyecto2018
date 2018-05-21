@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.*?>
-<?import javafx.scene.control.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vistas.VistaIniciController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vistas.VistaIniciController">
    <children>
       <AnchorPane prefHeight="500.0" prefWidth="800.0">
          <children>
@@ -13,13 +16,19 @@
                <left>
                   <AnchorPane prefHeight="500.0" prefWidth="355.0" BorderPane.alignment="CENTER">
                      <children>
-                        <ListView fx:id="ListaCursos" layoutX="21.0" layoutY="75.0" prefHeight="294.0" prefWidth="139.0" AnchorPane.bottomAnchor="131.0" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="190.0" AnchorPane.topAnchor="75.0" />
-                        <Label layoutX="22.0" layoutY="46.0" text="Mis Cursos" AnchorPane.leftAnchor="20.0" />
                         <Button fx:id="BtnAjustes" layoutX="17.0" layoutY="387.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="50.0" style="-fx-background-image: www;" text="Ajustes" />
                         <Button fx:id="BtnInfo" layoutX="15.0" layoutY="418.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="54.0" text="Informacion" />
                         <Button fx:id="BtnCerrarSession" layoutX="15.0" layoutY="450.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="53.0" text="Cerrar Session" />
-                        <ListView fx:id="ListaUfs" layoutX="252.0" layoutY="75.0" prefHeight="295.0" prefWidth="103.0" AnchorPane.bottomAnchor="131.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" />
-                        <Label layoutX="189.0" layoutY="46.0" text="UFs" />
+                        <TableView fx:id="tablaCursos" layoutX="10.0" layoutY="79.0" prefHeight="247.0" prefWidth="230.0">
+                          <columns>
+                            <TableColumn fx:id="ColCursos" prefWidth="228.0" text="Mis Cursos" />
+                          </columns>
+                        </TableView>
+                        <TableView fx:id="TablaUFs" layoutX="242.0" layoutY="79.0" prefHeight="247.0" prefWidth="265.0">
+                          <columns>
+                            <TableColumn fx:id="ColUF" prefWidth="264.0" text="UFs" />
+                          </columns>
+                        </TableView>
                      </children>
                   </AnchorPane>
                </left>

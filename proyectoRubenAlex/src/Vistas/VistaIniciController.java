@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import Modelo.AsignaturaInterface;
 import Modelo.ProfesorInterface;
+import Modelo.UnidadFormativaInterface;
 import application.Main;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
@@ -22,16 +24,22 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import pojos.Asignatura;
 import pojos.Franjas;
 import pojos.Profesor;
+import pojos.Unidadformativa;
 import dao.DAO;
 
 public class VistaIniciController {
 	static ProfesorInterface pr = DAO.getProfesorInterface();
+	static UnidadFormativaInterface u = DAO.getUnidadFormativaInterface();
+	static AsignaturaInterface as = DAO.getAsignaturaInterface();
 	@FXML
 	private Button BtnInfo;
 
@@ -61,10 +69,24 @@ public class VistaIniciController {
 
     @FXML
     private ChoiceBox<?> UFranjaCB;
+    
+    @FXML
+    private TableView<Asignatura> tablaCursos;
+
+    @FXML
+    private TableColumn<Asignatura, String> ColCursos;
+
+    @FXML
+    private TableView<Unidadformativa> TablaUFs;
+
+    @FXML
+    private TableColumn<Unidadformativa, String> ColUF;
 
     boolean franjaVisible = true;
 
     private static Profesor profesorActivo;
+    
+    private static Unidadformativa UFMarcada;
 
 	@FXML
 	public void initialize() {
@@ -84,6 +106,11 @@ public class VistaIniciController {
 	public void setProfesorActivo(String usuarioActivo){
 		profesorActivo = pr.verProfesorByUser(usuarioActivo);
 	}
+	
+	public Unidadformativa getUnidadFormativa() {
+		return UFMarcada;
+	}
+	
 	@FXML
 	public void añadirFranja(){
 		setVisibleFranja(true);
@@ -126,7 +153,7 @@ public class VistaIniciController {
 	    }
 	}
 
-	public void cargarCursos(){
+	/*public void cargarCursos(){
 		List <String> cursos = pr.asignaturasImpartidas(profesorActivo.getDniProfesor());
 		ObservableList<String> cursosimpartidos = FXCollections.observableArrayList(cursos);
 		ListaCursos.setItems(cursosimpartidos);
@@ -137,6 +164,49 @@ public class VistaIniciController {
 				verUFAsignaturaSelected(newValue);
 			}
 		});
+	}*/
+	//NO TOCAR!!!!!!!!!
+	public void cargarCursos() {
+		List<Asignatura>misAsignaturas = pr.misAsignaturas(profesorActivo);
+		ObservableList <Asignatura> cursos = FXCollections.observableArrayList(misAsignaturas);
+		tablaCursos.setItems(cursos);
+		ColCursos.setCellValueFactory(new PropertyValueFactory<Asignatura, String>("nombreAsignatura"));
+		
+		tablaCursos.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Asignatura>() {
+
+			@Override
+			public void changed(ObservableValue<? extends Asignatura> observable, Asignatura oldValue, Asignatura newValue) {
+				Asignatura asig =   new Asignatura();
+				asig = tablaCursos.getSelectionModel().getSelectedItem();
+				List <Unidadformativa> unidadformativa = pr.misUFs(profesorActivo, asig);
+				ObservableList<Unidadformativa> uf = FXCollections.observableArrayList(unidadformativa);
+				TablaUFs.setItems(uf);
+				ColUF.setCellValueFactory(new PropertyValueFactory<Unidadformativa, String>("nombreUf"));
+				
+				TablaUFs.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Unidadformativa>() {
+
+					@Override
+					public void changed(ObservableValue<? extends Unidadformativa> observable, Unidadformativa oldValue, Unidadformativa newValue) {
+						Stage Actual = (Stage) TablaUFs.getScene().getWindow();
+						UFMarcada = TablaUFs.getSelectionModel().getSelectedItem();
+						FXMLLoader loader = new FXMLLoader(Main.class.getResource("../Vistas/VistaListaAlumnos.fxml"));
+						AnchorPane ventanaDos;
+						try {
+							ventanaDos = (AnchorPane) loader.load();
+							Scene sceneDos = new Scene(ventanaDos);
+							Actual.setScene(sceneDos);
+							Actual.show();
+						} catch (IOException e) {
+							// TODO Auto-generat ed catch block
+							e.printStackTrace();
+						}
+
+					}
+				});
+			}
+		});
+		
+		
 	}
 	@FXML
 	public void configuracion(){
@@ -182,11 +252,14 @@ public class VistaIniciController {
 	    }
 	}
 
-	@FXML
+	/*@FXML
 	public void verUFAsignaturaSelected(String asignatura){
 		List <String> ufs = pr.UFSimpartidas(asignatura, profesorActivo.getDniProfesor());
+		//List <Unidadformativa> ufs = pr.misUFs(profesorActivo, idAsignatura)
 		ObservableList<String>ufsimpartidas = FXCollections.observableArrayList(ufs);
 		ListaUfs.setItems(ufsimpartidas);
+		
+		ListaUfs.getSelectionModel().getSelectedItem(); 
 		ListaUfs.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			public void changed(
 				ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -206,8 +279,9 @@ public class VistaIniciController {
 
 			}
 		});
-	}
-
-
+	}*/
 }
+
+
+
 

@@ -7,6 +7,7 @@ import pojos.Asignatura;
 import pojos.Asistencia;
 import pojos.Aula;
 import pojos.Profesor;
+import pojos.Unidadformativa;
 
 /**
  * @author rubenalba
@@ -21,4 +22,7 @@ public interface ProfesorInterface {
 	public Profesor verProfesorByUser(String userProfesor);
 	public List<String> asignaturasImpartidas(String usuarioActivo);
 	public List<String> UFSimpartidas(String asignatura, String dni);
+	public List<Asignatura> misAsignaturas(Profesor profesor);
+	public List<Unidadformativa>misUFs (Profesor profesor, Asignatura idAsignatura);
+	public List<Alumnos> misAlumnosByAsignatura(Profesor profesor, Unidadformativa uf);
 }

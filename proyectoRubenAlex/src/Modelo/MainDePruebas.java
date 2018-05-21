@@ -3,6 +3,7 @@ package Modelo;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -53,7 +54,7 @@ public class MainDePruebas {
 		//verUF(); OK
 		//eliminarUF(); OK
 		//verAllUF(); OK
-		matricular(); //OK
+		//matricular(); //OK
 		//verMatriculas(); OK
 		//eliminarMatricula(); //OK
 		//addNota(); SIN HACER!!!!
@@ -62,13 +63,33 @@ public class MainDePruebas {
 		//eliminarFranja(); OK
 		//verAllFranjas(); //OK
 		//verProfesorByUser(); OK
-		consultas();
+		//consultas();
+		misAlumnos();
+	}
+
+
+	private static void misAlumnos() {
+	Profesor p = pro.verProfesorByDni("SUSTITUTO");
+	List<Asignatura> asignaturas = pro.misAsignaturas(p);
+	List<Unidadformativa> u = new ArrayList<>();
+	System.out.println("Asignaturas de " + p.getNombre() + ":");
+	for (Asignatura integer : asignaturas) {
+		System.out.println(integer.getNombreAsignatura());
+		u = pro.misUFs(p, integer);
+		for (Unidadformativa unidadformativa : u) {
+			System.out.println("\t" + unidadformativa.getNombreUf());
+			
+		}
+		System.out.println("\n");
+	}
+		
+		
 	}
 
 
 	private static void consultas() {
-		Profesor p = pro.verProfesorByDni("32435465V");
-		List<String> asi = pro.asignaturasImpartidas("32435465V");
+		Profesor p = pro.verProfesorByDni("0CRISTINA");
+		List<String> asi = pro.asignaturasImpartidas("0CRISTINA");
 		System.out.println("Las asignaturas que imparte "+ p.getNombre()+ " son: ");
 		for (String string : asi) {
 			System.out.println(string);
