@@ -201,7 +201,7 @@ public class VistaIniciController {
 							Stage stage = new Stage();
 							stage.setScene(scene);
 							stage.show();
-							//openned = true;}
+							//   openned = true;}
 							
 
 						} catch (IOException e) {
