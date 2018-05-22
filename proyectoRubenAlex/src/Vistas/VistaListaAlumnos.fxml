@@ -5,16 +5,20 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="684.0" prefWidth="1225.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vistas.VistaListaAlumnosController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TableView fx:id="tablaAlumnos" layoutY="56.0" prefHeight="569.0" prefWidth="1225.0">
+      <TableView layoutY="56.0" prefHeight="345.0" prefWidth="600.0">
         <columns>
-          <TableColumn fx:id="AlumnosCol1" prefWidth="193.0" text="Alumnos" />
-            <TableColumn prefWidth="76.0" text="C2" />
-            <TableColumn prefWidth="76.0" text="total" />
+          <TableColumn prefWidth="88.0" text="Alumnos" />
+          <TableColumn prefWidth="73.0" text="C2" />
+            <TableColumn prefWidth="64.0" text="C2" />
+            <TableColumn prefWidth="75.0" text="C2" />
+            <TableColumn prefWidth="75.0" text="C2" />
+            <TableColumn prefWidth="75.0" text="C2" />
+            <TableColumn prefWidth="75.0" text="C2" />
+            <TableColumn prefWidth="75.0" text="Total " />
         </columns>
       </TableView>
-      <Button fx:id="notasBTN" layoutX="525.0" layoutY="16.0" mnemonicParsing="false" text="Notas" />
-      <Button fx:id="AtrasBTN" layoutX="14.0" layoutY="16.0" mnemonicParsing="false" onAction="#closeWindow" text="Atrás" />
+      <Button layoutX="525.0" layoutY="16.0" mnemonicParsing="false" text="Notas" />
    </children>
 </AnchorPane>

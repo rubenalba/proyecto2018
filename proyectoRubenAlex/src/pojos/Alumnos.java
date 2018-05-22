@@ -1,5 +1,5 @@
 package pojos;
-// Generated 18-may-2018 15:35:07 by Hibernate Tools 4.0.1.Final
+// Generated 22-may-2018 18:23:59 by Hibernate Tools 4.0.1.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -94,10 +94,11 @@ public class Alumnos implements java.io.Serializable {
 	public void setMatriculas(Set<Matricula> matriculas) {
 		this.matriculas = matriculas;
 	}
+	
 	public String getNombreCompleto() {
 		String nom = apellidos + ", " + nombre;
 		return nom;
-		
-	}
 
+
+	}
 }

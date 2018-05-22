@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-may-2018 18:24:00 by Hibernate Tools 4.0.1.Final -->
+<hibernate-mapping>
+    <class name="pojos.Horas" table="horas" catalog="proyecto">
+        <id name="idHoras" type="int">
+            <column name="id_horas" />
+            <generator class="assigned" />
+        </id>
+        <property name="horaInicio" type="time">
+            <column name="Hora_Inicio" length="8" />
+        </property>
+        <property name="horaFin" type="time">
+            <column name="Hora_Fin" length="8" />
+        </property>
+        <set name="franjases" table="franjas" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_horas" not-null="true" />
+            </key>
+            <one-to-many class="pojos.Franjas" />
+        </set>
+    </class>
+</hibernate-mapping>

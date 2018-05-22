@@ -108,7 +108,7 @@ public class MainDePruebas {
 
 
 
-	private static void verAllFranjas() {
+	/*private static void verAllFranjas() {
 		List listaFtanja = f.verAlFranjas();
 		System.out.println("Lista de Franjas:\n");
 		for (Iterator itF = listaFtanja.iterator(); itF.hasNext();) {
@@ -118,7 +118,7 @@ public class MainDePruebas {
 		}
 
 
-	}
+	}*/
 
 
 	private static void eliminarFranja() {
@@ -132,12 +132,12 @@ public class MainDePruebas {
 		String id = "F1";
 		Franjas fra = new Franjas();
 		fra = f.verFranjaByID(id);
-		System.out.println("Franja: " + fra.getIdFranja() + ", Hora inicio: " + fra.getHoraInicio() + ", Hora fin: " + fra.getHoraFin());
+		//System.out.println("Franja: " + fra.getIdFranja() + ", Hora inicio: " + fra.getHoraInicio() + ", Hora fin: " + fra.getHoraFin());
 
 	}
 
 
-	private static void addFranja() throws ParseException {
+	/*private static void addFranja() throws ParseException {
 		String idFranja ="F6";
 		Profesor p = new Profesor();
 		p = pro.verProfesorByDni("47665702H");
@@ -158,7 +158,7 @@ public class MainDePruebas {
 		}
 
 
-	}
+	}*/
 
 
 	private static void addNota() {

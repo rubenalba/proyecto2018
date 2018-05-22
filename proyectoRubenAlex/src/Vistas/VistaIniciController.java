@@ -33,6 +33,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import pojos.Alumnos;
 import pojos.Asignatura;
 import pojos.Franjas;
 import pojos.Profesor;
@@ -85,6 +86,29 @@ public class VistaIniciController {
 	@FXML
 	private TableColumn<Unidadformativa, String> ColUF;
 
+
+	@FXML
+	private TableView<Alumnos> tablaPruebas;
+
+	@FXML
+	private TableColumn<Alumnos, String> ColNom;
+
+	@FXML
+	private TableView<Alumnos> tablaAlumnos;
+
+	@FXML
+	private TableColumn<Alumnos, String> ColAlumnos;
+	@FXML
+	private AnchorPane VentanaPrincipal;
+	@FXML
+	private AnchorPane VentanaAlumnos;
+
+	@FXML
+	private Button volverBTN;
+
+	@FXML
+	private TableColumn<?, ?> ColAsistencia;//Aun por decidir
+
 	boolean franjaVisible = true;
 
 	private static Profesor profesorActivo;
@@ -97,6 +121,8 @@ public class VistaIniciController {
 		//setVisibleFranja(false);
 		//AnchorPane vistaInicial;
 		//if (loader.is)
+		VentanaAlumnos.setVisible(false);
+		VentanaPrincipal.setVisible(true);
 		cargarCursos();
 	}
 	private ObservableList<String> cursosList;
@@ -155,6 +181,11 @@ public class VistaIniciController {
 			e.printStackTrace();
 		}
 	}
+	@FXML
+	public void back() {
+		VentanaAlumnos.setVisible(false);
+		VentanaPrincipal.setVisible(true);
+	}
 
 	/*public void cargarCursos(){
 		List <String> cursos = pr.asignaturasImpartidas(profesorActivo.getDniProfesor());
@@ -170,7 +201,7 @@ public class VistaIniciController {
 	}*/
 	//NO TOCAR!!!!!!!!!
 	public void cargarCursos() {
-		
+
 		List<Asignatura>misAsignaturas = pr.misAsignaturas(profesorActivo);
 		ObservableList <Asignatura> cursos = FXCollections.observableArrayList(misAsignaturas);
 		tablaCursos.setItems(cursos);
@@ -191,23 +222,26 @@ public class VistaIniciController {
 					//boolean openned = false;
 					@Override
 					public void changed(ObservableValue<? extends Unidadformativa> observable, Unidadformativa oldValue, Unidadformativa newValue) {
-						 
+
 						UFMarcada = TablaUFs.getSelectionModel().getSelectedItem();
-
-						try{
-							//if (!openned){
-							Parent root = FXMLLoader.load(getClass().getResource("../Vistas/VistaListaAlumnos.fxml"));
-							Scene scene = new Scene(root);
-							Stage stage = new Stage();
-							stage.setScene(scene);
-							stage.show();
-							//   openned = true;}
-							
-
-						} catch (IOException e) {
-							// TODO Auto-generat ed catch block
-							e.printStackTrace();
-						}
+						VentanaPrincipal.setVisible(false);
+						VentanaAlumnos.setVisible(true);
+						
+						
+						ObservableList<Alumnos>alumnosLista = FXCollections.observableArrayList(pr.misAlumnosByAsignatura(profesorActivo, UFMarcada));
+						tablaAlumnos.setItems(alumnosLista);
+						ColAlumnos.setCellValueFactory(new PropertyValueFactory<Alumnos, String>("NombreCompleto"));
+						/*alumnosLista = FXCollections.observableArrayList(p.misAlumnosByAsignatura(profesorActivo, ufMarcada));
+						tablaAlumnos.setItems(alumnosLista);
+						System.out.println("profe: " + profesorActivo.getDniProfesor() + "UF: " + ufMarcada.getIdUnidadFormativa());
+						AlumnosCol1.setCellValueFactory(new PropertyValueFactory<Alumnos,String>("NombreCompleto"));*/
+						//if (!openned){
+						/*Parent root = FXMLLoader.load(getClass().getResource("../Vistas/VistaListaAlumnos.fxml"));
+						Scene scene = new Scene(root);
+						Stage stage = new Stage();
+						stage.setScene(scene);
+						stage.show();*/
+						//   openned = true;}
 
 					}
 				});
@@ -216,8 +250,13 @@ public class VistaIniciController {
 
 
 	}
-	
- 
+
+	public void cargarFranjaHoraria() {
+		/*	public String getNombreCompleto() {
+		String nom = apellidos + ", " + nombre;
+		return nom;
+		*/
+	}
 	@FXML
 	public void configuracion(){
 		try {
