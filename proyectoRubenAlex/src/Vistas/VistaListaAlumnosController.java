@@ -43,10 +43,6 @@ public class VistaListaAlumnosController implements Initializable {
 	private TableColumn<Alumnos, Boolean> Checkers;
 
 	@FXML
-	private CheckBox checkBox1;
-	ObservableList<Alumnos> checkBoxList =FXCollections.observableArrayList();
-
-	@FXML
 	private Button notasBTN;
 
 	private ObservableList<Alumnos>alumnosLista;

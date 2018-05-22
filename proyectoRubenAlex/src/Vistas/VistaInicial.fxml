@@ -46,7 +46,8 @@
             <TableView fx:id="tablaAlumnos" layoutX="21.0" layoutY="14.0" prefHeight="405.0" prefWidth="804.0">
               <columns>
                 <TableColumn fx:id="ColAlumnos" prefWidth="207.0" text="Nombre" />
-                <TableColumn fx:id="ColAsistencia" minWidth="0.0" prefWidth="77.0" text="C2" />
+                <TableColumn fx:id="Checkers" prefWidth="76.0" text="Hoy" />
+                <TableColumn fx:id="ColAsistencia" minWidth="0.0" prefWidth="77.0" text="Total" />
               </columns>
             </TableView>
             <Button fx:id="volverBTN" layoutX="756.0" layoutY="435.0" mnemonicParsing="false" onAction="#back" text="volver" />

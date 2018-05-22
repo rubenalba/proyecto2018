@@ -93,11 +93,17 @@ public class VistaIniciController {
 	@FXML
 	private TableColumn<Alumnos, String> ColNom;
 
+	//TABLA ALUMNOS ASISTENCIA
 	@FXML
 	private TableView<Alumnos> tablaAlumnos;
-
+	@FXML
+	private TableColumn<Alumnos, Boolean> Checkers;
 	@FXML
 	private TableColumn<Alumnos, String> ColAlumnos;
+	public List<Alumnos> listaNoAsistencia = new ArrayList<Alumnos>();
+	ObservableList<Alumnos>alumnosLista;
+
+	//-----------------------------------------------
 	@FXML
 	private AnchorPane VentanaPrincipal;
 	@FXML
@@ -105,8 +111,8 @@ public class VistaIniciController {
 
 	@FXML
 	private Button volverBTN;
-	
-	
+
+
 
 	@FXML
 	private TableColumn<?, ?> ColAsistencia;//Aun por decidir
@@ -211,7 +217,7 @@ public class VistaIniciController {
 
 			@Override
 			public void changed(ObservableValue<? extends Asignatura> observable, Asignatura oldValue, Asignatura newValue) {
-				
+
 				Asignatura asig =   new Asignatura();
 				asig = tablaCursos.getSelectionModel().getSelectedItem();
 				List <Unidadformativa> unidadformativa = pr.misUFs(profesorActivo, asig);
@@ -221,27 +227,25 @@ public class VistaIniciController {
 			}
 		});
 				TablaUFs.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Unidadformativa>() {
-					
+
 					@Override
 					public void changed(ObservableValue<? extends Unidadformativa> observable, Unidadformativa oldValue, Unidadformativa newValue) {
 						if (newValue != null){
 						UFMarcada = TablaUFs.getSelectionModel().getSelectedItem();
 						VentanaPrincipal.setVisible(false);
 						VentanaAlumnos.setVisible(true);
-						
-						
-						ObservableList<Alumnos>alumnosLista = FXCollections.observableArrayList(pr.misAlumnosByAsignatura(profesorActivo, UFMarcada));
-						tablaAlumnos.setItems(alumnosLista);
-						ColAlumnos.setCellValueFactory(new PropertyValueFactory<Alumnos, String>("NombreCompleto"));}
-						
-						
-						
-						
-						
-						
-						
-						
-						
+
+						setCheckBox();
+						}
+
+
+
+
+
+
+
+
+
 						/*alumnosLista = FXCollections.observableArrayList(p.misAlumnosByAsignatura(profesorActivo, ufMarcada));
 						tablaAlumnos.setItems(alumnosLista);
 						System.out.println("profe: " + profesorActivo.getDniProfesor() + "UF: " + ufMarcada.getIdUnidadFormativa());
@@ -263,7 +267,7 @@ public class VistaIniciController {
 	}
 
 	public void cargarFranjaHoraria() {
-		
+
 	}
 	@FXML
 	public void configuracion(ActionEvent event) throws IOException{
@@ -303,7 +307,7 @@ public class VistaIniciController {
 		ObservableList<String>ufsimpartidas = FXCollections.observableArrayList(ufs);
 		ListaUfs.setItems(ufsimpartidas);
 
-		ListaUfs.getSelectionModel().getSelectedItem(); 
+		ListaUfs.getSelectionModel().getSelectedItem();
 		ListaUfs.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			public void changed(
 				ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -324,6 +328,48 @@ public class VistaIniciController {
 			}
 		});
 	}*/
+
+	private void setCheckBox(){
+		alumnosLista = FXCollections.observableArrayList(pr.misAlumnosByAsignatura(profesorActivo, UFMarcada));
+		tablaAlumnos.setItems(alumnosLista);
+		ColAlumnos.setCellValueFactory(new PropertyValueFactory<Alumnos, String>("NombreCompleto"));
+
+		Checkers.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Alumnos, Boolean>, ObservableValue<Boolean>>() {
+	        @Override
+	        public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<Alumnos, Boolean> features) {
+	            return new SimpleBooleanProperty(features.getValue() != null);
+	            }
+	        });
+
+		Checkers.setCellFactory(new ColumnCheckBox<Alumnos, Boolean>(){
+
+			@Override
+			public boolean checkValue(Alumnos element) {
+				return true;
+			}
+
+			@Override
+			public boolean checkEditable(Alumnos element) {
+				return true;
+			}
+
+			@Override
+			public void checkAction(int index, Alumnos element, boolean value) {
+				if (value){
+					//coger el alumno de esta posicion y guardarlo en una lista Alumnos falta
+					//despues recorrer esa lista y por cada alumno generar una falta de asistencfia
+					//para la unMarcada
+					if (!listaNoAsistencia.contains(alumnosLista.get(index)))
+					listaNoAsistencia.add(alumnosLista.get(index));
+
+				}
+				else {
+					if (listaNoAsistencia.contains(alumnosLista.get(index)))
+					listaNoAsistencia.remove(alumnosLista.get(index));
+				}
+			}
+		});
+	}
 }
 
 
