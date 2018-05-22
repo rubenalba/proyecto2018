@@ -94,5 +94,10 @@ public class Alumnos implements java.io.Serializable {
 	public void setMatriculas(Set<Matricula> matriculas) {
 		this.matriculas = matriculas;
 	}
+	public String getNombreCompleto() {
+		String nom = apellidos + ", " + nombre;
+		return nom;
+		
+	}
 
 }

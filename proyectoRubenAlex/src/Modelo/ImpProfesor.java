@@ -143,7 +143,7 @@ public class ImpProfesor implements ProfesorInterface{
 					+ "from unidadformativa u "
 					+ "where u.DNI_Profesor = " + "'"+ profesor.getDniProfesor() + "'" 
 					+ " and u.ID_Asignatura = " +  "'"+ idAsignatura.getIdAsignatura()+ "'";
-			idUF = session.createSQLQuery(sql).list();
+			idUF = session.createNativeQuery(sql).list();
 			for (Integer integer : idUF) {
 				 Unidadformativa u = uf.verUnidadformativaByID(integer);
 				 ufsMias.add(u);
@@ -170,8 +170,8 @@ public class ImpProfesor implements ProfesorInterface{
 					+ " WHERE a.DNI Like m.DNI_Alumno and m.ID_UnidadFormativa "
 					+ " like f.ID_UnidadFormativa "
 					+ " and f.DNI_Profesor like " + "'" +  profesor.getDniProfesor() + "'"
-					+ " and f.ID_UnidadFormativa = " + uf.getIdUnidadFormativa();
-			alumnos = session.createSQLQuery(sql).list();
+					+ " and f.ID_UnidadFormativa = " + uf.getIdUnidadFormativa() + " Order by a.Apellidos ";
+			alumnos = session.createNativeQuery(sql).list();
 			for (String string : alumnos) {
 				Alumnos alu = a.verAlumnobyDNI(string);
 				//Hibernate.initialize(alu.getMatriculas());
