@@ -345,7 +345,7 @@ public class VistaIniciController {
 
 			@Override
 			public boolean checkValue(Alumnos element) {
-				return true;
+				return false;
 			}
 
 			@Override
