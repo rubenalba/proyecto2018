@@ -16,5 +16,5 @@ public interface FranjaInterface {
  public void eliminarFranja (String idFranja);
  public void modificarFranja(Franjas franjaModificada);
  public List<Franjas> verAlFranjas();
- public Franjas verFranjaByID(String idFranja);
+ public Franjas verFranjaByID(int idFranja);
 }

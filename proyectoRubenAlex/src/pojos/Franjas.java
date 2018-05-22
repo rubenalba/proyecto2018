@@ -1,7 +1,6 @@
 package pojos;
-// Generated 18-may-2018 15:35:07 by Hibernate Tools 4.0.1.Final
+// Generated 22-may-2018 18:23:59 by Hibernate Tools 4.0.1.Final
 
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,33 +10,29 @@ import java.util.Set;
 public class Franjas implements java.io.Serializable {
 
 	private String idFranja;
+	private Horas horas;
 	private Asignatura asignatura;
 	private Profesor profesor;
-	private Date horaInicio;
-	private Date horaFin;
 	private String dia;
 	private Set<Asistencia> asistencias = new HashSet<Asistencia>(0);
 
 	public Franjas() {
 	}
 
-	public Franjas(String idFranja, Asignatura asignatura, Profesor profesor, Date horaInicio, Date horaFin,
-			String dia) {
+	public Franjas(String idFranja, Horas horas, Asignatura asignatura, Profesor profesor, String dia) {
 		this.idFranja = idFranja;
+		this.horas = horas;
 		this.asignatura = asignatura;
 		this.profesor = profesor;
-		this.horaInicio = horaInicio;
-		this.horaFin = horaFin;
 		this.dia = dia;
 	}
 
-	public Franjas(String idFranja, Asignatura asignatura, Profesor profesor, Date horaInicio, Date horaFin, String dia,
+	public Franjas(String idFranja, Horas horas, Asignatura asignatura, Profesor profesor, String dia,
 			Set<Asistencia> asistencias) {
 		this.idFranja = idFranja;
+		this.horas = horas;
 		this.asignatura = asignatura;
 		this.profesor = profesor;
-		this.horaInicio = horaInicio;
-		this.horaFin = horaFin;
 		this.dia = dia;
 		this.asistencias = asistencias;
 	}
@@ -48,6 +43,14 @@ public class Franjas implements java.io.Serializable {
 
 	public void setIdFranja(String idFranja) {
 		this.idFranja = idFranja;
+	}
+
+	public Horas getHoras() {
+		return this.horas;
+	}
+
+	public void setHoras(Horas horas) {
+		this.horas = horas;
 	}
 
 	public Asignatura getAsignatura() {
@@ -64,22 +67,6 @@ public class Franjas implements java.io.Serializable {
 
 	public void setProfesor(Profesor profesor) {
 		this.profesor = profesor;
-	}
-
-	public Date getHoraInicio() {
-		return this.horaInicio;
-	}
-
-	public void setHoraInicio(Date horaInicio) {
-		this.horaInicio = horaInicio;
-	}
-
-	public Date getHoraFin() {
-		return this.horaFin;
-	}
-
-	public void setHoraFin(Date horaFin) {
-		this.horaFin = horaFin;
 	}
 
 	public String getDia() {
