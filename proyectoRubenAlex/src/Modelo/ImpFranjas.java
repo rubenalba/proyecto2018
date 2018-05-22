@@ -87,7 +87,7 @@ public class ImpFranjas implements FranjaInterface{
 	}
 	//FUNCIONA NO BORRAR
 	@Override
-	public Franjas verFranjaByID(String idFranja) {
+	public Franjas verFranjaByID(int idFranja) {
 		Session session = factory.openSession();
 		Transaction tx = null;
 		Franjas franja = (Franjas)session.get(Franjas.class, idFranja);

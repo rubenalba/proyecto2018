@@ -64,7 +64,15 @@ public class MainDePruebas {
 		//verAllFranjas(); //OK
 		//verProfesorByUser(); OK
 		//consultas();
-		misAlumnos();
+		//misAlumnos();
+		verHoras();
+	}
+
+
+	private static void verHoras() {
+		Franjas j = f.verFranjaByID(1);
+		System.out.println(j.getHoras());
+		
 	}
 
 
@@ -131,7 +139,7 @@ public class MainDePruebas {
 	private static void verFranjaById() {
 		String id = "F1";
 		Franjas fra = new Franjas();
-		fra = f.verFranjaByID(id);
+		//fra = f.verFranjaByID(id);
 		//System.out.println("Franja: " + fra.getIdFranja() + ", Hora inicio: " + fra.getHoraInicio() + ", Hora fin: " + fra.getHoraFin());
 
 	}
