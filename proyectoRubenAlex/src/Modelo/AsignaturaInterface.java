@@ -15,5 +15,5 @@ public interface AsignaturaInterface {
 	public void modificarAsignatura (Asignatura asignaturaModificada);
 	public Asignatura verAsignaturaById(int idAsignatura);
 	public List <Asignatura> verAllAsignaturas();
-
+	public List<Asignatura> verAsignaturaByCurso(String curso);
 }

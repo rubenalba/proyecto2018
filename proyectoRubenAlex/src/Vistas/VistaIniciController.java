@@ -64,7 +64,10 @@ public class VistaIniciController {
 
 	@FXML
 	private Button addFranja;
-
+    
+	@FXML
+    private Button addCursoBTN;
+	
 	@FXML
 	private Button ConfirmFranjaCB;
 
@@ -369,6 +372,14 @@ public class VistaIniciController {
 				}
 			}
 		});
+	}
+	@FXML
+	public void addCurso() throws IOException {
+		Parent root = FXMLLoader.load(getClass().getResource("../Vistas/AddCursoVista.fxml"));
+		Scene scene = new Scene(root);
+		Stage stage = new Stage();
+		stage.setScene(scene);
+		stage.show();
 	}
 }
 

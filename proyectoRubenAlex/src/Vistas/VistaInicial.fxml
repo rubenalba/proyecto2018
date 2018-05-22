@@ -35,6 +35,7 @@
                             <TableColumn fx:id="ColUF" prefWidth="205.0" text="UFs" />
                           </columns>
                         </TableView>
+                        <Button fx:id="addCursoBTN" layoutX="353.0" layoutY="307.0" mnemonicParsing="false" onAction="#addCurso" text="Añadir" />
                      </children>
                   </AnchorPane>
                </left>

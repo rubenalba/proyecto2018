@@ -15,4 +15,5 @@ public interface UnidadFormativaInterface {
 	public void modificarUnidadFormativa(Unidadformativa unidadFormativaModificada);
 	public Unidadformativa verUnidadformativaByID (int idUnidadFormativa);
 	public List <Unidadformativa> verAllUnidadFormativas();
+	public List <Unidadformativa> ufByCiclo(String asig);
 }
