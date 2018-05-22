@@ -121,8 +121,8 @@ public class VistaIniciController {
 	@FXML
 	public void initialize() {
 		profesorActivo=getProfesorActivo();
-		VentanaAlumnos.setVisible(false);
-		VentanaPrincipal.setVisible(true);
+		//VentanaAlumnos.setVisible(false);
+		//VentanaPrincipal.setVisible(true);
 		cargarCursos();
 	}
 	private ObservableList<String> cursosList;
@@ -266,25 +266,12 @@ public class VistaIniciController {
 		
 	}
 	@FXML
-	public void configuracion(){
-		try {
-			Stage Actual = (Stage) BtnAjustes.getScene().getWindow();
-
-			FXMLLoader loader = new FXMLLoader(Main.class.getResource("../Vistas/VistaConfiguracion.fxml"));
-			AnchorPane ventanaDos = (AnchorPane) loader.load();
-			Scene sceneDos = new Scene(ventanaDos);
-			Actual.setScene(sceneDos);
-			Actual.show();
-		} catch (Exception e) {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Error");
-			alert.setHeaderText("Error al abrir la configuracion");
-			alert.setContentText("El programa se cerrara.");
-			alert.showAndWait();
-			Stage Actual2 = (Stage) BtnAjustes.getScene().getWindow();
-			Actual2.close();
-			e.printStackTrace();
-		}
+	public void configuracion(ActionEvent event) throws IOException{
+		Parent root = FXMLLoader.load(getClass().getResource("../Vistas/VistaConfiguracion.fxml"));
+		Scene scene = new Scene(root);
+		Stage stage = new Stage();
+		stage.setScene(scene);
+		stage.show();
 	}
 
 	@FXML
