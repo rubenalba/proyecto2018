@@ -10,8 +10,8 @@
       <TableView fx:id="tablaAlumnos" layoutY="56.0" prefHeight="569.0" prefWidth="1225.0">
         <columns>
           <TableColumn fx:id="AlumnosCol1" prefWidth="193.0" text="Alumnos" />
-            <TableColumn prefWidth="76.0" text="C2" />
-            <TableColumn prefWidth="76.0" text="total" />
+          <TableColumn fx:id="Checkers" prefWidth="76.0" text="C2" />
+          <TableColumn prefWidth="76.0" text="total" />
         </columns>
       </TableView>
       <Button fx:id="notasBTN" layoutX="525.0" layoutY="16.0" mnemonicParsing="false" text="Notas" />
