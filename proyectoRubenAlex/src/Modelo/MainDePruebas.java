@@ -18,6 +18,7 @@ import dao.SessionFactoryUtil;
 import pojos.Alumnos;
 import pojos.Asignatura;
 import pojos.Aula;
+import pojos.Ciclo;
 import pojos.Franjas;
 import pojos.Matricula;
 import pojos.MatriculaId;
@@ -33,7 +34,7 @@ public class MainDePruebas {
 	static UnidadFormativaInterface uf = DAO.getUnidadFormativaInterface();
 	static MatriculaInterface mt = DAO.getMatriculaInterface();
 	static FranjaInterface f = DAO.getFranjaInterface();
-
+	static CicloInterface c = DAO.getCicloInterface();
 	public static void main(String[] args) throws ParseException {
 		//crearDatosdepruebaAulaYAlumno(); // OK
 		//eliminarDatosDePruebaAulaYAlumno(); OK
@@ -65,7 +66,20 @@ public class MainDePruebas {
 		//verProfesorByUser(); OK
 		//consultas();
 		//misAlumnos();
-		verHoras();
+		//verHoras();
+		ciclobyString();
+	}
+
+
+	private static void ciclobyString() {
+	String se = "DAM1";
+	Ciclo ci = c.verCicloByName(se);
+		System.out.println(ci.getNombreCiclo());
+		String name = "Llenguatge de Marques";
+		Asignatura asi = as.verAsignaturaByName(name, se);
+		System.out.println(asi.getNombreAsignatura() + "<----");
+		
+
 	}
 
 

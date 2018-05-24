@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -13,6 +14,7 @@ import dao.SessionFactoryUtil;
 import pojos.Alumnos;
 import pojos.Asignatura;
 import pojos.Aula;
+import pojos.Ciclo;
 
 public class ImpAsignatura implements AsignaturaInterface{
 	private static SessionFactory factory = SessionFactoryUtil.getSessionFactory();
@@ -122,5 +124,23 @@ public class ImpAsignatura implements AsignaturaInterface{
 		}
 		return asign;
 	}
+	@Override
+	public Asignatura verAsignaturaByName(String ciclo, String asignatura) {
+		Session session = factory.openSession();
+		Transaction tx = null;
+		Asignatura asignaturas = null;
+		Integer num = null;
+		System.out.println(ciclo + asignatura + "<---");
+		String sql = "select a.ID_Asignatura "
+				+ " from asignatura a, ciclo c "
+				+ " where c.Nombre_Ciclo = " + "'"+ciclo+"'"
+				+ " and a.Nombre_Asignatura = " + "'"+asignatura+"'";
+		num = (Integer) session.createNativeQuery(sql).uniqueResult();
+		
+		System.out.println("Esto es la var num" + num);
+		asignaturas = as.verAsignaturaById(num);
+		return asignaturas;
+	}
+
 
 }
