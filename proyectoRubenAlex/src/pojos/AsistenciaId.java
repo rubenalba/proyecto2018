@@ -8,15 +8,25 @@ public class AsistenciaId implements java.io.Serializable {
 
 	private String dniAlumno;
 	private int idUnidadFormativa;
-	private String idFranja;
+	private int idFranja;
+	private String fecha;
 
 	public AsistenciaId() {
 	}
 
-	public AsistenciaId(String dniAlumno, int idUnidadFormativa, String idFranja) {
+	public AsistenciaId(String dniAlumno, int idUnidadFormativa, int idFranja, String fecha) {
 		this.dniAlumno = dniAlumno;
 		this.idUnidadFormativa = idUnidadFormativa;
 		this.idFranja = idFranja;
+		this.fecha = fecha;
+	}
+
+	public String getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(String fecha) {
+		this.fecha = fecha;
 	}
 
 	public String getDniAlumno() {
@@ -35,11 +45,11 @@ public class AsistenciaId implements java.io.Serializable {
 		this.idUnidadFormativa = idUnidadFormativa;
 	}
 
-	public String getIdFranja() {
+	public int getIdFranja() {
 		return this.idFranja;
 	}
 
-	public void setIdFranja(String idFranja) {
+	public void setIdFranja(int idFranja) {
 		this.idFranja = idFranja;
 	}
 
@@ -55,8 +65,9 @@ public class AsistenciaId implements java.io.Serializable {
 		return ((this.getDniAlumno() == castOther.getDniAlumno()) || (this.getDniAlumno() != null
 				&& castOther.getDniAlumno() != null && this.getDniAlumno().equals(castOther.getDniAlumno())))
 				&& (this.getIdUnidadFormativa() == castOther.getIdUnidadFormativa())
-				&& ((this.getIdFranja() == castOther.getIdFranja()) || (this.getIdFranja() != null
-						&& castOther.getIdFranja() != null && this.getIdFranja().equals(castOther.getIdFranja())));
+				&& ((this.getIdFranja() == castOther.getIdFranja())
+				&& (this.getFecha() == castOther.getFecha()) || (this.getFecha() != null
+				&& castOther.getFecha() != null && this.getFecha().equals(castOther.getFecha())));
 	}
 
 	public int hashCode() {
@@ -64,7 +75,8 @@ public class AsistenciaId implements java.io.Serializable {
 
 		result = 37 * result + (getDniAlumno() == null ? 0 : this.getDniAlumno().hashCode());
 		result = 37 * result + this.getIdUnidadFormativa();
-		result = 37 * result + (getIdFranja() == null ? 0 : this.getIdFranja().hashCode());
+		result = 37 * result + this.getIdFranja();
+		result = 37 * result + (getFecha() == null ? 0 : this.getFecha().hashCode());
 		return result;
 	}
 

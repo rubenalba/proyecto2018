@@ -16,6 +16,7 @@ public class Alumnos implements java.io.Serializable {
 	private String email;
 	private Set<Asistencia> asistencias = new HashSet<Asistencia>(0);
 	private Set<Matricula> matriculas = new HashSet<Matricula>(0);
+	private String total;
 
 	public Alumnos() {
 	}
@@ -94,11 +95,16 @@ public class Alumnos implements java.io.Serializable {
 	public void setMatriculas(Set<Matricula> matriculas) {
 		this.matriculas = matriculas;
 	}
-	
+
 	public String getNombreCompleto() {
 		String nom = apellidos + ", " + nombre;
 		return nom;
+	}
+	public void setTotal(int total) {
+		this.total = String.valueOf(total)+"%";
+	}
 
-
+	public String getFaltasUF(){
+		return total;
 	}
 }

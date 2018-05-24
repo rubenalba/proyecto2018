@@ -4,22 +4,21 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vistas.VistaAlumnoController">
    <children>
       <Label layoutX="46.0" layoutY="44.0" text="Nombre" />
-      <TextField layoutX="46.0" layoutY="66.0" />
+      <TextField fx:id="NombreAlumno" layoutX="46.0" layoutY="66.0" />
       <Label layoutX="300.0" layoutY="44.0" text="Apellidos" />
-      <TextField layoutX="300.0" layoutY="66.0" />
-      <TextField layoutX="46.0" layoutY="138.0" />
+      <TextField fx:id="ApellidosAlumno" layoutX="300.0" layoutY="66.0" />
+      <TextField fx:id="DNIAlumno" layoutX="46.0" layoutY="138.0" />
       <Label layoutX="46.0" layoutY="115.0" text="D.N.I." />
-      <ChoiceBox layoutX="46.0" layoutY="221.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="AsignaturasAlumno" layoutX="46.0" layoutY="221.0" prefWidth="150.0" />
       <Label layoutX="46.0" layoutY="193.0" text="Selecciona Asignatura" />
-      <TextField layoutX="46.0" layoutY="297.0" />
-      <TextField layoutX="300.0" layoutY="297.0" />
+      <TextField fx:id="FaltasAsigAlumno" layoutX="46.0" layoutY="297.0" />
+      <TextField fx:id="NotaAsigAlumno" layoutX="300.0" layoutY="297.0" />
       <Label layoutX="46.0" layoutY="269.0" text="Faltas" />
       <Label layoutX="300.0" layoutY="269.0" text="Nota" />
       <Label layoutX="298.0" layoutY="115.0" text="e-mail" />
-      <TextField layoutX="298.0" layoutY="138.0" />
+      <TextField fx:id="Email" layoutX="298.0" layoutY="138.0" />
    </children>
 </AnchorPane>

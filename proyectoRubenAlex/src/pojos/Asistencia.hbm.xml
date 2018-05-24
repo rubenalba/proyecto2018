@@ -11,8 +11,8 @@
             <key-property name="idUnidadFormativa" type="int">
                 <column name="ID_UnidadFormativa" />
             </key-property>
-            <key-property name="idFranja" type="string">
-                <column name="ID_Franja" length="2" />
+            <key-property name="idFranja" type="int">
+                <column name="ID_Franja" />
             </key-property>
         </composite-id>
         <many-to-one name="alumnos" class="pojos.Alumnos" update="false" insert="false" fetch="select">
@@ -26,6 +26,9 @@
         </many-to-one>
         <property name="justificante" type="boolean">
             <column name="Justificante" not-null="true" />
+        </property>
+        <property name="fecha" type="string" length="15">
+        	<column name="Fecha"/>
         </property>
     </class>
 </hibernate-mapping>

@@ -1,5 +1,6 @@
 package Modelo;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -10,13 +11,15 @@ import org.hibernate.Transaction;
 
 import dao.SessionFactoryUtil;
 import pojos.Alumnos;
+import pojos.Asignatura;
 import pojos.Aula;
 import pojos.Franjas;
+import pojos.Horas;
 import pojos.Profesor;
 
 public class ImpFranjas implements FranjaInterface{
 	private static SessionFactory factory = SessionFactoryUtil.getSessionFactory();
-	
+
 	//FUNCIONA NO BORRAR!!
 	@Override
 	public void addFranja(Franjas franja) {
@@ -93,6 +96,50 @@ public class ImpFranjas implements FranjaInterface{
 		Franjas franja = (Franjas)session.get(Franjas.class, idFranja);
 		session.close();
 		return franja;
+	}
+	@Override
+	public Franjas verFranjaFalta(Horas Hora, Profesor profesor, String dia, Asignatura asignatura) {
+		Session session = factory.openSession();
+		Transaction tx = null;
+		String sql = "SELECT * FROM Franjas h WHERE h.id_horas = "+Hora.getIdHoras()+" AND h.DNI_Profesor LIKE '"+profesor.getDniProfesor()+"' AND h.Dia LIKE '"+dia+"' AND h.Asignatura = "+asignatura.getIdAsignatura();
+		Franjas r = null;
+		List<Franjas> franjaList = new ArrayList<Franjas>();
+		try {
+			tx = session.beginTransaction();
+			franjaList = session.createNativeQuery(sql, Franjas.class).list();
+			tx.commit();
+			System.out.println(franjaList.size());
+			for (Franjas franj : franjaList) {
+				r = franj;
+				System.out.println(r.getDia());
+			}
+		}catch  (HibernateException e) {
+			if (tx!=null) tx.rollback();
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		return r;
+	}
+	@Override
+	public List<Franjas> verFranjaAsignatura(Profesor profesor, Asignatura asignatura) {
+		Session session = factory.openSession();
+		Transaction tx = null;
+		String sql = "SELECT * FROM Franjas h WHERE h.DNI_Profesor LIKE '"+profesor.getDniProfesor()+"' AND h.Asignatura = "+asignatura.getIdAsignatura();
+		Franjas r = null;
+		List<Franjas> franjaList = new ArrayList<Franjas>();
+		try {
+			tx = session.beginTransaction();
+			franjaList = session.createNativeQuery(sql, Franjas.class).list();
+			tx.commit();
+
+		}catch  (HibernateException e) {
+			if (tx!=null) tx.rollback();
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		return franjaList;
 	}
 
 }

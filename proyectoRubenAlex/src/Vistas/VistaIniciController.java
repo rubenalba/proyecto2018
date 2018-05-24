@@ -1,10 +1,17 @@
 package Vistas;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import Modelo.AsignaturaInterface;
+import Modelo.AsistenciaInterface;
+import Modelo.FranjaInterface;
+import Modelo.HorasInterface;
 import Modelo.ProfesorInterface;
 import Modelo.UnidadFormativaInterface;
 import application.Main;
@@ -23,27 +30,38 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import pojos.Alumnos;
 import pojos.Asignatura;
+import pojos.Asistencia;
+import pojos.AsistenciaId;
 import pojos.Franjas;
+import pojos.Horas;
 import pojos.Profesor;
 import pojos.Unidadformativa;
 import dao.DAO;
 
 public class VistaIniciController {
+	public static final int PORCENTAJE = 25;
+	public static final int COLUMNAS = 10;
 	static ProfesorInterface pr = DAO.getProfesorInterface();
 	static UnidadFormativaInterface u = DAO.getUnidadFormativaInterface();
 	static AsignaturaInterface as = DAO.getAsignaturaInterface();
+	static HorasInterface h = DAO.getHorasInterface();
+	static FranjaInterface fr = DAO.getFranjaInterface();
+	static AsistenciaInterface ast = DAO.getAsistenciaInterface();
 	@FXML
 	private Button BtnInfo;
 
@@ -64,10 +82,10 @@ public class VistaIniciController {
 
 	@FXML
 	private Button addFranja;
-    
+
 	@FXML
     private Button addCursoBTN;
-	
+
 	@FXML
 	private Button ConfirmFranjaCB;
 
@@ -109,8 +127,18 @@ public class VistaIniciController {
 	private TableColumn<Alumnos, String> ColAlumnos;
 	public List<Alumnos> listaNoAsistencia = new ArrayList<Alumnos>();
 	ObservableList<Alumnos>alumnosLista;
+	@FXML
+	private TextField TextHoraAsistencia;
+    @FXML
+    private DatePicker DiaAsistenciaSelect;
+    @FXML
+    private Button BtnGenerarAsistencia;
+    Calendar calendario = new GregorianCalendar();
+    int hora, minutos, segundos;
+	@FXML
+	private TableColumn<Alumnos, String> ColAsistencia;
 
-	//-----------------------------------------------
+    //-----------------------------------------------
 	@FXML
 	private AnchorPane VentanaPrincipal;
 	@FXML
@@ -118,17 +146,24 @@ public class VistaIniciController {
 
 	@FXML
 	private Button volverBTN;
+	LocalDate today = LocalDate.now();
 
 
 
-	@FXML
-	private TableColumn<?, ?> ColAsistencia;//Aun por decidir
 
 	boolean franjaVisible = true;
 
 	private static Profesor profesorActivo;
 	private static Asignatura asignaturaMarcada;
+	private static Alumnos alumnoMarcado;
 
+	public static Alumnos getAlumnoMarcado() {
+		return alumnoMarcado;
+	}
+
+	public static void setAlumnoMarcado(Alumnos alumnoMarcado) {
+		VistaIniciController.alumnoMarcado = alumnoMarcado;
+	}
 	private static Unidadformativa UFMarcada;
 
 	@FXML
@@ -137,6 +172,12 @@ public class VistaIniciController {
 		//VentanaAlumnos.setVisible(false);
 		//VentanaPrincipal.setVisible(true);
 		cargarCursos();
+		tablaAlumnos.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+		    if (newSelection != null) {
+		        System.out.println(newSelection.getNombre());
+		        abrirAlumno(newSelection);
+		    }
+		});
 	}
 	private ObservableList<String> cursosList;
 
@@ -337,9 +378,31 @@ public class VistaIniciController {
 	}*/
 
 	private void setCheckBox(){
+		//Seleccionar hora actual para generar las faltas
+		hora =calendario.get(Calendar.HOUR_OF_DAY);
+		minutos = calendario.get(Calendar.MINUTE);
+		String minuts ="";
+		if (minutos<10)
+		TextHoraAsistencia.setText(hora+":0"+minuts);
+		else TextHoraAsistencia.setText(hora+":"+minutos);
+		//-------------------------------------------------
+		//Seleccionar el dia actual para generar las faltas
+
+		DiaAsistenciaSelect.setValue(today);
+		//-------------------------------------------------
+
+
+
 		alumnosLista = FXCollections.observableArrayList(pr.misAlumnosByAsignatura(profesorActivo, UFMarcada));
 		tablaAlumnos.setItems(alumnosLista);
 		ColAlumnos.setCellValueFactory(new PropertyValueFactory<Alumnos, String>("NombreCompleto"));
+		List<Integer> faltas = FXCollections.observableArrayList();
+		for (Alumnos alumnos : alumnosLista) {
+			List<Asistencia> faltasAlumno = ast.verAllAsistenciasAlumnoUF(alumnos, UFMarcada);
+			alumnos.setTotal((100*faltasAlumno.size())/UFMarcada.getHoras());
+			ColAsistencia.setCellValueFactory(new PropertyValueFactory<Alumnos, String>("FaltasUF"));
+		}
+
 
 		Checkers.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Alumnos, Boolean>, ObservableValue<Boolean>>() {
 	        @Override
@@ -378,6 +441,7 @@ public class VistaIniciController {
 		});
 	}
 	@FXML
+
 	public void addUF() throws IOException {
 		Parent root = FXMLLoader.load(getClass().getResource("../Vistas/AddCursoVista.fxml"));
 		Scene scene = new Scene(root);
@@ -387,12 +451,59 @@ public class VistaIniciController {
 	}
 	
 	@FXML
-	public void addAlumno() throws IOException {
+	public void addAlumno() throws IOException {}
+
+	public void generarFaltas(){
+		Horas horaFalta = h.getHorasByRango(TextHoraAsistencia.getText());
+		Asignatura asignaturaFalta = as.verAsignaturaById(UFMarcada.getAsignatura().getIdAsignatura());
+		String fecha = DiaAsistenciaSelect.getValue().toString();
+		String dia = DiaAsistenciaSelect.getValue().getDayOfWeek().name();
+		Franjas franjaFalta = fr.verFranjaFalta(horaFalta, profesorActivo, dia, asignaturaFalta);
+		for (Alumnos alumnos : listaNoAsistencia) {
+			Asistencia falta = new Asistencia();
+			falta.setAlumnos(alumnos);
+			falta.setUnidadformativa(UFMarcada);
+			falta.setFranjas(franjaFalta);
+			AsistenciaId a = new AsistenciaId(alumnos.getDni(), UFMarcada.getIdUnidadFormativa(), franjaFalta.getIdFranja(), fecha);
+			falta.setId(a);
+			falta.setFecha(DiaAsistenciaSelect.getValue().toString());
+			ast.addAsistencia(falta);
+		}
+
+	}
+	@FXML
+	public void addCurso() throws IOException {
+
 		Parent root = FXMLLoader.load(getClass().getResource("../Vistas/AddCursoVista.fxml"));
 		Scene scene = new Scene(root);
 		Stage stage = new Stage();
 		stage.setScene(scene);
 		stage.show();
+	}
+
+	public void cargarUltimasFaltas(Alumnos alumno, Asignatura asignatura){
+		int faltasCargar = 10;
+		List<Franjas> franjasAsig = fr.verFranjaAsignatura(profesorActivo, asignatura);
+		List<String> dias = new ArrayList<String>();
+		for (Franjas franjas : franjasAsig) {
+			dias.add(franjas.getDia());
+		}
+	}
+
+	public void abrirAlumno(Alumnos newSelection){
+		Parent root;
+		alumnoMarcado = newSelection;
+		try {
+			root = FXMLLoader.load(getClass().getResource("../Vistas/VistaAlumno.fxml"));
+			Scene scene = new Scene(root);
+			Stage stage = new Stage();
+			stage.setScene(scene);
+			stage.show();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 }
 

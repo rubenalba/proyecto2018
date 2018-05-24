@@ -39,20 +39,19 @@ public class AddCursoController implements Initializable {
 	static ProfesorInterface p = DAO.getProfesorInterface();
     @FXML
     private ChoiceBox<String> cursos;
-
     @FXML
     private TextField horasTF;
-    
+
     private ObservableList<String> listaCiclos;
-    
+
     private ObservableList<String>ufs;
-    
+
     @FXML
     private ChoiceBox<String> ufCB;
-    
+
     @FXML
     private ChoiceBox<String> asignaturaCB;
-    
+
     private ObservableList<String>asig;
     @FXML
     private Button addUF;
@@ -61,7 +60,7 @@ public class AddCursoController implements Initializable {
 
     @FXML
     private Button volverBTN;
-    
+
     public Asignatura asignaturaActiva;
     public Ciclo cicloActivo;
     private Profesor profesorActivo;
@@ -78,9 +77,10 @@ public class AddCursoController implements Initializable {
 		cargarCiclo();
 		profesorActivo();
 		
+
 		asignaturaCB.setVisible(false);
 		ufCB.setVisible(false);
-		
+
 		cursos.valueProperty().addListener(new ChangeListener<String>() {
 
 			@Override
@@ -89,8 +89,6 @@ public class AddCursoController implements Initializable {
 					asignaturaCB.setVisible(true);
 					cursoActivo = cursos.getValue();
 					cargarAsignatura(cursoActivo);
-					
-					
 					asignaturaCB.valueProperty().addListener(new ChangeListener<String>() {
 
 						@Override
@@ -102,15 +100,15 @@ public class AddCursoController implements Initializable {
 								System.out.println("asignatura ->" +  AsignaturaActiva);
 								cargarUF(AsignaturaActiva);
 							}
-							
+
 						}
 					});
 				}
-				
+
 			}
 		});
-		
-		
+
+
 	}
 	public void cargarCiclo () {
 		listaCiclos = FXCollections.observableArrayList();
@@ -120,7 +118,7 @@ public class AddCursoController implements Initializable {
 		}
 		cursos.setItems(listaCiclos);
 	}
-	
+
 	public void cargarUF(String asignatura) {
 		ufs = FXCollections.observableArrayList();
 		List <Unidadformativa> uf = u.ufByCiclo(asignatura);
@@ -129,7 +127,7 @@ public class AddCursoController implements Initializable {
 		}
 		ufCB.setItems(ufs);
 	}
-	
+
 	public void cargarAsignatura(String curso) {
 		asig = FXCollections.observableArrayList();
 		List <Asignatura> a = as.verAsignaturaByCurso(curso);
@@ -166,8 +164,9 @@ public class AddCursoController implements Initializable {
 		Asignatura asi = as.verAsignaturaByName(name, se);
 		System.out.println(asi.getNombreAsignatura() + "<----");
 		*/
-			
 		
+
+
 	}
 	@FXML 
 	private void closeWindow(ActionEvent event) {
