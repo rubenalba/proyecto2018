@@ -18,6 +18,6 @@ public interface AsistenciaInterface {
 	public void eliminarAsistencia (AsistenciaId id);
 	public void modificarAsistencia (Asistencia asistenciaModificada);
 	public Asistencia verAsistenciaById (AsistenciaId id);
-	public List<Asistencia> verAllAsistencias ();
+	public List<Asistencia> verAllAsistenciasAlumnoUF(Alumnos alumno, Unidadformativa uf);
 
 }

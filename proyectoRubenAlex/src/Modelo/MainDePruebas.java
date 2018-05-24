@@ -17,6 +17,8 @@ import dao.SessionFactoryUtil;
 
 import pojos.Alumnos;
 import pojos.Asignatura;
+import pojos.Asistencia;
+import pojos.AsistenciaId;
 import pojos.Aula;
 import pojos.Franjas;
 import pojos.Matricula;
@@ -33,6 +35,8 @@ public class MainDePruebas {
 	static UnidadFormativaInterface uf = DAO.getUnidadFormativaInterface();
 	static MatriculaInterface mt = DAO.getMatriculaInterface();
 	static FranjaInterface f = DAO.getFranjaInterface();
+	static AsistenciaInterface asisten = DAO.getAsistenciaInterface();
+	static HorasInterface h = DAO.getHorasInterface();
 
 	public static void main(String[] args) throws ParseException {
 		//crearDatosdepruebaAulaYAlumno(); // OK
@@ -42,7 +46,7 @@ public class MainDePruebas {
 		//verTodasAulas(); OK
 		//verAlumnoByName(); OK
 		//verAlumnoDNI(); OK
-		//addProfe(); 
+		//addProfe();
 		//eliminarProfe(); OK
 		//verAllProfes(); OK
 		//verProfeById(); OK
@@ -65,16 +69,31 @@ public class MainDePruebas {
 		//verProfesorByUser(); OK
 		//consultas();
 		//misAlumnos();
-		verHoras();
+		//verHoras();
+		//generarAsistencia();
+		//System.out.println(h.getHorasByRango("16:00").getIdHoras());
+	}
+
+
+	private static void generarAsistencia(){
+		Asistencia asist = new Asistencia();
+		Alumnos a = alumno.verAlumnobyDNI("11111111a");
+		asist.setAlumnos(a);
+		Franjas franja = f.verFranjaByID(1);
+		asist.setFranjas(franja);
+		Unidadformativa u = uf.verUnidadformativaByID(1);
+		asist.setUnidadformativa(u);
+		asist.setId(new AsistenciaId("11111111a", 1, 1));
+		asisten.addAsistencia(asist);
+
 	}
 
 
 	private static void verHoras() {
 		Franjas j = f.verFranjaByID(1);
-		System.out.println(j.getHoras());
-		
-	}
+		System.out.println(j.getDia());
 
+	}
 
 	private static void misAlumnos() {
 	Profesor p = pro.verProfesorByDni("SUSTITUTO");
@@ -86,12 +105,12 @@ public class MainDePruebas {
 		u = pro.misUFs(p, integer);
 		for (Unidadformativa unidadformativa : u) {
 			System.out.println("\t" + unidadformativa.getNombreUf());
-			
+
 		}
 		System.out.println("\n");
 	}
-		
-		
+
+
 	}
 
 
@@ -102,8 +121,8 @@ public class MainDePruebas {
 		for (String string : asi) {
 			System.out.println(string);
 		}
-	
-		
+
+
 	}
 
 
@@ -256,7 +275,7 @@ public class MainDePruebas {
 
 
 	private static void verUF() {
-		
+
 		Unidadformativa u = new Unidadformativa();
 		u = uf.verUnidadformativaByID(5);
 		System.out.println("Nombre UF: " + u.getIdUnidadFormativa() + ", Duración:" + u.getHoras() + ", Asignatura:" +u.getAsignatura().getNombreAsignatura()+ ", Profesor: " + u.getProfesor().getNombre() );
@@ -308,7 +327,7 @@ public class MainDePruebas {
 	private static void addAsigna() {
 		Asignatura asignatura = new Asignatura(3,"M3");
 		as.addAsignatura(asignatura);
-		
+
 
 	}
 
@@ -403,7 +422,7 @@ public class MainDePruebas {
 	}
 
 	public static void crearDatosdepruebaAulaYAlumno() {
-		
+
 		Aula aula = new Aula (2);
 		try {
 			aulas.addAula(aula);

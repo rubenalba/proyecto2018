@@ -26,17 +26,17 @@ public class AddCursoController implements Initializable {
 	static AsignaturaInterface as = DAO.getAsignaturaInterface();
     @FXML
     private ChoiceBox<String> cursos;
-    
+
     private ObservableList<String> listaCiclos;
-    
+
     private ObservableList<String>ufs;
-    
+
     @FXML
     private ChoiceBox<String> ufCB;
-    
+
     @FXML
     private ChoiceBox<String> asignaturaCB;
-    
+
     private ObservableList<String>asig;
     @FXML
     private Button addUF;
@@ -46,10 +46,10 @@ public class AddCursoController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		cargarCiclo();
-		
+
 		asignaturaCB.setVisible(false);
 		ufCB.setVisible(false);
-		
+
 		cursos.valueProperty().addListener(new ChangeListener<String>() {
 
 			@Override
@@ -58,7 +58,7 @@ public class AddCursoController implements Initializable {
 					asignaturaCB.setVisible(true);
 					cursoActivo = cursos.getValue();
 					cargarAsignatura(cursoActivo);
-					
+
 					asignaturaCB.valueProperty().addListener(new ChangeListener<String>() {
 
 						@Override
@@ -70,15 +70,15 @@ public class AddCursoController implements Initializable {
 								System.out.println("asignatura ->" +  AsignaturaActiva);
 								cargarUF(AsignaturaActiva);
 							}
-							
+
 						}
 					});
 				}
-				
+
 			}
 		});
-		
-		
+
+
 	}
 	public void cargarCiclo () {
 		listaCiclos = FXCollections.observableArrayList();
@@ -88,7 +88,7 @@ public class AddCursoController implements Initializable {
 		}
 		cursos.setItems(listaCiclos);
 	}
-	
+
 	public void cargarUF(String asignatura) {
 		ufs = FXCollections.observableArrayList();
 		List <Unidadformativa> uf = u.ufByCiclo(asignatura);
@@ -97,7 +97,7 @@ public class AddCursoController implements Initializable {
 		}
 		ufCB.setItems(ufs);
 	}
-	
+
 	public void cargarAsignatura(String curso) {
 		asig = FXCollections.observableArrayList();
 		List <Asignatura> a = as.verAsignaturaByCurso(curso);

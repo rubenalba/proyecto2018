@@ -11,17 +11,19 @@ public class Asistencia implements java.io.Serializable {
 	private Franjas franjas;
 	private Unidadformativa unidadformativa;
 	private boolean justificante;
+	private String fecha;
 
 	public Asistencia() {
 	}
 
 	public Asistencia(AsistenciaId id, Alumnos alumnos, Franjas franjas, Unidadformativa unidadformativa,
-			boolean justificante) {
+			boolean justificante, String fecha) {
 		this.id = id;
 		this.alumnos = alumnos;
 		this.franjas = franjas;
 		this.unidadformativa = unidadformativa;
 		this.justificante = justificante;
+		this.fecha = fecha;
 	}
 
 	public AsistenciaId getId() {
@@ -63,5 +65,14 @@ public class Asistencia implements java.io.Serializable {
 	public void setJustificante(boolean justificante) {
 		this.justificante = justificante;
 	}
+
+	public String getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(String fecha) {
+		this.fecha = fecha;
+	}
+
 
 }

@@ -9,7 +9,7 @@ import java.util.Set;
  */
 public class Franjas implements java.io.Serializable {
 
-	private String idFranja;
+	private int idFranja;
 	private Horas horas;
 	private Asignatura asignatura;
 	private Profesor profesor;
@@ -19,7 +19,7 @@ public class Franjas implements java.io.Serializable {
 	public Franjas() {
 	}
 
-	public Franjas(String idFranja, Horas horas, Asignatura asignatura, Profesor profesor, String dia) {
+	public Franjas(int idFranja, Horas horas, Asignatura asignatura, Profesor profesor, String dia) {
 		this.idFranja = idFranja;
 		this.horas = horas;
 		this.asignatura = asignatura;
@@ -27,7 +27,7 @@ public class Franjas implements java.io.Serializable {
 		this.dia = dia;
 	}
 
-	public Franjas(String idFranja, Horas horas, Asignatura asignatura, Profesor profesor, String dia,
+	public Franjas(int idFranja, Horas horas, Asignatura asignatura, Profesor profesor, String dia,
 			Set<Asistencia> asistencias) {
 		this.idFranja = idFranja;
 		this.horas = horas;
@@ -37,11 +37,11 @@ public class Franjas implements java.io.Serializable {
 		this.asistencias = asistencias;
 	}
 
-	public String getIdFranja() {
+	public int getIdFranja() {
 		return this.idFranja;
 	}
 
-	public void setIdFranja(String idFranja) {
+	public void setIdFranja(int idFranja) {
 		this.idFranja = idFranja;
 	}
 
