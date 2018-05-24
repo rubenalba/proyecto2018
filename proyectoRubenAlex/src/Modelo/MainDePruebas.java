@@ -36,13 +36,10 @@ public class MainDePruebas {
 	static UnidadFormativaInterface uf = DAO.getUnidadFormativaInterface();
 	static MatriculaInterface mt = DAO.getMatriculaInterface();
 	static FranjaInterface f = DAO.getFranjaInterface();
-<<<<<<< HEAD
 	static AsistenciaInterface asisten = DAO.getAsistenciaInterface();
 	static HorasInterface h = DAO.getHorasInterface();
 
-=======
 	static CicloInterface c = DAO.getCicloInterface();
->>>>>>> branch 'master' of https://github.com/rubenalba/proyecto2018.git
 	public static void main(String[] args) throws ParseException {
 		//crearDatosdepruebaAulaYAlumno(); // OK
 		//eliminarDatosDePruebaAulaYAlumno(); OK
@@ -75,7 +72,6 @@ public class MainDePruebas {
 		//consultas();
 		//misAlumnos();
 		//verHoras();
-<<<<<<< HEAD
 		//generarAsistencia();
 		//System.out.println(h.getHorasByRango("16:00").getIdHoras());
 	}
@@ -89,9 +85,8 @@ public class MainDePruebas {
 		asist.setFranjas(franja);
 		Unidadformativa u = uf.verUnidadformativaByID(1);
 		asist.setUnidadformativa(u);
-		asist.setId(new AsistenciaId("11111111a", 1, 1));
+		//asist.setId(new AsistenciaId("11111111a", 1, 1));
 		asisten.addAsistencia(asist);
-=======
 		ciclobyString();
 	}
 
@@ -103,8 +98,7 @@ public class MainDePruebas {
 		String name = "Llenguatge de Marques";
 		Asignatura asi = as.verAsignaturaByName(name, se);
 		System.out.println(asi.getNombreAsignatura() + "<----");
-		
->>>>>>> branch 'master' of https://github.com/rubenalba/proyecto2018.git
+
 
 	}
 
@@ -125,7 +119,6 @@ public class MainDePruebas {
 		u = pro.misUFs(p, integer);
 		for (Unidadformativa unidadformativa : u) {
 			System.out.println("\t" + unidadformativa.getNombreUf());
-
 		}
 		System.out.println("\n");
 	}

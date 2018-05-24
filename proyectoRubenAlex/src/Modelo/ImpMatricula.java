@@ -1,5 +1,8 @@
 package Modelo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -8,6 +11,7 @@ import org.hibernate.Transaction;
 
 import dao.SessionFactoryUtil;
 import pojos.Alumnos;
+import pojos.Asignatura;
 import pojos.Asistencia;
 import pojos.Matricula;
 import pojos.MatriculaId;
@@ -35,7 +39,7 @@ public class ImpMatricula  implements MatriculaInterface{
 
 	}
 
-	
+
 
 	@Override
 	public void modificarNota(MatriculaId id, Double nota) {
@@ -90,7 +94,33 @@ public class ImpMatricula  implements MatriculaInterface{
 
 	@Override
 	public void addNota(MatriculaId id, Double nota) {
-		
-		
+
 	}
+
+
+
+	@Override
+	public List<Matricula> matriculasAlumno(Alumnos alumno) {
+		Session session = factory.openSession();
+		Transaction tx = null;
+		List<Matricula> matriculas = new ArrayList<Matricula>();
+		String sql = "select a.* "
+				+ " from matricula a "
+				+ " where a.DNI_Alumno LIKE '"+alumno.getDni()+"'";
+		try {
+			tx = session.beginTransaction();
+			matriculas = session.createNativeQuery(sql, Matricula.class).list();
+
+			tx.commit();
+		}catch  (HibernateException e) {
+			if (tx!=null) tx.rollback();
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		return matriculas;
+
+	}
+
+
 }

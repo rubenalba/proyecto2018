@@ -151,7 +151,15 @@ public class VistaIniciController {
 
 	private static Profesor profesorActivo;
 	private static Asignatura asignaturaMarcada;
+	private static Alumnos alumnoMarcado;
 
+	public static Alumnos getAlumnoMarcado() {
+		return alumnoMarcado;
+	}
+
+	public static void setAlumnoMarcado(Alumnos alumnoMarcado) {
+		VistaIniciController.alumnoMarcado = alumnoMarcado;
+	}
 	private static Unidadformativa UFMarcada;
 
 	@FXML
@@ -160,6 +168,12 @@ public class VistaIniciController {
 		//VentanaAlumnos.setVisible(false);
 		//VentanaPrincipal.setVisible(true);
 		cargarCursos();
+		tablaAlumnos.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+		    if (newSelection != null) {
+		        System.out.println(newSelection.getNombre());
+		        abrirAlumno(newSelection);
+		    }
+		});
 	}
 	private ObservableList<String> cursosList;
 
@@ -369,9 +383,10 @@ public class VistaIniciController {
 		else TextHoraAsistencia.setText(hora+":"+minutos);
 		//-------------------------------------------------
 		//Seleccionar el dia actual para generar las faltas
-		
+
 		DiaAsistenciaSelect.setValue(today);
 		//-------------------------------------------------
+
 
 
 		alumnosLista = FXCollections.observableArrayList(pr.misAlumnosByAsignatura(profesorActivo, UFMarcada));
@@ -448,7 +463,7 @@ public class VistaIniciController {
 		stage.setScene(scene);
 		stage.show();
 	}
-	
+
 	public void cargarUltimasFaltas(Alumnos alumno, Asignatura asignatura){
 		int faltasCargar = 10;
 		List<Franjas> franjasAsig = fr.verFranjaAsignatura(profesorActivo, asignatura);
@@ -456,7 +471,22 @@ public class VistaIniciController {
 		for (Franjas franjas : franjasAsig) {
 			dias.add(franjas.getDia());
 		}
-		
+	}
+
+	public void abrirAlumno(Alumnos newSelection){
+		Parent root;
+		alumnoMarcado = newSelection;
+		try {
+			root = FXMLLoader.load(getClass().getResource("../Vistas/VistaAlumno.fxml"));
+			Scene scene = new Scene(root);
+			Stage stage = new Stage();
+			stage.setScene(scene);
+			stage.show();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 }
 

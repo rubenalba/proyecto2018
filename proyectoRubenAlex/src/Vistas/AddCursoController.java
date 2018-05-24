@@ -113,9 +113,9 @@ public class AddCursoController implements Initializable {
 	}
 	@FXML
 	public void 	addUF () {
-	Ciclo cic = c.verCicloByName(cursoActivo);
-	Asignatura asi = as.verAsignaturaByName(AsignaturaActiva, cursoActivo);
-	asi.getNombreAsignatura();
+		Ciclo cic = c.verCicloByName(cursoActivo);
+		Asignatura asi = as.verAsignaturaByName(AsignaturaActiva, cursoActivo);
+		asi.getNombreAsignatura();
 
 
 
