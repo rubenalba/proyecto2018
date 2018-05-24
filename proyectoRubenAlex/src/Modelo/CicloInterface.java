@@ -13,4 +13,5 @@ import dao.SessionFactoryUtil;
 public interface CicloInterface {
 
 	public List<Ciclo> verAllCiclos();
+	public Ciclo verCicloByName(String name);
 }

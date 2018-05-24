@@ -20,6 +20,7 @@ import pojos.Asignatura;
 import pojos.Asistencia;
 import pojos.AsistenciaId;
 import pojos.Aula;
+import pojos.Ciclo;
 import pojos.Franjas;
 import pojos.Matricula;
 import pojos.MatriculaId;
@@ -35,9 +36,13 @@ public class MainDePruebas {
 	static UnidadFormativaInterface uf = DAO.getUnidadFormativaInterface();
 	static MatriculaInterface mt = DAO.getMatriculaInterface();
 	static FranjaInterface f = DAO.getFranjaInterface();
+<<<<<<< HEAD
 	static AsistenciaInterface asisten = DAO.getAsistenciaInterface();
 	static HorasInterface h = DAO.getHorasInterface();
 
+=======
+	static CicloInterface c = DAO.getCicloInterface();
+>>>>>>> branch 'master' of https://github.com/rubenalba/proyecto2018.git
 	public static void main(String[] args) throws ParseException {
 		//crearDatosdepruebaAulaYAlumno(); // OK
 		//eliminarDatosDePruebaAulaYAlumno(); OK
@@ -70,6 +75,7 @@ public class MainDePruebas {
 		//consultas();
 		//misAlumnos();
 		//verHoras();
+<<<<<<< HEAD
 		//generarAsistencia();
 		//System.out.println(h.getHorasByRango("16:00").getIdHoras());
 	}
@@ -85,6 +91,20 @@ public class MainDePruebas {
 		asist.setUnidadformativa(u);
 		asist.setId(new AsistenciaId("11111111a", 1, 1));
 		asisten.addAsistencia(asist);
+=======
+		ciclobyString();
+	}
+
+
+	private static void ciclobyString() {
+	String se = "DAM1";
+	Ciclo ci = c.verCicloByName(se);
+		System.out.println(ci.getNombreCiclo());
+		String name = "Llenguatge de Marques";
+		Asignatura asi = as.verAsignaturaByName(name, se);
+		System.out.println(asi.getNombreAsignatura() + "<----");
+		
+>>>>>>> branch 'master' of https://github.com/rubenalba/proyecto2018.git
 
 	}
 

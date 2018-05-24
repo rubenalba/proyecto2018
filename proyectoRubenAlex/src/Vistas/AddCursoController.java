@@ -16,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TextField;
 import pojos.Asignatura;
 import pojos.Ciclo;
 import pojos.Unidadformativa;
@@ -26,6 +27,8 @@ public class AddCursoController implements Initializable {
 	static AsignaturaInterface as = DAO.getAsignaturaInterface();
     @FXML
     private ChoiceBox<String> cursos;
+    @FXML
+    private TextField horasTF;
 
     private ObservableList<String> listaCiclos;
 
@@ -43,6 +46,9 @@ public class AddCursoController implements Initializable {
     private String cursoActivo;
     private String AsignaturaActiva;
 
+    public Asignatura asignaturaActiva;
+    public Ciclo cicloActivo;
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		cargarCiclo();
@@ -58,7 +64,6 @@ public class AddCursoController implements Initializable {
 					asignaturaCB.setVisible(true);
 					cursoActivo = cursos.getValue();
 					cargarAsignatura(cursoActivo);
-
 					asignaturaCB.valueProperty().addListener(new ChangeListener<String>() {
 
 						@Override
@@ -105,5 +110,14 @@ public class AddCursoController implements Initializable {
 			asig.add(asignatura.getNombreAsignatura());
 		}
 		asignaturaCB.setItems(asig);
+	}
+	@FXML
+	public void 	addUF () {
+	Ciclo cic = c.verCicloByName(cursoActivo);
+	Asignatura asi = as.verAsignaturaByName(AsignaturaActiva, cursoActivo);
+	asi.getNombreAsignatura();
+
+
+
 	}
 }
