@@ -75,7 +75,7 @@ public class MainDePruebas {
 	String se = "DAM1";
 	Ciclo ci = c.verCicloByName(se);
 		System.out.println(ci.getNombreCiclo());
-		String name = "Llenguatge de Marques";
+		String name = "M4 - Llenguatge de Marques";
 		Asignatura asi = as.verAsignaturaByName(name, se);
 		System.out.println(asi.getNombreAsignatura() + "<----");
 		

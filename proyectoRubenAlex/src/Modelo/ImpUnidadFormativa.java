@@ -125,5 +125,21 @@ public class ImpUnidadFormativa implements UnidadFormativaInterface{
 		}
 		return u;
 	}
+	@Override
+	public Unidadformativa verUFByName(int ciclo, int asignatura, String uf) {
+		Session session = factory.openSession();
+		Transaction tx = null;
+		Unidadformativa u = null;
+		Integer num = null;
+		String sql = "select u.ID_UnidadFormativa "
+				+ " from unidadformativa u, ciclo c, asignatura a "
+				+ " where c.ID_Ciclo = " + "'" + ciclo + "'"
+				+ " and a.ID_Asignatura = " + "'" + asignatura + "'"
+				+ " and u.NombreUF = " + "'" + uf + "'"; 
+		num = (Integer)session.createNativeQuery(sql).uniqueResult();
+		u = ImpUnidadFormativa.uf.verUnidadformativaByID(num);
+
+		return u;
+	}
 
 }

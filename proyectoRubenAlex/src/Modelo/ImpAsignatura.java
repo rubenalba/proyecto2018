@@ -133,8 +133,8 @@ public class ImpAsignatura implements AsignaturaInterface{
 		System.out.println(ciclo + asignatura + "<---");
 		String sql = "select a.ID_Asignatura "
 				+ " from asignatura a, ciclo c "
-				+ " where c.Nombre_Ciclo = " + "'"+ciclo+"'"
-				+ " and a.Nombre_Asignatura = " + "'"+asignatura+"'";
+				+ " where c.Nombre_Ciclo = " + "'"+asignatura+"'"
+				+ " and a.Nombre_Asignatura = " + "'"+ciclo+"'";
 		num = (Integer) session.createNativeQuery(sql).uniqueResult();
 		
 		System.out.println("Esto es la var num" + num);

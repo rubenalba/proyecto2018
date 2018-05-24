@@ -24,7 +24,7 @@
                      <children>
                         <Button fx:id="BtnAjustes" layoutX="30.0" layoutY="391.0" mnemonicParsing="false" onAction="#configuracion" prefHeight="27.0" prefWidth="136.0" style="-fx-background-image: www;" text="Ajustes" />
                         <Button fx:id="BtnInfo" layoutX="29.0" layoutY="418.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="136.0" text="Informacion" />
-                        <Button fx:id="BtnCerrarSession" layoutX="28.0" layoutY="445.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="137.0" text="Cerrar Session" />
+                        <Button fx:id="BtnCerrarSession" layoutX="28.0" layoutY="445.0" mnemonicParsing="false" onAction="#cerrarSesion" prefHeight="27.0" prefWidth="137.0" text="Cerrar Session" />
                         <TableView fx:id="tablaCursos" layoutX="353.0" layoutY="41.0" prefHeight="266.0" prefWidth="226.0">
                           <columns>
                             <TableColumn fx:id="ColCursos" prefWidth="225.0" text="Mis Cursos" />
@@ -35,7 +35,8 @@
                             <TableColumn fx:id="ColUF" prefWidth="205.0" text="UFs" />
                           </columns>
                         </TableView>
-                        <Button fx:id="addCursoBTN" layoutX="353.0" layoutY="307.0" mnemonicParsing="false" onAction="#addCurso" text="Añadir" />
+                        <Button fx:id="addCursoBTN" layoutX="354.0" layoutY="307.0" mnemonicParsing="false" onAction="#addUF" text="Añadir" />
+                        <Button fx:id="AlumnosBTN" layoutX="412.0" layoutY="307.0" mnemonicParsing="false" onAction="#addAlumno" text="alumnos" />
                      </children>
                   </AnchorPane>
                </left>

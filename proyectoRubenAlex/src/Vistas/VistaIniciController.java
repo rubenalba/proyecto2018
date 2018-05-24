@@ -88,6 +88,10 @@ public class VistaIniciController {
 
 	@FXML
 	private TableColumn<Unidadformativa, String> ColUF;
+	
+
+    @FXML
+    private Button AlumnosBTN;
 
 
 	@FXML
@@ -374,7 +378,16 @@ public class VistaIniciController {
 		});
 	}
 	@FXML
-	public void addCurso() throws IOException {
+	public void addUF() throws IOException {
+		Parent root = FXMLLoader.load(getClass().getResource("../Vistas/AddCursoVista.fxml"));
+		Scene scene = new Scene(root);
+		Stage stage = new Stage();
+		stage.setScene(scene);
+		stage.show();
+	}
+	
+	@FXML
+	public void addAlumno() throws IOException {
 		Parent root = FXMLLoader.load(getClass().getResource("../Vistas/AddCursoVista.fxml"));
 		Scene scene = new Scene(root);
 		Stage stage = new Stage();
