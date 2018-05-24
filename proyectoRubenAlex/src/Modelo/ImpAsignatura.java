@@ -139,7 +139,7 @@ public class ImpAsignatura implements AsignaturaInterface{
 		
 		System.out.println("Esto es la var num" + num);
 		asignaturas = as.verAsignaturaById(num);
-		return asignatura; 
+		return asignaturas; 
 	}
 
 
