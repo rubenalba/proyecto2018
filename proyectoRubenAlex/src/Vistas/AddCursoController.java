@@ -76,7 +76,7 @@ public class AddCursoController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		cargarCiclo();
 		profesorActivo();
-		
+
 
 		asignaturaCB.setVisible(false);
 		ufCB.setVisible(false);
@@ -137,7 +137,7 @@ public class AddCursoController implements Initializable {
 		asignaturaCB.setItems(asig);
 	}
 	@FXML
-	public void 	addUF () {
+	public void addUF () {
 	Ciclo cic = c.verCicloByName(cursoActivo);
 	Asignatura asi = as.verAsignaturaByName(AsignaturaActiva, cursoActivo);
 	asi.getIdAsignatura();
@@ -145,7 +145,7 @@ public class AddCursoController implements Initializable {
 	System.out.println(asi.getIdAsignatura()  +" <---id de la asignatura"+ asi.getNombreAsignatura()+"<--nombre");
 	String uf = ufCB.getValue();
 	System.out.println(uf);
-	
+
 	Unidadformativa unid = u.verUFByName(cic.getIdCiclo(), asi.getIdAsignatura(), uf);
 	System.out.println(unid.getIdUnidadFormativa() + " " + unid.getNombreUf());
 	unid.setProfesor(profesorActivo);
@@ -164,11 +164,11 @@ public class AddCursoController implements Initializable {
 		Asignatura asi = as.verAsignaturaByName(name, se);
 		System.out.println(asi.getNombreAsignatura() + "<----");
 		*/
-		
+
 
 
 	}
-	@FXML 
+	@FXML
 	private void closeWindow(ActionEvent event) {
 		cerrarVentana(event);
 	}
@@ -176,5 +176,5 @@ public class AddCursoController implements Initializable {
 		Node source = (Node)event.getSource();
 		Stage stage= (Stage)source.getScene().getWindow();
 		stage.close();
-	} 
+	}
 }

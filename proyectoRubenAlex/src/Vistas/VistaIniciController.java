@@ -106,7 +106,7 @@ public class VistaIniciController {
 
 	@FXML
 	private TableColumn<Unidadformativa, String> ColUF;
-	
+
 
     @FXML
     private Button AlumnosBTN;
@@ -449,7 +449,7 @@ public class VistaIniciController {
 		stage.setScene(scene);
 		stage.show();
 	}
-	
+
 	@FXML
 	public void addAlumno() throws IOException {}
 
