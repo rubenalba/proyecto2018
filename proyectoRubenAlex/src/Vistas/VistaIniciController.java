@@ -174,8 +174,8 @@ public class VistaIniciController {
 		cargarCursos();
 		tablaAlumnos.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
 		    if (newSelection != null) {
-		        System.out.println(newSelection.getNombre());
-		        abrirAlumno(newSelection);
+		        setAlumnoMarcado(newSelection);
+		        abrirAlumno(alumnoMarcado);
 		    }
 		});
 	}
@@ -398,6 +398,7 @@ public class VistaIniciController {
 		ColAlumnos.setCellValueFactory(new PropertyValueFactory<Alumnos, String>("NombreCompleto"));
 		List<Integer> faltas = FXCollections.observableArrayList();
 		for (Alumnos alumnos : alumnosLista) {
+			System.out.println(alumnos.getDni());
 			List<Asistencia> faltasAlumno = ast.verAllAsistenciasAlumnoUF(alumnos, UFMarcada);
 			alumnos.setTotal((100*faltasAlumno.size())/UFMarcada.getHoras());
 			ColAsistencia.setCellValueFactory(new PropertyValueFactory<Alumnos, String>("FaltasUF"));
@@ -461,12 +462,8 @@ public class VistaIniciController {
 		Franjas franjaFalta = fr.verFranjaFalta(horaFalta, profesorActivo, dia, asignaturaFalta);
 		for (Alumnos alumnos : listaNoAsistencia) {
 			Asistencia falta = new Asistencia();
-			falta.setAlumnos(alumnos);
-			falta.setUnidadformativa(UFMarcada);
-			falta.setFranjas(franjaFalta);
 			AsistenciaId a = new AsistenciaId(alumnos.getDni(), UFMarcada.getIdUnidadFormativa(), franjaFalta.getIdFranja(), fecha);
 			falta.setId(a);
-			falta.setFecha(DiaAsistenciaSelect.getValue().toString());
 			ast.addAsistencia(falta);
 		}
 

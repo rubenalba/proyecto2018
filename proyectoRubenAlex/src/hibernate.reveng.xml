@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.org/dtd/hibernate-reverse-engineering-3.0.dtd" >
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
 
 <hibernate-reverse-engineering>
+  <table-filter match-catalog="proyecto" match-name="alumnos"/>
+  <table-filter match-catalog="proyecto" match-name="asignatura"/>
+  <table-filter match-catalog="proyecto" match-name="asistencia"/>
+  <table-filter match-catalog="proyecto" match-name="aula"/>
+  <table-filter match-catalog="proyecto" match-name="ciclo"/>
+  <table-filter match-catalog="proyecto" match-name="franjas"/>
+  <table-filter match-catalog="proyecto" match-name="horas"/>
+  <table-filter match-catalog="proyecto" match-name="matricula"/>
+  <table-filter match-catalog="proyecto" match-name="profesor"/>
+  <table-filter match-catalog="proyecto" match-name="unidadformativa"/>
 </hibernate-reverse-engineering>

@@ -39,14 +39,6 @@ public class ImpMatricula  implements MatriculaInterface{
 
 	}
 
-
-
-	@Override
-	public void modificarNota(MatriculaId id, Double nota) {
-		// TODO Auto-generated method stub
-
-	}
-
 	@Override
 	public Boolean validarNota(Double nota) {
 		// TODO Auto-generated method stub
@@ -121,6 +113,49 @@ public class ImpMatricula  implements MatriculaInterface{
 		return matriculas;
 
 	}
+
+
+
+	@Override
+	public Matricula verMatriculaUFDNI(Unidadformativa UF, Alumnos alumno) {
+		Session session = factory.openSession();
+		Transaction tx = null;
+		Matricula matricula = null;
+		String sql = "select a.* FROM matricula a WHERE a.DNI_Alumno LIKE '" + alumno.getDni()+"'"
+					+" AND ID_UnidadFormativa = "+ UF.getIdUnidadFormativa();
+		try {
+			tx = session.beginTransaction();
+			matricula = session.createNativeQuery(sql, Matricula.class).uniqueResult();
+			tx.commit();
+		}catch  (HibernateException e) {
+			if (tx!=null) tx.rollback();
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		return matricula;
+	}
+
+
+
+	@Override
+	public void modificarNota(Matricula mat) {
+		Session session = factory.openSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			session.update(mat);
+			tx.commit();
+		}catch  (HibernateException e) {
+			if (tx!=null) tx.rollback();
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+
+	}
+
+
 
 
 }

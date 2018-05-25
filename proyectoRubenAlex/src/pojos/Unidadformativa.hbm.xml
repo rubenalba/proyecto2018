@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 22-may-2018 18:24:00 by Hibernate Tools 4.0.1.Final -->
+<!-- Generated 25/05/2018 16:43:07 by Hibernate Tools 4.0.1.Final -->
 <hibernate-mapping>
     <class name="pojos.Unidadformativa" table="unidadformativa" catalog="proyecto">
         <id name="idUnidadFormativa" type="int">
@@ -15,7 +15,7 @@
             <column name="DNI_Profesor" length="9" not-null="true" />
         </many-to-one>
         <property name="nombreUf" type="string">
-            <column name="NombreUF" length="100" not-null="true" />
+            <column name="NombreUF" length="50" not-null="true" />
         </property>
         <property name="horas" type="int">
             <column name="horas" not-null="true" />

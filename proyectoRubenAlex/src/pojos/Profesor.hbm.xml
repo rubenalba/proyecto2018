@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 22-may-2018 18:24:00 by Hibernate Tools 4.0.1.Final -->
+<!-- Generated 25/05/2018 16:43:07 by Hibernate Tools 4.0.1.Final -->
 <hibernate-mapping>
     <class name="pojos.Profesor" table="profesor" catalog="proyecto">
         <id name="dniProfesor" type="string">
@@ -12,7 +12,7 @@
             <column name="Nombre" length="25" not-null="true" />
         </property>
         <property name="usuari" type="string">
-            <column name="Usuari" length="20" not-null="true" />
+            <column name="Usuari" length="20" not-null="true" unique="true" />
         </property>
         <property name="password" type="string">
             <column name="Password" not-null="true" />

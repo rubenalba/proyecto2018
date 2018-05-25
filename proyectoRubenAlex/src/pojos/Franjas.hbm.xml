@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 22-may-2018 18:24:00 by Hibernate Tools 4.0.1.Final -->
+<!-- Generated 25/05/2018 16:43:07 by Hibernate Tools 4.0.1.Final -->
 <hibernate-mapping>
     <class name="pojos.Franjas" table="franjas" catalog="proyecto">
-        <id name="idFranja" type="string">
-            <column name="ID_Franja" length="2" />
+        <id name="idFranja" type="int">
+            <column name="ID_Franja" />
             <generator class="assigned" />
         </id>
         <many-to-one name="horas" class="pojos.Horas" fetch="select">
@@ -22,7 +22,7 @@
         </property>
         <set name="asistencias" table="asistencia" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="ID_Franja" length="2" not-null="true" />
+                <column name="ID_Franja" not-null="true" />
             </key>
             <one-to-many class="pojos.Asistencia" />
         </set>
