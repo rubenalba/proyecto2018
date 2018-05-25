@@ -1,5 +1,5 @@
 package pojos;
-// Generated 22-may-2018 18:23:59 by Hibernate Tools 4.0.1.Final
+// Generated 25/05/2018 16:43:07 by Hibernate Tools 4.0.1.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -14,8 +14,8 @@ public class Alumnos implements java.io.Serializable {
 	private String nombre;
 	private String apellidos;
 	private String email;
-	private Set<Asistencia> asistencias = new HashSet<Asistencia>(0);
 	private Set<Matricula> matriculas = new HashSet<Matricula>(0);
+	private Set<Asistencia> asistencias = new HashSet<Asistencia>(0);
 	private String total;
 
 	public Alumnos() {
@@ -29,15 +29,15 @@ public class Alumnos implements java.io.Serializable {
 		this.email = email;
 	}
 
-	public Alumnos(String dni, Aula aula, String nombre, String apellidos, String email, Set<Asistencia> asistencias,
-			Set<Matricula> matriculas) {
+	public Alumnos(String dni, Aula aula, String nombre, String apellidos, String email, Set<Matricula> matriculas,
+			Set<Asistencia> asistencias) {
 		this.dni = dni;
 		this.aula = aula;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.email = email;
-		this.asistencias = asistencias;
 		this.matriculas = matriculas;
+		this.asistencias = asistencias;
 	}
 
 	public String getDni() {
@@ -80,14 +80,6 @@ public class Alumnos implements java.io.Serializable {
 		this.email = email;
 	}
 
-	public Set<Asistencia> getAsistencias() {
-		return this.asistencias;
-	}
-
-	public void setAsistencias(Set<Asistencia> asistencias) {
-		this.asistencias = asistencias;
-	}
-
 	public Set<Matricula> getMatriculas() {
 		return this.matriculas;
 	}
@@ -96,11 +88,20 @@ public class Alumnos implements java.io.Serializable {
 		this.matriculas = matriculas;
 	}
 
-	public String getNombreCompleto() {
+	public Set<Asistencia> getAsistencias() {
+		return this.asistencias;
+	}
+
+	public void setAsistencias(Set<Asistencia> asistencias) {
+		this.asistencias = asistencias;
+	}
+
+	public String getNombreCompleto(){
 		String nom = apellidos + ", " + nombre;
 		return nom;
 	}
-	public void setTotal(int total) {
+
+	public void setTotal(int total){
 		this.total = String.valueOf(total)+"%";
 	}
 

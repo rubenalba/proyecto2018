@@ -83,11 +83,16 @@ public class ImpAsistencia implements AsistenciaInterface{
 		Session session = factory.openSession();
 		Transaction tx = null;
 		List <Asistencia> listaAsistencia = null;
-		String sql = "SELECT a.* FROM Asistencia a WHERE a.ID_UnidadFormativa = "+uf.getIdUnidadFormativa()+" AND a.DNI_Alumno like '"+alumno.getDni()+"'";
+		String sql = "SELECT a.* FROM Asistencia a WHERE a.ID_UnidadFormativa = "
+					 +uf.getIdUnidadFormativa()+" AND a.DNI_Alumno like '"+alumno.getDni()+"'";
+		//String sql = "SELECT a.* FROM Asistencia a WHERE a.ID_UnidadFormativa = 1 AND a.DNI_Alumno like '11111111a'";
 		try {
 			tx = session.beginTransaction();
-			listaAsistencia = session.createNativeQuery(sql).list();
+			listaAsistencia = session.createNativeQuery(sql, Asistencia.class).list();
 			tx.commit();
+			for (Asistencia asistencia : listaAsistencia) {
+				System.out.println(asistencia.getId().getFecha());
+			}
 		}catch  (HibernateException e) {
 			if (tx!=null) tx.rollback();
 			e.printStackTrace();
