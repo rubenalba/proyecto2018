@@ -121,6 +121,7 @@ public class VistaIniciController {
     @FXML
     private AnchorPane PaneAddUF;
 
+
     @FXML
     private Button AlumnosBTN;
 
@@ -632,7 +633,7 @@ public class VistaIniciController {
 		PaneAddUF.setVisible(true);
 		PaneAddAlumno.setVisible(false);
 	}
-	
+
 	@FXML
 	public void addAlumno() throws IOException {
 		VentanaAlumnos.setVisible(false);
