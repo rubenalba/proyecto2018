@@ -651,6 +651,7 @@ public class VistaIniciController {
 		String dia = DiaAsistenciaSelect.getValue().getDayOfWeek().name();
 		Franjas franjaFalta = fr.verFranjaFalta(horaFalta, profesorActivo, dia, asignaturaFalta);
 		for (Alumnos alumnos : listaNoAsistencia) {
+			System.out.println(alumnos.getNombre());
 			Asistencia falta = new Asistencia();
 			AsistenciaId a = new AsistenciaId(alumnos.getDni(), UFMarcada.getIdUnidadFormativa(), franjaFalta.getIdFranja(), fecha);
 			falta.setId(a);
