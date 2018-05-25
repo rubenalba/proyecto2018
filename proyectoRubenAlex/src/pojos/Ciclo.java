@@ -50,5 +50,10 @@ public class Ciclo implements java.io.Serializable {
 	public void setAsignaturas(Set<Asignatura> asignaturas) {
 		this.asignaturas = asignaturas;
 	}
+	
+	 @Override
+	    public String toString() {
+	        return this.nombreCiclo;
+	    }
 
 }

@@ -14,10 +14,11 @@
       <Label layoutX="46.0" layoutY="115.0" text="D.N.I." />
       <ChoiceBox fx:id="AsignaturasAlumno" layoutX="46.0" layoutY="221.0" prefWidth="150.0" />
       <Label layoutX="46.0" layoutY="193.0" text="Selecciona Asignatura" />
-      <TextField fx:id="NotaAsigAlumno" layoutX="300.0" layoutY="221.0" />
-      <Label layoutX="269.0" layoutY="193.0" text="Nota" />
+      <TextField fx:id="FaltasAsigAlumno" layoutX="46.0" layoutY="297.0" />
+      <TextField fx:id="NotaAsigAlumno" layoutX="300.0" layoutY="297.0" />
+      <Label layoutX="46.0" layoutY="269.0" text="Faltas" />
+      <Label layoutX="300.0" layoutY="269.0" text="Nota" />
       <Label layoutX="298.0" layoutY="115.0" text="e-mail" />
       <TextField fx:id="Email" layoutX="298.0" layoutY="138.0" />
-      <Button fx:id="mostrarFaltas" layoutX="51.0" layoutY="304.0" mnemonicParsing="false" text="Mostrar Faltas" />
    </children>
 </AnchorPane>

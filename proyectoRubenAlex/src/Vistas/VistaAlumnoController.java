@@ -6,11 +6,8 @@ import Modelo.AsignaturaInterface;
 import Modelo.MatriculaInterface;
 import Modelo.UnidadFormativaInterface;
 import dao.DAO;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import pojos.Alumnos;
@@ -21,7 +18,6 @@ import pojos.Unidadformativa;
 public class VistaAlumnoController {
 	static MatriculaInterface mi = DAO.getMatriculaInterface();
 	static UnidadFormativaInterface u = DAO.getUnidadFormativaInterface();
-	static AsignaturaInterface as = DAO.getAsignaturaInterface();
     @FXML
     private TextField DNIAlumno;
 
@@ -41,14 +37,12 @@ public class VistaAlumnoController {
     private TextField NombreAlumno;
 
     @FXML
-    private Button mostrarFaltas;
+    private TextField FaltasAsigAlumno;
 
     private Alumnos alumno;
     private List<Matricula> listaMatriculas;
     private List<String> listaUFS = new ArrayList<String>();
-    private String unidadSelectedStr;
-    Unidadformativa uf;
-    Asignatura asig;
+
     @FXML
     public void initialize(){
     	VistaIniciController vistainici = new VistaIniciController();
@@ -61,29 +55,10 @@ public class VistaAlumnoController {
     	System.out.println(listaMatriculas.size());
     	for (Matricula matricula : listaMatriculas) {
     		//System.out.println(u.verUnidadformativaByID(matricula.getId().getIdUnidadFormativa()).getNombreUf());
-    		uf = u.verUnidadformativaByID(matricula.getId().getIdUnidadFormativa());
+    		Unidadformativa uf = u.verUnidadformativaByID(matricula.getId().getIdUnidadFormativa());
     		System.out.println(uf.getNombreUf());
     		listaUFS.add(uf.getNombreUf());
 		}
     	AsignaturasAlumno.setItems(FXCollections.observableArrayList(listaUFS));
-    	AsignaturasAlumno.valueProperty().addListener(new ChangeListener<String>() {
-
-    		public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				if (AsignaturasAlumno != null) {
-					unidadSelectedStr = AsignaturasAlumno.getValue();
-					for (Matricula matricula : listaMatriculas) {
-						uf = u.verUnidadformativaByID(matricula.getId().getIdUnidadFormativa());
-						if (uf.getNombreUf().equals(unidadSelectedStr)){
-							asig = uf.getAsignatura();
-							System.out.println(asig.getNombreAsignatura());						}
-					}
-				}
-    		}
-    	});
-	}
-
-
-    public void listaFaltasUF(){
-
     }
 }

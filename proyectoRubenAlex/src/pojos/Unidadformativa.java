@@ -95,5 +95,8 @@ public class Unidadformativa implements java.io.Serializable {
 	public void setAsistencias(Set<Asistencia> asistencias) {
 		this.asistencias = asistencias;
 	}
-
+	 @Override
+	    public String toString() {
+	        return this.nombreUf;
+	    }
 }
