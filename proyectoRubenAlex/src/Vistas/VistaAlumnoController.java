@@ -88,6 +88,7 @@ public class VistaAlumnoController {
     		listaUFS.add(uf);
 		}
     	AsignaturasAlumno.setItems(FXCollections.observableArrayList(listaUFS));
+
     	AsignaturasAlumno.valueProperty().addListener(new ChangeListener<Unidadformativa>() {
 
     		public void changed(ObservableValue<? extends Unidadformativa> observable, Unidadformativa oldValue, Unidadformativa newValue) {
@@ -97,25 +98,6 @@ public class VistaAlumnoController {
 					if (mat.getNota() != null)
 						NotaAsigAlumno.setText(mat.getNota().toString());
 						else NotaAsigAlumno.setText("No s'ha puntuat encara");
-
-					/*for (Matricula matricula : listaMatriculas) {
-=======
-					unidadSelectedStr = AsignaturasAlumno.getSelectionModel().getSelectedItem();
-					for (Matricula matricula : listaMatriculas) {
->>>>>>> branch 'master' of https://github.com/rubenalba/proyecto2018.git
-			    		//System.out.println(u.verUnidadformativaByID(matricula.getId().getIdUnidadFormativa()).getNombreUf());
-			    		uf = u.verUnidadformativaByID(matricula.getId().getIdUnidadFormativa());
-			    		if (uf.getNombreUf().equals(unidadSelectedStr.getNombreUf())){
-								asig = uf.getAsignatura();
-								asig = as.verAsignaturaById(asig.getIdAsignatura());
-								int idAsignatura = asig.getIdAsignatura();
-								int idCiclo = asig.getCiclo().getIdCiclo();
-								ufSelected = u.verUFByName(idCiclo, idAsignatura, unidadSelectedStr.getNombreUf());
-								if (matricula.getNota() != null)
-								NotaAsigAlumno.setText(matricula.getNota().toString());
-								else NotaAsigAlumno.setText("No s'ha puntuat encara");
-						}
-					}*/
 				}
     		}
     	});
