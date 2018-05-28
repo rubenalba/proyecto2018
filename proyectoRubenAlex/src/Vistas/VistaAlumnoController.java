@@ -65,11 +65,12 @@ public class VistaAlumnoController {
     private Alumnos alumno;
     private List<Matricula> listaMatriculas;
     private List<Unidadformativa> listaUFS = new ArrayList<Unidadformativa>();
-    private String unidadSelectedStr;
     Unidadformativa uf;
     Unidadformativa ufSelected;
     Asignatura asig;
     private List<Asistencia> listaFaltas;
+
+
     @FXML
     public void initialize(){
     	VistaIniciController vistainici = new VistaIniciController();
@@ -98,14 +99,18 @@ public class VistaAlumnoController {
 						else NotaAsigAlumno.setText("No s'ha puntuat encara");
 
 					/*for (Matricula matricula : listaMatriculas) {
+=======
+					unidadSelectedStr = AsignaturasAlumno.getSelectionModel().getSelectedItem();
+					for (Matricula matricula : listaMatriculas) {
+>>>>>>> branch 'master' of https://github.com/rubenalba/proyecto2018.git
 			    		//System.out.println(u.verUnidadformativaByID(matricula.getId().getIdUnidadFormativa()).getNombreUf());
 			    		uf = u.verUnidadformativaByID(matricula.getId().getIdUnidadFormativa());
-			    		if (uf.getNombreUf().equals(unidadSelectedStr)){
+			    		if (uf.getNombreUf().equals(unidadSelectedStr.getNombreUf())){
 								asig = uf.getAsignatura();
 								asig = as.verAsignaturaById(asig.getIdAsignatura());
 								int idAsignatura = asig.getIdAsignatura();
 								int idCiclo = asig.getCiclo().getIdCiclo();
-								ufSelected = u.verUFByName(idCiclo, idAsignatura, unidadSelectedStr);
+								ufSelected = u.verUFByName(idCiclo, idAsignatura, unidadSelectedStr.getNombreUf());
 								if (matricula.getNota() != null)
 								NotaAsigAlumno.setText(matricula.getNota().toString());
 								else NotaAsigAlumno.setText("No s'ha puntuat encara");

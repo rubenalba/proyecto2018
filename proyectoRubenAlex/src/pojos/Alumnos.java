@@ -108,4 +108,8 @@ public class Alumnos implements java.io.Serializable {
 	public String getFaltasUF(){
 		return total;
 	}
+	 @Override
+	    public String toString() {
+	        return this.dni + " - " + this.nombre + " " + this.apellidos;
+	    }
 }

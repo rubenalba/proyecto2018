@@ -37,33 +37,33 @@ public class AddCursoController implements Initializable {
 	static UnidadFormativaInterface u = DAO.getUnidadFormativaInterface();
 	static AsignaturaInterface as = DAO.getAsignaturaInterface();
 	static ProfesorInterface p = DAO.getProfesorInterface();
-    @FXML
-    private ChoiceBox<String> cursos;
-    @FXML
-    private TextField horasTF;
+	@FXML
+	private ChoiceBox<String> cursos;
+	@FXML
+	private TextField horasTF;
 
-    private ObservableList<String> listaCiclos;
+	private ObservableList<String> listaCiclos;
 
-    private ObservableList<String>ufs;
+	private ObservableList<String>ufs;
 
-    @FXML
-    private ChoiceBox<String> ufCB;
+	@FXML
+	private ChoiceBox<String> ufCB;
 
-    @FXML
-    private ChoiceBox<String> asignaturaCB;
+	@FXML
+	private ChoiceBox<String> asignaturaCB;
 
-    private ObservableList<String>asig;
-    @FXML
-    private Button addUF;
-    private String cursoActivo;
-    private String AsignaturaActiva;
+	private ObservableList<String>asig;
+	@FXML
+	private Button addUF;
+	private String cursoActivo;
+	private String AsignaturaActiva;
 
-    @FXML
-    private Button volverBTN;
+	@FXML
+	private Button volverBTN;
 
-    public Asignatura asignaturaActiva;
-    public Ciclo cicloActivo;
-    private Profesor profesorActivo;
+	public Asignatura asignaturaActiva;
+	public Ciclo cicloActivo;
+	private Profesor profesorActivo;
 
 
 	public Profesor profesorActivo() {
@@ -137,38 +137,29 @@ public class AddCursoController implements Initializable {
 		asignaturaCB.setItems(asig);
 	}
 	@FXML
-	public void addUF () {
-	Ciclo cic = c.verCicloByName(cursoActivo);
-	Asignatura asi = as.verAsignaturaByName(AsignaturaActiva, cursoActivo);
-	asi.getIdAsignatura();
-	System.out.println(cic.getNombreCiclo() + "id del ciclo -> "+ cic.getIdCiclo());
-	System.out.println(asi.getIdAsignatura()  +" <---id de la asignatura"+ asi.getNombreAsignatura()+"<--nombre");
-	String uf = ufCB.getValue();
-	System.out.println(uf);
+	public void 	addUF () {
+		Ciclo cic = c.verCicloByName(cursoActivo);
+		Asignatura asi = as.verAsignaturaByName(AsignaturaActiva, cursoActivo);
+		asi.getIdAsignatura();
+		System.out.println(cic.getNombreCiclo() + "id del ciclo -> "+ cic.getIdCiclo());
+		System.out.println(asi.getIdAsignatura()  +" <---id de la asignatura"+ asi.getNombreAsignatura()+"<--nombre");
+		String uf = ufCB.getValue();
+		System.out.println(uf);
 
-	Unidadformativa unid = u.verUFByName(cic.getIdCiclo(), asi.getIdAsignatura(), uf);
-	System.out.println(unid.getIdUnidadFormativa() + " " + unid.getNombreUf());
-	unid.setProfesor(profesorActivo);
-	try {
-		u.modificarUnidadFormativa(unid);
+		Unidadformativa unid = u.verUFByName(cic.getIdCiclo(), asi.getIdAsignatura(), uf);
+		System.out.println(unid.getIdUnidadFormativa() + " " + unid.getNombreUf());
+		unid.setProfesor(profesorActivo);
+		try {
+			u.modificarUnidadFormativa(unid);
+			System.out.println("sí");
+		} catch (Exception e) {
+			System.out.println("no " + e.getMessage());
+
+		}
 		VistaIniciController vc = new VistaIniciController();
-		vc.cargarCursos();
-		System.out.println("sí");
-	} catch (Exception e) {
-		System.out.println("no");
+	
 	}
-	/*String se = "DAM1";
-	Ciclo ci = c.verCicloByName(se);
-		System.out.println(ci.getNombreCiclo());
-		String name = "M4 - Llenguatge de Marques";
-		Asignatura asi = as.verAsignaturaByName(name, se);
-		System.out.println(asi.getNombreAsignatura() + "<----");
-		*/
-
-
-
-	}
-	@FXML
+	@FXML 
 	private void closeWindow(ActionEvent event) {
 		cerrarVentana(event);
 	}
@@ -176,5 +167,5 @@ public class AddCursoController implements Initializable {
 		Node source = (Node)event.getSource();
 		Stage stage= (Stage)source.getScene().getWindow();
 		stage.close();
-	}
+	} 
 }
