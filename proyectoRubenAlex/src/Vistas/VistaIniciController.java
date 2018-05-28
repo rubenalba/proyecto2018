@@ -218,7 +218,7 @@ public class VistaIniciController {
 
 
 	boolean franjaVisible = true;
-
+	private ObservableList<String> cursosList;
 	private static Profesor profesorActivo;
 	private static Asignatura asignaturaMarcada;
 	private static Alumnos alumnoMarcado;
@@ -292,25 +292,26 @@ public class VistaIniciController {
 					asignaturaCB.setVisible(true);
 					cursoActivo = cursos.getValue();
 					cargarAsignatura(cursoActivo.getNombreCiclo());
-					asignaturaCB.valueProperty().addListener(new ChangeListener<Asignatura>() {
+				}
+			}
+		});
+		asignaturaCB.valueProperty().addListener(new ChangeListener<Asignatura>() {
 
-						@Override
-						public void changed(ObservableValue<? extends Asignatura> observable, Asignatura oldValue,
-								Asignatura newValue) {
-							if (asignaturaCB != null) {
-								ufCB.setVisible(true);
-								AsignaturaActiva = asignaturaCB.getSelectionModel().getSelectedItem();
-								System.out.println("asignatura ->" +  AsignaturaActiva);
-								cargarUF(AsignaturaActiva.getNombreAsignatura());
-							}
+			@Override
+			public void changed(ObservableValue<? extends Asignatura> observable, Asignatura oldValue,Asignatura newValue) {
+				if (asignaturaCB != null) {
+					ufCB.setVisible(true);
+					AsignaturaActiva = asignaturaCB.getSelectionModel().getSelectedItem();
 
-						}
-					});
+					cargarUF(AsignaturaActiva.getNombreAsignatura());
 				}
 
 			}
-		});
-	}
+			});
+		}
+
+
+
 
 	private void listeners2() {
 		cursosAlumno.valueProperty().addListener(new ChangeListener<Ciclo>() {
@@ -321,26 +322,27 @@ public class VistaIniciController {
 					asignaturaCB1Alumno.setVisible(true);
 					cursoActivo = cursosAlumno.getSelectionModel().getSelectedItem();
 					cargarAsignatura2(cursoActivo.getNombreCiclo());
-					asignaturaCB1Alumno.valueProperty().addListener(new ChangeListener<Asignatura>() {
+				}
+			}
+			});
+			asignaturaCB1Alumno.valueProperty().addListener(new ChangeListener<Asignatura>() {
 
-						@Override
-						public void changed(ObservableValue<? extends Asignatura> observable, Asignatura oldValue,
-								Asignatura newValue) {
-							if (asignaturaCB1Alumno != null) {
-								ufCBAlumno.setVisible(true);
-								AsignaturaActiva = asignaturaCB1Alumno.getValue();
-								System.out.println("asignatura ->" +  AsignaturaActiva);
-								cargarUF2(AsignaturaActiva.getNombreAsignatura());
-							}
+			@Override
+			public void changed(ObservableValue<? extends Asignatura> observable, Asignatura oldValue, Asignatura newValue) {
+				if (asignaturaCB1Alumno != null) {
+					ufCBAlumno.setVisible(true);
+					AsignaturaActiva = asignaturaCB1Alumno.getValue();
 
-						}
-					});
+					cargarUF2(AsignaturaActiva.getNombreAsignatura());
 				}
 
-			}
+
+				}
+
+
 		});
 	}
-	private ObservableList<String> cursosList;
+
 
 
 	public Profesor getProfesorActivo(){
@@ -476,23 +478,21 @@ public class VistaIniciController {
 		Ciclo cic = c.verCicloByName(cursoActivo.getNombreCiclo());
 		Asignatura asi = as.verAsignaturaByName(AsignaturaActiva.getNombreAsignatura(), cursoActivo.getNombreCiclo());
 		asi.getIdAsignatura();
-		System.out.println(cic.getNombreCiclo() + "id del ciclo -> "+ cic.getIdCiclo());
-		System.out.println(asi.getIdAsignatura()  +" <---id de la asignatura"+ asi.getNombreAsignatura()+"<--nombre");
 		Unidadformativa uforma = ufCB.getSelectionModel().getSelectedItem();
 
 		Unidadformativa unid = u.verUFByName(cic.getIdCiclo(), asi.getIdAsignatura(), uforma.getNombreUf());
-		System.out.println(unid.getIdUnidadFormativa() + " " + unid.getNombreUf());
+
 		unid.setProfesor(profesorActivo);
 		try {
 			u.modificarUnidadFormativa(unid);
-			System.out.println("sí");
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setHeaderText("Has añadido la " + ufCB.getValue() + " a tus cursos." );
 			alert.showAndWait();
 			cargarCursos();
 		} catch (Exception e) {
-			System.out.println("no " + e.getMessage());
-
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setHeaderText("Error al añadir la "+ ufCB.getValue() + " a tus cursos." );
+			alert.showAndWait();
 		}
 
 	}
@@ -520,27 +520,24 @@ public class VistaIniciController {
 				ColUF.setCellValueFactory(new PropertyValueFactory<Unidadformativa, String>("nombreUf"));
 			}
 		});
-				TablaUFs.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Unidadformativa>() {
+		TablaUFs.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Unidadformativa>() {
 
-					@Override
-					public void changed(ObservableValue<? extends Unidadformativa> observable, Unidadformativa oldValue, Unidadformativa newValue) {
-						if (newValue != null){
-						UFMarcada = TablaUFs.getSelectionModel().getSelectedItem();
-						VentanaPrincipal.setVisible(false);
-						VentanaAlumnos.setVisible(true);
+		@Override
+		public void changed(ObservableValue<? extends Unidadformativa> observable, Unidadformativa oldValue, Unidadformativa newValue) {
+			if (newValue != null){
+				UFMarcada = TablaUFs.getSelectionModel().getSelectedItem();
+				VentanaPrincipal.setVisible(false);
+				VentanaAlumnos.setVisible(true);
 
-						setCheckBox();
-						}
+				setCheckBox();
+				}
 
 
-					}
-				});
+			}
+		});
 
 	}
-/*
-	public void cargarFranjaHoraria() {
 
-	}*/
 
 	@FXML
 	public void configuracion(ActionEvent event) throws IOException{
@@ -593,7 +590,6 @@ public class VistaIniciController {
 		ColAlumnos.setCellValueFactory(new PropertyValueFactory<Alumnos, String>("NombreCompleto"));
 		List<Integer> faltas = FXCollections.observableArrayList();
 		for (Alumnos alumnos : alumnosLista) {
-			System.out.println(alumnos.getDni());
 			List<Asistencia> faltasAlumno = ast.verAllAsistenciasAlumnoUF(alumnos, UFMarcada);
 			alumnos.setTotal((100*faltasAlumno.size())/UFMarcada.getHoras());
 			ColAsistencia.setCellValueFactory(new PropertyValueFactory<Alumnos, String>("FaltasUF"));
@@ -623,7 +619,6 @@ public class VistaIniciController {
 				if (value){
 					if (!listaNoAsistencia.contains(alumnosLista.get(index)))
 					listaNoAsistencia.add(alumnosLista.get(index));
-
 				}
 				else {
 					if (listaNoAsistencia.contains(alumnosLista.get(index)))
@@ -660,28 +655,18 @@ public class VistaIniciController {
 		String dia = DiaAsistenciaSelect.getValue().getDayOfWeek().name();
 		Franjas franjaFalta = fr.verFranjaFalta(horaFalta, profesorActivo, dia, asignaturaFalta);
 		for (Alumnos alumnos : listaNoAsistencia) {
-			System.out.println(alumnos.getNombre());
+
 			Asistencia falta = new Asistencia();
 			AsistenciaId a = new AsistenciaId(alumnos.getDni(), UFMarcada.getIdUnidadFormativa(), franjaFalta.getIdFranja(), fecha);
 			falta.setId(a);
 			ast.addAsistencia(falta);
 		}
+		setCheckBox();
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setHeaderText("Faltas generadas correctamente");
+		alert.showAndWait();
 
 	}
-	/*@FXML
-	public void addCurso() throws IOException {
-
-	}
-	/*
-	public void cargarUltimasFaltas(Alumnos alumno, Asignatura asignatura){
-		int faltasCargar = 10;
-		List<Franjas> franjasAsig = fr.verFranjaAsignatura(profesorActivo, asignatura);
-		List<String> dias = new ArrayList<String>();
-		for (Franjas franjas : franjasAsig) {
-			dias.add(franjas.getDia());
-		}
-	}*/
-
 	/**
 	 * Metodo para abrir la vista de un alumno con la informacion de este.
 	 * @param newSelection Alumno del que se cargaran los datos
@@ -696,8 +681,9 @@ public class VistaIniciController {
 			stage.setScene(scene);
 			stage.show();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText("Error al cargar la ventana de alumno, vuelva a intentarlo");
 		}
 
 	}

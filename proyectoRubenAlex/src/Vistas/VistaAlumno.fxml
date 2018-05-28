@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
@@ -8,7 +11,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="564.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vistas.VistaAlumnoController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="564.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vistas.VistaAlumnoController">
    <children>
       <Label layoutX="46.0" layoutY="44.0" text="Nombre" />
       <TextField fx:id="NombreAlumno" disable="true" layoutX="46.0" layoutY="66.0" />
@@ -16,22 +19,20 @@
       <TextField fx:id="ApellidosAlumno" disable="true" layoutX="46.0" layoutY="223.0" />
       <TextField fx:id="DNIAlumno" disable="true" layoutX="46.0" layoutY="138.0" />
       <Label layoutX="46.0" layoutY="115.0" text="D.N.I." />
-      <ChoiceBox fx:id="AsignaturasAlumno" layoutX="47.0" layoutY="354.0" prefWidth="150.0" />
-      <Label layoutX="43.0" layoutY="331.0" text="Selecciona Asignatura" />
-      <TextField fx:id="NotaAsigAlumno" layoutX="46.0" layoutY="415.0" />
+      <TextField fx:id="NotaAsigAlumno" editable="false" layoutX="46.0" layoutY="415.0" />
       <Label layoutX="43.0" layoutY="394.0" text="Nota" />
       <Label layoutX="44.0" layoutY="260.0" text="e-mail" />
       <TextField fx:id="Email" layoutX="46.0" layoutY="287.0" />
-      <Button fx:id="mostrarFaltas" layoutX="133.0" layoutY="459.0" mnemonicParsing="false" onAction="#listaFaltasUF" text="Mostrar Faltas" />
       <TextField fx:id="Email" disable="true" layoutX="46.0" layoutY="287.0" />
-      <Button fx:id="mostrarFaltas" layoutX="47.0" layoutY="492.0" mnemonicParsing="false" onAction="#listaFaltasUF" text="Mostrar Faltas" />
-      <TableView fx:id="tablaAsistencias" layoutX="257.0" layoutY="35.0" prefHeight="477.0" prefWidth="294.0">
+      <TableView fx:id="tablaAsistencias" layoutX="257.0" layoutY="35.0" prefHeight="416.0" prefWidth="294.0">
         <columns>
           <TableColumn fx:id="fechaFalta" prefWidth="141.0" text="Fecha" />
           <TableColumn fx:id="justificadoFalta" prefWidth="152.0" text="Justificada" />
         </columns>
       </TableView>
-      <Button fx:id="calificar" layoutX="39.0" layoutY="459.0" mnemonicParsing="false" text="Calificar" />
-      <Button fx:id="GuardarNota" disable="true" layoutX="39.0" layoutY="459.0" mnemonicParsing="false" text="Guardar" />
+      <Button fx:id="calificarNota" layoutX="39.0" layoutY="459.0" mnemonicParsing="false" onAction="#activarNota" text="Calificar" />
+      <Button fx:id="GuardarNota" layoutX="39.0" layoutY="459.0" mnemonicParsing="false" onAction="#actualizarNota" text="Guardar" visible="false" />
+      <Button fx:id="justificarFalta" layoutX="442.0" layoutY="459.0" mnemonicParsing="false" text="Justificar" onAction="#justificar" />
+      <Button fx:id="eliminarFalta" layoutX="290.0" layoutY="459.0" mnemonicParsing="false" onAction="#eliminarFalta" text="Eliminar" />
    </children>
 </AnchorPane>

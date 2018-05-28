@@ -1,6 +1,7 @@
 package Vistas;
  import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import Modelo.AsignaturaInterface;
 import Modelo.AsistenciaInterface;
@@ -11,7 +12,10 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -63,15 +67,19 @@ public class VistaAlumnoController {
     @FXML
     private Button mostrarFaltas;
     @FXML
-    private Button calificar;
+    private Button calificarNota;
     @FXML
     private Button GuardarNota;
+    @FXML
+    private Button eliminarFalta;
+    @FXML
+    private Button justificarFalta;
+
 
     private Alumnos alumno;
     private List<Matricula> listaMatriculas;
     private List<Unidadformativa> listaUFS = new ArrayList<Unidadformativa>();
     Unidadformativa uf;
-    Unidadformativa ufSelected;
     Asignatura asig;
     private List<Asistencia> listaFaltas;
     private static Unidadformativa UFActiva;
@@ -81,7 +89,6 @@ public class VistaAlumnoController {
     	UFActiva = getUFMarcada();
     	VistaIniciController vistainici = new VistaIniciController();
     	alumno = vistainici.getAlumnoMarcado();
-
     	DNIAlumno.setText(alumno.getDni());
     	ApellidosAlumno.setText(alumno.getApellidos());
     	Email.setText(alumno.getEmail());
@@ -89,25 +96,12 @@ public class VistaAlumnoController {
 
     	listaMatriculas = mi.matriculasAlumno(alumno);
 
-    	for (Matricula matricula : listaMatriculas) {
-    		uf = u.verUnidadformativaByID(matricula.getId().getIdUnidadFormativa());
-    		listaUFS.add(uf);
-		}
-    	AsignaturasAlumno.setItems(FXCollections.observableArrayList(listaUFS));
+		Matricula mat = mi.verMatriculaUFDNI(UFActiva, alumno);
+		refrescarLista();
+		if (mat.getNota() != null)
+		NotaAsigAlumno.setText(mat.getNota().toString());
+		else NotaAsigAlumno.setText("No s'ha puntuat encara");
 
-    	AsignaturasAlumno.valueProperty().addListener(new ChangeListener<Unidadformativa>() {
-
-    		public void changed(ObservableValue<? extends Unidadformativa> observable, Unidadformativa oldValue, Unidadformativa newValue) {
-				if (AsignaturasAlumno != null) {
-					ufSelected = AsignaturasAlumno.getValue();
-					Matricula mat = mi.verMatriculaUFDNI(ufSelected, alumno);
-
-					if (mat.getNota() != null)
-						NotaAsigAlumno.setText(mat.getNota().toString());
-						else NotaAsigAlumno.setText("No s'ha puntuat encara");
-				}
-    		}
-    	});
 	}
 
 
@@ -116,23 +110,104 @@ public class VistaAlumnoController {
 		UFActiva =  v.getUnidadFormativa();
 		return UFActiva;
 	}
-    /**
-     * Metodo para listar las faltas de asistencia de un alumno en una UF concreta
-     */
-    public void listaFaltasUF(){
-    	listaFaltas = ast.verAllAsistenciasAlumnoUF(alumno, ufSelected);
-    	tablaAsistencias.setItems(FXCollections.observableArrayList(listaFaltas));
-    	fechaFalta.setCellValueFactory(new PropertyValueFactory<Asistencia, String>("Hora"));
-		justificadoFalta.setCellValueFactory(new PropertyValueFactory<Asistencia, String>("Justificado"));
-    }
 
     /**
      * Metodo para modificar la nota de una matricula
      */
     public void actualizarNota(){
-    	Matricula mat = mi.verMatriculaUFDNI(ufSelected, alumno);
-    	double nota = Double.valueOf(NotaAsigAlumno.getText());
-    	mat.setNota(nota);
-    	mi.modificarNota(mat);
+    	Matricula mat = mi.verMatriculaUFDNI(UFActiva, alumno);
+    	try {
+    		double nota = Double.valueOf(NotaAsigAlumno.getText());
+    		if (validarNota(nota)){
+    			mat.setNota(nota);
+    			mi.modificarNota(mat);
+    			Alert alert = new Alert(AlertType.INFORMATION);
+        		alert.setHeaderText("Se ha modificado la nota");
+        		alert.showAndWait();
+        		NotaAsigAlumno.setEditable(false);
+            	GuardarNota.setVisible(false);
+            	calificarNota.setVisible(true);
+    			}
+    		else {Alert alert = new Alert(AlertType.ERROR);
+    		alert.setTitle("Error");
+    		alert.setHeaderText("Error al evaluar falta");
+    		alert.setContentText("Nota incorrecta");
+    		alert.showAndWait();
+    	}
+    	} catch (Exception e){
+    		Alert alert = new Alert(AlertType.ERROR);
+    		alert.setTitle("Error");
+    		alert.setHeaderText("Error al evaluar falta");
+    		alert.setContentText("Nota incorrecta");
+    		alert.showAndWait();
+    	}
+    }
+
+    public boolean validarNota(double nota){
+		if (nota > 0 && nota <= 10) return true;
+		else return false;
+    }
+    /**
+     * Metodo que habilitara las opciones para modificar una nota de una matricula
+     */
+    public void activarNota(){
+    	NotaAsigAlumno.setEditable(true);
+    	GuardarNota.setVisible(true);
+    	calificarNota.setVisible(false);
+    }
+
+    /**
+     * Metodo que eliminara la falta de asistencia seleccionada
+     */
+    public void eliminarFalta(){
+    	try{
+	    	Asistencia falta = tablaAsistencias.getSelectionModel().getSelectedItem();
+	    	Alert alert = new Alert(AlertType.CONFIRMATION);
+	    	alert.setHeaderText("Seguro que desea eliminar la falta de asistencia en fecha "+falta.getId().getFecha()+"?");
+	    	Optional<ButtonType> result = alert.showAndWait();
+	    	if(result.isPresent()&& result.get() == ButtonType.OK){
+	    		ast.eliminarAsistencia(falta.getId());
+	    		refrescarLista();
+	    	}
+    	} catch (NullPointerException e){
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText("Error al eliminar falta");
+			alert.setContentText("No se ha seleccionado ninguna falta");
+			alert.showAndWait();
+		}
+    }
+    /**
+     * justifica la falta de asistencia seleccionada
+     */
+    public void justificar(){
+    	try {
+	    	Asistencia falta = tablaAsistencias.getSelectionModel().getSelectedItem();
+	    	if (falta.isJustificante()){
+	    		falta.setJustificante(false);
+	    		ast.modificarAsistencia(falta);
+	    		}
+
+	    	else {
+	    		falta.setJustificante(true);
+	    		ast.modificarAsistencia(falta);}
+
+    	} catch (NullPointerException e){
+    		Alert alert = new Alert(AlertType.ERROR);
+    		alert.setTitle("Error");
+    		alert.setHeaderText("Error al justificar falta");
+    		alert.setContentText("No se ha seleccionado ninguna falta");
+    		alert.showAndWait();
+    	}
+    	refrescarLista();
+    }
+    /**
+     * Carga las faltas de asistencia a la tabla de faltas
+     */
+    public void refrescarLista(){
+    	listaFaltas = ast.verAllAsistenciasAlumnoUF(alumno, UFActiva);
+    	tablaAsistencias.setItems(FXCollections.observableArrayList(listaFaltas));
+    	fechaFalta.setCellValueFactory(new PropertyValueFactory<Asistencia, String>("Hora"));
+		justificadoFalta.setCellValueFactory(new PropertyValueFactory<Asistencia, String>("Justificado"));
     }
 }
