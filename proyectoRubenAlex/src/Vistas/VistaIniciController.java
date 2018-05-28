@@ -229,6 +229,10 @@ public class VistaIniciController {
 	}
 	private static Unidadformativa UFMarcada;
 
+	public static Unidadformativa getUFMarcada() {
+		return UFMarcada;
+	}
+
 	/*********************************************************
 	 *	COMIENZAN LOS MÉTODOS
 	 ********************************************************/

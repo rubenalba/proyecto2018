@@ -70,10 +70,12 @@ public class VistaAlumnoController {
     Unidadformativa ufSelected;
     Asignatura asig;
     private List<Asistencia> listaFaltas;
+    private static Unidadformativa UFActiva;
     
     
     @FXML
     public void initialize(){
+    	UFActiva = getUFMarcada();
     	VistaIniciController vistainici = new VistaIniciController();
     	alumno = vistainici.getAlumnoMarcado();
     	DNIAlumno.setText(alumno.getDni());
@@ -114,7 +116,14 @@ public class VistaAlumnoController {
 	}
 
 
-    public void listaFaltasUF(){
+    private Unidadformativa getUFMarcada() {
+		VistaIniciController v = new VistaIniciController();
+		UFActiva =  v.getUnidadFormativa();
+		return UFActiva;
+	}
+
+
+	public void listaFaltasUF(){
     	listaFaltas = ast.verAllAsistenciasAlumnoUF(alumno, ufSelected);
     	tablaAsistencias.setItems(FXCollections.observableArrayList(listaFaltas));
     	fechaFalta.setCellValueFactory(new PropertyValueFactory<Asistencia, String>("Hora"));
