@@ -2,6 +2,7 @@ package Vistas;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -186,7 +187,7 @@ public class VistaIniciController {
 
 	@FXML
 	private Button volverBTN;
-	LocalDate today = LocalDate.now();
+	LocalDate today;
 
     @FXML
     private Button volverBTN1;
@@ -247,7 +248,7 @@ public class VistaIniciController {
 		cargarCiclo();
 		cargarCiclo2();
 		cargarAlumnos();
-
+		today = LocalDate.now( ZoneId.of( "Europe/Paris" ) );
 
 
 		VentanaAlumnos.setVisible(false);
@@ -260,6 +261,7 @@ public class VistaIniciController {
 		    if (newSelection != null) {
 		        setAlumnoMarcado(newSelection);
 		        abrirAlumno(alumnoMarcado);
+
 		    }
 		});
 		asignaturaCB.setVisible(true);
@@ -655,7 +657,6 @@ public class VistaIniciController {
 		String dia = DiaAsistenciaSelect.getValue().getDayOfWeek().name();
 		Franjas franjaFalta = fr.verFranjaFalta(horaFalta, profesorActivo, dia, asignaturaFalta);
 		for (Alumnos alumnos : listaNoAsistencia) {
-
 			Asistencia falta = new Asistencia();
 			AsistenciaId a = new AsistenciaId(alumnos.getDni(), UFMarcada.getIdUnidadFormativa(), franjaFalta.getIdFranja(), fecha);
 			falta.setId(a);
@@ -680,6 +681,7 @@ public class VistaIniciController {
 			Stage stage = new Stage();
 			stage.setScene(scene);
 			stage.show();
+
 		} catch (IOException e) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Error");

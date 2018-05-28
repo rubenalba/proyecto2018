@@ -32,7 +32,8 @@
       </TableView>
       <Button fx:id="calificarNota" layoutX="39.0" layoutY="459.0" mnemonicParsing="false" onAction="#activarNota" text="Calificar" />
       <Button fx:id="GuardarNota" layoutX="39.0" layoutY="459.0" mnemonicParsing="false" onAction="#actualizarNota" text="Guardar" visible="false" />
-      <Button fx:id="justificarFalta" layoutX="442.0" layoutY="459.0" mnemonicParsing="false" text="Justificar" onAction="#justificar" />
+      <Button fx:id="justificarFalta" layoutX="442.0" layoutY="459.0" mnemonicParsing="false" onAction="#justificar" text="Justificar" />
       <Button fx:id="eliminarFalta" layoutX="290.0" layoutY="459.0" mnemonicParsing="false" onAction="#eliminarFalta" text="Eliminar" />
+      <Button fx:id="pdf" layoutX="123.0" layoutY="459.0" mnemonicParsing="false" onAction="#pdf" text="Generar PDF" />
    </children>
 </AnchorPane>

@@ -91,7 +91,7 @@ public class VistaListaAlumnosController implements Initializable {
 		stage.close();
 	}
 
-	private void setCheckBox(){
+	public void setCheckBox(){
 		Checkers.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Alumnos, Boolean>, ObservableValue<Boolean>>() {
 	        @Override
 	        public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<Alumnos, Boolean> features) {

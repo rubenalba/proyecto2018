@@ -1,7 +1,17 @@
 package Vistas;
- import java.util.ArrayList;
+ import java.io.FileOutputStream;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
+
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 
 import Modelo.AsignaturaInterface;
 import Modelo.AsistenciaInterface;
@@ -11,6 +21,7 @@ import dao.DAO;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -186,11 +197,17 @@ public class VistaAlumnoController {
 	    	if (falta.isJustificante()){
 	    		falta.setJustificante(false);
 	    		ast.modificarAsistencia(falta);
+	    		Alert alert = new Alert(AlertType.INFORMATION);
+	    		alert.setHeaderText("Falta injustificada");
+	    		alert.showAndWait();
 	    		}
 
 	    	else {
 	    		falta.setJustificante(true);
-	    		ast.modificarAsistencia(falta);}
+	    		ast.modificarAsistencia(falta);
+	    		Alert alert = new Alert(AlertType.INFORMATION);
+	    		alert.setHeaderText("Falta justificada");
+	    		alert.showAndWait();}
 
     	} catch (NullPointerException e){
     		Alert alert = new Alert(AlertType.ERROR);
@@ -210,4 +227,43 @@ public class VistaAlumnoController {
     	fechaFalta.setCellValueFactory(new PropertyValueFactory<Asistencia, String>("Hora"));
 		justificadoFalta.setCellValueFactory(new PropertyValueFactory<Asistencia, String>("Justificado"));
     }
+
+    @FXML
+
+	public void pdf(ActionEvent event) throws SQLException, ParseException {
+
+
+		String nombreFichero = "faltas_"+alumno.getNombre()+alumno.getApellidos();
+
+
+		SimpleDateFormat  sdf = new SimpleDateFormat("dd - MMMM - yyyy",new Locale("ES"));
+		Date ahora = new Date();
+		String hoy = sdf.format(ahora);
+		String contenido = "Institut Marianao\n"
+				+ "C/ Passeig de les mimoses, 18, Sant Boi de Llobregat (Barcelona)\n"
+				+ "(93) 640 77 10\n"
+				+ "www.institutmarianao.cat\n\n\nEl/La alumno/alumna. " + alumno.getNombre() + " "
+				+ alumno.getApellidos() + ",\n tiene las siguientes faltas de asistencia para la "+UFActiva.getNombreUf() +":  \n\n";
+				for (Asistencia asistencia : listaFaltas) {
+					contenido += asistencia.getId().getFecha() + "     Justificada: " + asistencia.getJustificado()+"\n";
+				}
+
+
+
+
+		try {
+			FileOutputStream archivo = new FileOutputStream(nombreFichero + ".pdf");
+			Document doc = new Document();
+			PdfWriter.getInstance(doc, archivo);
+			doc.open();
+			doc.add(new Paragraph(contenido));
+			doc.close();
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setHeaderText("Informe faltas creado");
+			alert.showAndWait();
+			System.out.println("pdf creado");
+		} catch (Exception e) {
+			System.out.println("no hecho");
+		}
+	}
 }
