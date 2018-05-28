@@ -236,9 +236,11 @@ public class VistaAlumnoController {
 		String nombreFichero = "faltas_"+alumno.getNombre()+alumno.getApellidos();
 
 
-		SimpleDateFormat  sdf = new SimpleDateFormat("dd - MMMM - yyyy",new Locale("ES"));
+		SimpleDateFormat  sdf = new SimpleDateFormat("dd 'de' MMMM 'de' yyyy",new Locale("ES"));
 		Date ahora = new Date();
 		String hoy = sdf.format(ahora);
+		sdf=new SimpleDateFormat("HH:mm 'horas'",new Locale("ES"));
+		String hora = sdf.format(ahora);
 		String contenido = "Institut Marianao\n"
 				+ "C/ Passeig de les mimoses, 18, Sant Boi de Llobregat (Barcelona)\n"
 				+ "(93) 640 77 10\n"
@@ -247,10 +249,7 @@ public class VistaAlumnoController {
 				for (Asistencia asistencia : listaFaltas) {
 					contenido += asistencia.getId().getFecha() + "     Justificada: " + asistencia.getJustificado()+"\n";
 				}
-
-
-
-
+				contenido += "\n\n A fecha de "+hoy+ " a las "+hora+".";
 		try {
 			FileOutputStream archivo = new FileOutputStream(nombreFichero + ".pdf");
 			Document doc = new Document();

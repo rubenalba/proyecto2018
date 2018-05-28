@@ -9,6 +9,8 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
+
 import Modelo.AlumnosInterface;
 import Modelo.AsignaturaInterface;
 import Modelo.AsistenciaInterface;
@@ -530,7 +532,6 @@ public class VistaIniciController {
 				UFMarcada = TablaUFs.getSelectionModel().getSelectedItem();
 				VentanaPrincipal.setVisible(false);
 				VentanaAlumnos.setVisible(true);
-
 				setCheckBox();
 				}
 
@@ -608,7 +609,14 @@ public class VistaIniciController {
 
 			@Override
 			public boolean checkValue(Alumnos element) {
-				return false;
+				List<Asistencia> faltas = ast.verAllAsistenciasAlumnoUF(element, UFMarcada);
+				boolean existe = false;
+				for (Asistencia asistencia : faltas) {
+					if (asistencia.getId().getFecha().equals(DiaAsistenciaSelect.getValue().toString())){
+						existe = true;
+					}
+				}
+				return existe;
 			}
 
 			@Override
@@ -656,16 +664,25 @@ public class VistaIniciController {
 		String fecha = DiaAsistenciaSelect.getValue().toString();
 		String dia = DiaAsistenciaSelect.getValue().getDayOfWeek().name();
 		Franjas franjaFalta = fr.verFranjaFalta(horaFalta, profesorActivo, dia, asignaturaFalta);
+		if (listaNoAsistencia.isEmpty()){
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setHeaderText("Indica faltas a generar");
+			alert.showAndWait();
+		} else {
 		for (Alumnos alumnos : listaNoAsistencia) {
 			Asistencia falta = new Asistencia();
 			AsistenciaId a = new AsistenciaId(alumnos.getDni(), UFMarcada.getIdUnidadFormativa(), franjaFalta.getIdFranja(), fecha);
 			falta.setId(a);
-			ast.addAsistencia(falta);
+			try {
+				ast.addAsistencia(falta);
+			} catch(Exception e){
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setHeaderText("Falta de asistencia duplicada");
+				alert.showAndWait();
+			}
 		}
 		setCheckBox();
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setHeaderText("Faltas generadas correctamente");
-		alert.showAndWait();
+		}
 
 	}
 	/**
