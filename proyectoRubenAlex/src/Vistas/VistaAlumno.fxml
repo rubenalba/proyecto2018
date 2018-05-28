@@ -14,16 +14,18 @@
       <Label layoutX="46.0" layoutY="115.0" text="D.N.I." />
       <ChoiceBox fx:id="AsignaturasAlumno" layoutX="47.0" layoutY="354.0" prefWidth="150.0" />
       <Label layoutX="43.0" layoutY="331.0" text="Selecciona Asignatura" />
-      <TextField fx:id="NotaAsigAlumno" layoutX="46.0" layoutY="447.0" />
-      <Label layoutX="49.0" layoutY="421.0" text="Nota" />
+      <TextField fx:id="NotaAsigAlumno" layoutX="46.0" layoutY="415.0" />
+      <Label layoutX="43.0" layoutY="394.0" text="Nota" />
       <Label layoutX="44.0" layoutY="260.0" text="e-mail" />
       <TextField fx:id="Email" layoutX="46.0" layoutY="287.0" />
-      <Button fx:id="mostrarFaltas" layoutX="47.0" layoutY="492.0" mnemonicParsing="false" onAction="#listaFaltasUF" text="Mostrar Faltas" />
+      <Button fx:id="mostrarFaltas" layoutX="133.0" layoutY="459.0" mnemonicParsing="false" onAction="#listaFaltasUF" text="Mostrar Faltas" />
       <TableView fx:id="tablaAsistencias" layoutX="257.0" layoutY="35.0" prefHeight="477.0" prefWidth="294.0">
         <columns>
           <TableColumn fx:id="fechaFalta" prefWidth="141.0" text="Fecha" />
           <TableColumn fx:id="justificadoFalta" prefWidth="152.0" text="Justificada" />
         </columns>
       </TableView>
+      <Button fx:id="calificar" layoutX="39.0" layoutY="459.0" mnemonicParsing="false" text="Calificar" />
+      <Button fx:id="GuardarNota" disable="true" layoutX="39.0" layoutY="459.0" mnemonicParsing="false" text="Guardar" />
    </children>
 </AnchorPane>

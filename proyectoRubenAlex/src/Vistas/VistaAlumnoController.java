@@ -39,7 +39,7 @@ public class VistaAlumnoController {
     private TextField Email;
 
     @FXML
-    private ChoiceBox<String> AsignaturasAlumno;
+    private ChoiceBox<Unidadformativa> AsignaturasAlumno;
 
     @FXML
     private TableView<Asistencia> tablaAsistencias;
@@ -64,7 +64,7 @@ public class VistaAlumnoController {
 
     private Alumnos alumno;
     private List<Matricula> listaMatriculas;
-    private List<String> listaUFS = new ArrayList<String>();
+    private List<Unidadformativa> listaUFS = new ArrayList<Unidadformativa>();
     private String unidadSelectedStr;
     Unidadformativa uf;
     Unidadformativa ufSelected;
@@ -84,15 +84,20 @@ public class VistaAlumnoController {
     		//System.out.println(u.verUnidadformativaByID(matricula.getId().getIdUnidadFormativa()).getNombreUf());
     		uf = u.verUnidadformativaByID(matricula.getId().getIdUnidadFormativa());
     		System.out.println(uf.getNombreUf());
-    		listaUFS.add(uf.getNombreUf());
+    		listaUFS.add(uf);
 		}
     	AsignaturasAlumno.setItems(FXCollections.observableArrayList(listaUFS));
-    	AsignaturasAlumno.valueProperty().addListener(new ChangeListener<String>() {
+    	AsignaturasAlumno.valueProperty().addListener(new ChangeListener<Unidadformativa>() {
 
-    		public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+    		public void changed(ObservableValue<? extends Unidadformativa> observable, Unidadformativa oldValue, Unidadformativa newValue) {
 				if (AsignaturasAlumno != null) {
-					unidadSelectedStr = AsignaturasAlumno.getValue();
-					for (Matricula matricula : listaMatriculas) {
+					ufSelected = AsignaturasAlumno.getValue();
+					Matricula mat = mi.verMatriculaUFDNI(ufSelected, alumno);
+					if (mat.getNota() != null)
+						NotaAsigAlumno.setText(mat.getNota().toString());
+						else NotaAsigAlumno.setText("No s'ha puntuat encara");
+
+					/*for (Matricula matricula : listaMatriculas) {
 			    		//System.out.println(u.verUnidadformativaByID(matricula.getId().getIdUnidadFormativa()).getNombreUf());
 			    		uf = u.verUnidadformativaByID(matricula.getId().getIdUnidadFormativa());
 			    		if (uf.getNombreUf().equals(unidadSelectedStr)){
@@ -105,7 +110,7 @@ public class VistaAlumnoController {
 								NotaAsigAlumno.setText(matricula.getNota().toString());
 								else NotaAsigAlumno.setText("No s'ha puntuat encara");
 						}
-					}
+					}*/
 				}
     		}
     	});
