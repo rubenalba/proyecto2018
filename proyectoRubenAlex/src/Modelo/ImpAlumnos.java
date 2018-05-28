@@ -1,10 +1,4 @@
 package Modelo;
-/**
- *
- * @author rubenalba
- * @version 1.0
- */
-
 import java.util.List;
 
 import org.hibernate.HibernateException;
@@ -20,13 +14,17 @@ import pojos.Matricula;
 import pojos.Unidadformativa;
 
 
-
+/**
+*
+* @author rubenalba
+* @version 1.0
+*/
 public class ImpAlumnos implements AlumnosInterface{
 	private static SessionFactory factory = SessionFactoryUtil.getSessionFactory();
 	//Funciona, no tocar!!
 	/**
 	 *  Añade alumnos a la base de datos pasándole el alumno
-	 *   @pararm Alumno alumno   
+	 *   @pararm Alumno alumno
 	 */
 	@Override
 	public void addAlumno(Alumnos alumno) {
@@ -46,7 +44,7 @@ public class ImpAlumnos implements AlumnosInterface{
 	//Funciona, no tocar!!
 	/**
 	 *  Elimina alumnos a la base de datos pasándole el dni
-	 *   @pararm String dni   
+	 *   @pararm String dni
 	 */
 	@Override
 	public void eliminarAlumno(String dni) {
@@ -65,10 +63,10 @@ public class ImpAlumnos implements AlumnosInterface{
 		}
 
 	}
-	
+
 	/**
 	 *  modifica alumnos a la base de datos pasándole el alumno
-	 *   @pararm Alumno alumno   
+	 *   @pararm Alumno alumno
 	 */
 	@Override
 	public void modificarAlumno(Alumnos alumnoModificado) {
@@ -86,10 +84,10 @@ public class ImpAlumnos implements AlumnosInterface{
 		}
 
 	}
-	
+
 	/**
 	 *  Obtiene la lista de asistencias del alumno que se le pasa por medio del DNI
-	 *   @pararm String dni  
+	 *   @pararm String dni
 	 */
 	@Override
 	public List<Asistencia> verAsistencia(String dni) {
@@ -109,14 +107,19 @@ public class ImpAlumnos implements AlumnosInterface{
 		return listaAsistencia;
 	}
 
+	//Esto deberia estar aqui?
+	/**
+	 * Obtiene una falta de asistencia en concreto a partir de la id
+	 * @param String dni
+	 */
 	@Override
-	public Asistencia verAsistenciasByID(String dni) {
+	public Asistencia verAsistenciasByID(String id) {
 		Session session = factory.openSession();
 		Transaction tx = null;
 		Asistencia asistencia = null;
 		try {
 			tx = session.beginTransaction();
-			asistencia = (Asistencia)session.get(Asistencia.class, dni);
+			asistencia = (Asistencia)session.get(Asistencia.class, id);
 		}catch  (HibernateException e) {
 			if (tx!=null) tx.rollback();
 			e.printStackTrace();
@@ -126,16 +129,10 @@ public class ImpAlumnos implements AlumnosInterface{
 		return asistencia;
 	}
 
-	/*	public List verClientebyName(String clienteID) {
-		Session session = factory.openSession();
-		Transaction tx = null;
-		Clients cliente  = null;
-		String hql = "FROM Clients C WHERE C.nom LIKE " + "'"+ "%"+clienteID + "%" + "' OR C.cognoms LIKE " +"'"+ "%" + clienteID + "%"+ "'" ;
-		Query query = session.createQuery(hql);
-		List results = query.list();
-		return results;
-	}*/
-
+	/**
+	 * Obtiene un alumno a partir de su DNI
+	 * @param String DNI
+	 */
 	@Override
 	//FUNCIONA, NO TOCAR!!
 	public Alumnos verAlumnobyDNI(String DNI) {
@@ -146,10 +143,10 @@ public class ImpAlumnos implements AlumnosInterface{
 		return alumno;
 	}
 
-
-
-
 	//FUNCIONA, NO TOCAR!!
+	/**
+	 * Lista todos los alumnos.
+	 */
 	@Override
 	public List<Alumnos> verTodosAlumnos() {
 		Session session = factory.openSession();
@@ -168,6 +165,10 @@ public class ImpAlumnos implements AlumnosInterface{
 		return listaAlumnos;
 	}
 	//FUNCIONA, NO TOCAR!!
+	//No deberiamos pasar el apellido tambien?
+	/**
+	 * Lista los alumnos a partir de su nombre.
+	 */
 	@Override
 	public List<Alumnos> verAlumnobyName(String nombre) {
 		Session session = factory.openSession();
@@ -186,18 +187,5 @@ public class ImpAlumnos implements AlumnosInterface{
 			session.close();
 		}
 		return resultado;
-	}
-	
-
-	@Override
-	public List<Matricula> verMatriculas() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Matricula verMatriculaByUF(Unidadformativa uf) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

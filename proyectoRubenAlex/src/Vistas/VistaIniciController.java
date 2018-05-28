@@ -58,10 +58,13 @@ import pojos.MatriculaId;
 import pojos.Profesor;
 import pojos.Unidadformativa;
 import dao.DAO;
-
+/**
+ * Controlador de la vista inicial del programa
+ * @author cfgs
+ *
+ */
 public class VistaIniciController {
 	public static final int PORCENTAJE = 25;
-	public static final int COLUMNAS = 10;
 	static ProfesorInterface pr = DAO.getProfesorInterface();
 	static UnidadFormativaInterface u = DAO.getUnidadFormativaInterface();
 	static AsignaturaInterface as = DAO.getAsignaturaInterface();

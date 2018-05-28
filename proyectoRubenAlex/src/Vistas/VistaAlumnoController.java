@@ -24,6 +24,11 @@ import pojos.AsistenciaId;
 import pojos.Matricula;
 import pojos.Unidadformativa;
 
+/**
+ * Controlador de la vista que contiene la información de un alumno concreto
+ * @author cfgs
+ *
+ */
 public class VistaAlumnoController {
 	static MatriculaInterface mi = DAO.getMatriculaInterface();
 	static UnidadFormativaInterface u = DAO.getUnidadFormativaInterface();
@@ -75,16 +80,16 @@ public class VistaAlumnoController {
     public void initialize(){
     	VistaIniciController vistainici = new VistaIniciController();
     	alumno = vistainici.getAlumnoMarcado();
+
     	DNIAlumno.setText(alumno.getDni());
     	ApellidosAlumno.setText(alumno.getApellidos());
     	Email.setText(alumno.getEmail());
     	NombreAlumno.setText(alumno.getNombre());
+
     	listaMatriculas = mi.matriculasAlumno(alumno);
-    	System.out.println(listaMatriculas.size());
+
     	for (Matricula matricula : listaMatriculas) {
-    		//System.out.println(u.verUnidadformativaByID(matricula.getId().getIdUnidadFormativa()).getNombreUf());
     		uf = u.verUnidadformativaByID(matricula.getId().getIdUnidadFormativa());
-    		System.out.println(uf.getNombreUf());
     		listaUFS.add(uf);
 		}
     	AsignaturasAlumno.setItems(FXCollections.observableArrayList(listaUFS));
@@ -95,6 +100,7 @@ public class VistaAlumnoController {
 				if (AsignaturasAlumno != null) {
 					ufSelected = AsignaturasAlumno.getValue();
 					Matricula mat = mi.verMatriculaUFDNI(ufSelected, alumno);
+
 					if (mat.getNota() != null)
 						NotaAsigAlumno.setText(mat.getNota().toString());
 						else NotaAsigAlumno.setText("No s'ha puntuat encara");
@@ -103,7 +109,9 @@ public class VistaAlumnoController {
     	});
 	}
 
-
+    /**
+     * Metodo para listar las faltas de asistencia de un alumno en una UF concreta
+     */
     public void listaFaltasUF(){
     	listaFaltas = ast.verAllAsistenciasAlumnoUF(alumno, ufSelected);
     	tablaAsistencias.setItems(FXCollections.observableArrayList(listaFaltas));
@@ -111,9 +119,11 @@ public class VistaAlumnoController {
 		justificadoFalta.setCellValueFactory(new PropertyValueFactory<Asistencia, String>("Justificado"));
     }
 
+    /**
+     * Metodo para modificar la nota de una matricula
+     */
     public void actualizarNota(){
     	Matricula mat = mi.verMatriculaUFDNI(ufSelected, alumno);
-
     	double nota = Double.valueOf(NotaAsigAlumno.getText());
     	mat.setNota(nota);
     	mi.modificarNota(mat);
