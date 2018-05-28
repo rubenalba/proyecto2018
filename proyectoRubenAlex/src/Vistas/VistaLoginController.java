@@ -18,7 +18,11 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import pojos.LoginProfesor;
 import pojos.Profesor;
-
+/**
+ * 
+ * @author cfgs
+ *
+ */
 public class VistaLoginController {
 	static ProfesorInterface p = DAO.getProfesorInterface();
 
@@ -41,16 +45,29 @@ public class VistaLoginController {
 		this.usuarioActivo = usuarioActivo;
 	}
 
-
+	/**
+	 * Metodo que recibe un event y lo envia al metodo cerrar ventana.
+	 * @param event
+	 */
 	@FXML
 	private void closeWindow(ActionEvent event) {
 		cerrarVentana(event);
 	}
+	/**
+	 * Metodo para cerrar ventana del stage actual.
+	 * @param event
+	 */
 	private void cerrarVentana(ActionEvent event) {
 		Node source = (Node)event.getSource();
 		Stage stage= (Stage)source.getScene().getWindow();
 		stage.close();
 	}
+	/**
+	 * 
+	 * @param event
+	 * @throws IOException
+	 * @throws SQLException
+	 */
 	@FXML
 	public void login(ActionEvent event) throws IOException, SQLException {
 

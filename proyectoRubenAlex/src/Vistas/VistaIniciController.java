@@ -58,10 +58,13 @@ import pojos.MatriculaId;
 import pojos.Profesor;
 import pojos.Unidadformativa;
 import dao.DAO;
-
+/**
+ * Controlador de la vista inicial del programa
+ * @author cfgs
+ *
+ */
 public class VistaIniciController {
 	public static final int PORCENTAJE = 25;
-	public static final int COLUMNAS = 10;
 	static ProfesorInterface pr = DAO.getProfesorInterface();
 	static UnidadFormativaInterface u = DAO.getUnidadFormativaInterface();
 	static AsignaturaInterface as = DAO.getAsignaturaInterface();
@@ -85,7 +88,7 @@ public class VistaIniciController {
 
 	@FXML
 	private Button BtnCerrarSession, BtnVolverConfig;
-	
+
 	private ObservableList<String> alumnosList;
 
 	@FXML
@@ -117,7 +120,7 @@ public class VistaIniciController {
 
 	@FXML
 	private TableColumn<Unidadformativa, String> ColUF;
-	
+
     @FXML
     private AnchorPane PaneAddUF;
 
@@ -202,13 +205,13 @@ public class VistaIniciController {
 
     @FXML
     private Button matricularBTN;
-    
+
     @FXML
     private Button addAlumno;
 
     @FXML
     private Button volverBTNAlumno;
-    
+
     @FXML
     private ChoiceBox<Alumnos> CBAlumnos;
     ObservableList<Alumnos> listaAlumnos;
@@ -245,14 +248,14 @@ public class VistaIniciController {
 		cargarCiclo2();
 		cargarAlumnos();
 
-		
-		
+
+
 		VentanaAlumnos.setVisible(false);
 		VentanaPrincipal.setVisible(true);
 		PaneAddUF.setVisible(false);
 		PaneAddAlumno.setVisible(false);
-		
-		
+
+
 		tablaAlumnos.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
 		    if (newSelection != null) {
 		        setAlumnoMarcado(newSelection);
@@ -261,11 +264,11 @@ public class VistaIniciController {
 		});
 		asignaturaCB.setVisible(true);
 		ufCB.setVisible(true);
-		
+
 
 		listeners();
 		listeners2();
-		
+
 	}
 
 	private void cargarAlumnos() {
@@ -275,9 +278,9 @@ public class VistaIniciController {
 			listaAlumnos.add(alumnos);
 		}
 		CBAlumnos.setItems(listaAlumnos);
-		
-		
-		
+
+
+
 	}
 
 	private void listeners() {
@@ -308,7 +311,7 @@ public class VistaIniciController {
 			}
 		});
 	}
-	
+
 	private void listeners2() {
 		cursosAlumno.valueProperty().addListener(new ChangeListener<Ciclo>() {
 
@@ -400,7 +403,7 @@ public class VistaIniciController {
 		PaneAddUF.setVisible(false);
 		PaneAddAlumno.setVisible(false);
 	}
-	
+
 	public void cargarCiclo () {
 		listaCiclos = FXCollections.observableArrayList();
 		List <Ciclo> ciclo = c.verAllCiclos();
@@ -426,7 +429,7 @@ public class VistaIniciController {
 		}
 		ufCB.setItems(ufs);
 	}
-	
+
 	public void cargarUF2(String asignatura) {
 		ufs = FXCollections.observableArrayList();
 		List <Unidadformativa> uf = u.ufByCiclo(asignatura);
@@ -452,7 +455,7 @@ public class VistaIniciController {
 		}
 		asignaturaCB1Alumno.setItems(asig);
 	}
-	
+
 	public void matricular() {
 		MatriculaId mId = new MatriculaId(CBAlumnos.getSelectionModel().getSelectedItem().getDni(),ufCBAlumno.getSelectionModel().getSelectedItem().getIdUnidadFormativa());
 
@@ -469,7 +472,7 @@ public class VistaIniciController {
 		}
 	}
 	@FXML
-	public void 	addUF2DB () {
+	public void addUF2DB () {
 		Ciclo cic = c.verCicloByName(cursoActivo.getNombreCiclo());
 		Asignatura asi = as.verAsignaturaByName(AsignaturaActiva.getNombreAsignatura(), cursoActivo.getNombreCiclo());
 		asi.getIdAsignatura();
@@ -491,9 +494,12 @@ public class VistaIniciController {
 			System.out.println("no " + e.getMessage());
 
 		}
-	
+
 	}
 	//NO TOCAR!!!!!!!!!
+	/**
+	 * Carga los cursos impartidos por el profesor que ha hecho loggin y las UFs de estos cursos.
+	 */
 	public void cargarCursos() {
 
 		List<Asignatura>misAsignaturas = pr.misAsignaturas(profesorActivo);
@@ -531,10 +537,11 @@ public class VistaIniciController {
 				});
 
 	}
-
+/*
 	public void cargarFranjaHoraria() {
 
-	}
+	}*/
+
 	@FXML
 	public void configuracion(ActionEvent event) throws IOException{
 		Parent root = FXMLLoader.load(getClass().getResource("../Vistas/VistaConfiguracion.fxml"));
@@ -565,7 +572,9 @@ public class VistaIniciController {
 			e.printStackTrace();
 		}
 	}
-
+	/**
+	 * Configuracion de la tabla donde se muestran todos los alumnos a la hora de pasar lista.
+	 */
 	private void setCheckBox(){
 		//Seleccionar hora actual para generar las faltas
 		hora =calendario.get(Calendar.HOUR_OF_DAY);
@@ -579,9 +588,6 @@ public class VistaIniciController {
 
 		DiaAsistenciaSelect.setValue(today);
 		//-------------------------------------------------
-
-
-
 		alumnosLista = FXCollections.observableArrayList(pr.misAlumnosByAsignatura(profesorActivo, UFMarcada));
 		tablaAlumnos.setItems(alumnosLista);
 		ColAlumnos.setCellValueFactory(new PropertyValueFactory<Alumnos, String>("NombreCompleto"));
@@ -592,7 +598,6 @@ public class VistaIniciController {
 			alumnos.setTotal((100*faltasAlumno.size())/UFMarcada.getHoras());
 			ColAsistencia.setCellValueFactory(new PropertyValueFactory<Alumnos, String>("FaltasUF"));
 		}
-
 
 		Checkers.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Alumnos, Boolean>, ObservableValue<Boolean>>() {
 	        @Override
@@ -616,9 +621,6 @@ public class VistaIniciController {
 			@Override
 			public void checkAction(int index, Alumnos element, boolean value) {
 				if (value){
-					//coger el alumno de esta posicion y guardarlo en una lista Alumnos falta
-					//despues recorrer esa lista y por cada alumno generar una falta de asistencfia
-					//para la unMarcada
 					if (!listaNoAsistencia.contains(alumnosLista.get(index)))
 					listaNoAsistencia.add(alumnosLista.get(index));
 
@@ -630,8 +632,8 @@ public class VistaIniciController {
 			}
 		});
 	}
-	@FXML
 
+	@FXML
 	public void addUF() throws IOException {
 		VentanaAlumnos.setVisible(false);
 		VentanaPrincipal.setVisible(false);
@@ -645,9 +647,12 @@ public class VistaIniciController {
 		VentanaPrincipal.setVisible(false);
 		PaneAddUF.setVisible(false);
 		PaneAddAlumno.setVisible(true);
-		
+
 	}
 
+	/**
+	 * Genera falta de asistencia a partir de la fecha y hora indicadas
+	 */
 	public void generarFaltas(){
 		Horas horaFalta = h.getHorasByRango(TextHoraAsistencia.getText());
 		Asignatura asignaturaFalta = as.verAsignaturaById(UFMarcada.getAsignatura().getIdAsignatura());
@@ -663,11 +668,11 @@ public class VistaIniciController {
 		}
 
 	}
-	@FXML
+	/*@FXML
 	public void addCurso() throws IOException {
-		
-	}
 
+	}
+	/*
 	public void cargarUltimasFaltas(Alumnos alumno, Asignatura asignatura){
 		int faltasCargar = 10;
 		List<Franjas> franjasAsig = fr.verFranjaAsignatura(profesorActivo, asignatura);
@@ -675,8 +680,12 @@ public class VistaIniciController {
 		for (Franjas franjas : franjasAsig) {
 			dias.add(franjas.getDia());
 		}
-	}
+	}*/
 
+	/**
+	 * Metodo para abrir la vista de un alumno con la informacion de este.
+	 * @param newSelection Alumno del que se cargaran los datos
+	 */
 	public void abrirAlumno(Alumnos newSelection){
 		Parent root;
 		alumnoMarcado = newSelection;

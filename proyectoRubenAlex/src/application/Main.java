@@ -9,9 +9,16 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 
-
+/**
+ *
+ * @author cfgs
+ *
+ */
 public class Main extends Application {
 	@Override
+	/**
+	 * Inicia el programa, para ello ejecuta la vista del Login.
+	 */
 	public void start(Stage primaryStage) throws IOException {
 			Parent root = FXMLLoader.load(getClass().getResource("../Vistas/VistaLogin.fxml"));
 			Scene scene = new Scene(root);
@@ -23,10 +30,4 @@ public class Main extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
-
-	/*
-	 *	SELECT asignatura.id_asignatura, unidadformativa.ID_UnidadFormativa
-		FROM unidadformativa inner Join asignatura
-		WHERE unidadformativa.DNI_Profesor LIKE "11111111p" AND asignatura.ID_Asignatura = unidadformativa.ID_Asignatura;
-	 */
 }

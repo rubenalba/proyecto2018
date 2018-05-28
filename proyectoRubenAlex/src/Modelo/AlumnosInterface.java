@@ -20,15 +20,7 @@ public interface AlumnosInterface {
 	public List <Alumnos> verTodosAlumnos();
 	public List<Alumnos> verAlumnobyName(String nombre);
 	public Alumnos verAlumnobyDNI(String DNI);
-	/*------------------------------------------
-	 * MIRAR PARA HACER UN "VERASISTENCIA" POR ALUMNO EN CADA UF
-	 */
-	
 	public List <Asistencia> verAsistencia(String dni);
 	public Asistencia verAsistenciasByID (String dni);
-	//revisar la lista de asistencias y el asistencia x id, creo que deberia ser por UF
-	public List<Matricula> verMatriculas();
-	public Matricula verMatriculaByUF(Unidadformativa uf);
 
-	
 }
