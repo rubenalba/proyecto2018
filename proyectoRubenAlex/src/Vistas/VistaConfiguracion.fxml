@@ -15,7 +15,7 @@
    <children>
       <ImageView fitHeight="454.0" fitWidth="687.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../Desktop/IMG_0339.jpg" />
+            <Image url="@Imagenes/IMG_0339.jpg" />
          </image>
       </ImageView>
       <Button fx:id="confirmarBTN" layoutX="48.0" layoutY="171.0" mnemonicParsing="false" onAction="#actualizarPassword" text="Confirmar" />
