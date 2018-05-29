@@ -233,7 +233,7 @@ public class VistaAlumnoController {
 	public void pdf(ActionEvent event) throws SQLException, ParseException {
 
 
-		String nombreFichero = "faltas_"+alumno.getNombre()+alumno.getApellidos();
+		String nombreFichero = "faltas_"+alumno.getNombreCompleto()+"_"+UFActiva.getNombreUf().substring(0,3);
 
 
 		SimpleDateFormat  sdf = new SimpleDateFormat("dd 'de' MMMM 'de' yyyy",new Locale("ES"));
@@ -249,6 +249,10 @@ public class VistaAlumnoController {
 				for (Asistencia asistencia : listaFaltas) {
 					contenido += asistencia.getId().getFecha() + "     Justificada: " + asistencia.getJustificado()+"\n";
 				}
+				contenido += "\nSiendo el total de faltas un " + (listaFaltas.size()* 100) / UFActiva.getHoras() + "% de las horas."; /*List<Integer> faltas = FXCollections.observableArrayList();
+		for (Alumnos alumnos : alumnosLista) {
+			List<Asistencia> faltasAlumno = ast.verAllAsistenciasAlumnoUF(alumnos, UFMarcada);
+			alumnos.setTotal((100*faltasAlumno.size())/UFMarcada.getHoras());*/
 				contenido += "\n\n A fecha de "+hoy+ " a las "+hora+".";
 		try {
 			FileOutputStream archivo = new FileOutputStream(nombreFichero + ".pdf");
