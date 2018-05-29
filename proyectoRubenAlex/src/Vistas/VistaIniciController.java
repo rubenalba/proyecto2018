@@ -243,7 +243,7 @@ public class VistaIniciController {
 
 	/*********************************************************
 	 *	COMIENZAN LOS MÉTODOS
-	 * @throws IOException 
+	 * @throws IOException
 	 ********************************************************/
 	@FXML
 	public void initialize()  {
@@ -256,7 +256,7 @@ public class VistaIniciController {
 		cargarCiclo();
 		cargarCiclo2();
 		cargarAlumnos();
-		
+
 
 		VentanaAlumnos.setVisible(false);
 		VentanaPrincipal.setVisible(true);
@@ -674,22 +674,41 @@ public class VistaIniciController {
 			Asignatura asignaturaFalta = as.verAsignaturaById(UFMarcada.getAsignatura().getIdAsignatura());
 			String fecha = DiaAsistenciaSelect.getValue().toString();
 			String dia = DiaAsistenciaSelect.getValue().getDayOfWeek().name();
-			Franjas franjaFalta = fr.verFranjaFalta(horaFalta, profesorActivo, dia, asignaturaFalta);
+			Franjas franjaFalta = null;
+			try {
+			franjaFalta	 = fr.verFranjaFalta(horaFalta, profesorActivo, dia, asignaturaFalta);
+			} catch(Exception e){
+				Alert alert = new Alert (AlertType.INFORMATION);
+				alert.setHeaderText("Dia incorrecto para esta UF");
+				alert.showAndWait();
+			}
 			if (listaNoAsistencia.isEmpty()){
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setHeaderText("Indica faltas a generar");
 				alert.showAndWait();
 			} else {
+				Asistencia falta = null;
 				for (Alumnos alumnos : listaNoAsistencia) {
-					Asistencia falta = new Asistencia();
+					boolean error = false;
+					try {
+					falta = new Asistencia();
 					AsistenciaId a = new AsistenciaId(alumnos.getDni(), UFMarcada.getIdUnidadFormativa(), franjaFalta.getIdFranja(), fecha);
 					falta.setId(a);
-					try {
-						ast.addAsistencia(falta);
 					} catch(Exception e){
-						Alert alert = new Alert(AlertType.ERROR);
-						alert.setHeaderText("Falta de asistencia duplicada");
+						Alert alert = new Alert (AlertType.INFORMATION);
+						alert.setHeaderText("Dia incorrecto para esta UF");
 						alert.showAndWait();
+						error = true;
+						listaNoAsistencia = new ArrayList<Alumnos>();
+					}
+					if (!error){
+						try {
+							ast.addAsistencia(falta);
+						} catch(Exception e){
+							Alert alert = new Alert(AlertType.ERROR);
+							alert.setHeaderText("Falta de asistencia duplicada");
+							alert.showAndWait();
+						}
 					}
 				}
 				setCheckBox();
@@ -712,6 +731,7 @@ public class VistaIniciController {
 			stage.show();
 
 		} catch (IOException e) {
+			e.printStackTrace();
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Error");
 			alert.setHeaderText("Error al cargar la ventana de alumno, vuelva a intentarlo");

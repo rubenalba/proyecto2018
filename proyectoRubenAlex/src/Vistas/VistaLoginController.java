@@ -19,7 +19,7 @@ import javafx.stage.Stage;
 import pojos.LoginProfesor;
 import pojos.Profesor;
 /**
- * 
+ *
  * @author cfgs
  *
  */
@@ -63,7 +63,7 @@ public class VistaLoginController {
 		stage.close();
 	}
 	/**
-	 * 
+	 *
 	 * @param event
 	 * @throws IOException
 	 * @throws SQLException
@@ -74,17 +74,12 @@ public class VistaLoginController {
 		String id = IdUsuari.getText();
 		String contraseña = IdPassword.getText();
 
-
-
-		System.out.println("Llega hasta aquí" + id + contraseña);
-
 		LoginProfesor logg = new LoginProfesor ();
 		boolean verificar = logg.login(id, contraseña);
 		if (verificar) {
 
 			closeWindow(event);
 			usuarioActivo = id;
-			System.out.println(usuarioActivo);
 			Profesor profesorEntrada = new Profesor();
 			profesorEntrada = p.verProfesorByUser(id);
 			VistaIniciController a = new VistaIniciController();

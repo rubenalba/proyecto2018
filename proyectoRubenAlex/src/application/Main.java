@@ -1,4 +1,4 @@
-package application;
+ package application;
 
 import java.io.IOException;
 import java.util.Locale;
@@ -22,7 +22,7 @@ public class Main extends Application {
 	 * Inicia el programa, para ello ejecuta la vista del Login.
 	 */
 	public void start(Stage primaryStage) throws IOException {
-	
+
 			Parent root = FXMLLoader.load(getClass().getResource("../Vistas/VistaLogin.fxml"));
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
@@ -33,6 +33,6 @@ public class Main extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
-	
-	
+
+
 }

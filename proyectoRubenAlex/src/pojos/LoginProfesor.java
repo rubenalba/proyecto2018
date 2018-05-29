@@ -17,16 +17,12 @@ import dao.DAO;
 public class LoginProfesor {
 	ProfesorInterface p = DAO.getProfesorInterface();
 
-
 	public boolean login (String id, String pwd) throws SQLException{
 		Profesor profeLogin = p.verProfesorByUser(id);
 		SecretKey skey = passWordKeyGeneration(profeLogin.getDniProfesor());
 		pwd = encryptedData(skey, pwd);
 		if (profeLogin == null) return false;
-		System.out.println(profeLogin.getPassword());
-		System.out.println(pwd);
 		return profeLogin.getPassword().equals(pwd);
-
 	}
 
 
@@ -62,7 +58,7 @@ public class LoginProfesor {
 			dats = b.encode(datos);
 
 		}catch (Exception ex) {
-			System.out.println("Error cifrando");
+
 		}
 
 		return dats;

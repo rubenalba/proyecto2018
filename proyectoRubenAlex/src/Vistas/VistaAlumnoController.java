@@ -23,6 +23,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -32,6 +33,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import pojos.Alumnos;
 import pojos.Asignatura;
 import pojos.Asistencia;
@@ -55,8 +57,9 @@ public class VistaAlumnoController {
     @FXML
     private TextField ApellidosAlumno;
 
+
     @FXML
-    private TextField Email;
+    private TextField email;
 
     @FXML
     private ChoiceBox<Unidadformativa> AsignaturasAlumno;
@@ -85,6 +88,8 @@ public class VistaAlumnoController {
     private Button eliminarFalta;
     @FXML
     private Button justificarFalta;
+    @FXML
+    private Button volver;
 
 
     private Alumnos alumno;
@@ -100,9 +105,8 @@ public class VistaAlumnoController {
     	UFActiva = getUFMarcada();
     	VistaIniciController vistainici = new VistaIniciController();
     	alumno = vistainici.getAlumnoMarcado();
-    	DNIAlumno.setText(alumno.getDni());
-    	ApellidosAlumno.setText(alumno.getApellidos());
-    	Email.setText(alumno.getEmail());
+    	DNIAlumno.setText(alumno.getNombreCompleto());
+    	email.setText(alumno.getEmail());
     	NombreAlumno.setText(alumno.getNombre());
 
     	listaMatriculas = mi.matriculasAlumno(alumno);
@@ -111,7 +115,7 @@ public class VistaAlumnoController {
 		refrescarLista();
 		if (mat.getNota() != null)
 		NotaAsigAlumno.setText(mat.getNota().toString());
-		else NotaAsigAlumno.setText("No s'ha puntuat encara");
+		else NotaAsigAlumno.setText("No puntuado");
 
 	}
 
@@ -125,6 +129,7 @@ public class VistaAlumnoController {
     /**
      * Metodo para modificar la nota de una matricula
      */
+    @FXML
     public void actualizarNota(){
     	Matricula mat = mi.verMatriculaUFDNI(UFActiva, alumno);
     	try {
@@ -155,12 +160,13 @@ public class VistaAlumnoController {
     }
 
     public boolean validarNota(double nota){
-		if (nota > 0 && nota <= 10) return true;
+		if (nota >= 0 && nota <= 10) return true;
 		else return false;
     }
     /**
      * Metodo que habilitara las opciones para modificar una nota de una matricula
      */
+    @FXML
     public void activarNota(){
     	NotaAsigAlumno.setEditable(true);
     	GuardarNota.setVisible(true);
@@ -170,6 +176,7 @@ public class VistaAlumnoController {
     /**
      * Metodo que eliminara la falta de asistencia seleccionada
      */
+    @FXML
     public void eliminarFalta(){
     	try{
 	    	Asistencia falta = tablaAsistencias.getSelectionModel().getSelectedItem();
@@ -191,6 +198,7 @@ public class VistaAlumnoController {
     /**
      * justifica la falta de asistencia seleccionada
      */
+    @FXML
     public void justificar(){
     	try {
 	    	Asistencia falta = tablaAsistencias.getSelectionModel().getSelectedItem();
@@ -229,7 +237,6 @@ public class VistaAlumnoController {
     }
 
     @FXML
-
 	public void pdf(ActionEvent event) throws SQLException, ParseException {
 
 
@@ -249,10 +256,7 @@ public class VistaAlumnoController {
 				for (Asistencia asistencia : listaFaltas) {
 					contenido += asistencia.getId().getFecha() + "     Justificada: " + asistencia.getJustificado()+"\n";
 				}
-				contenido += "\nSiendo el total de faltas un " + (listaFaltas.size()* 100) / UFActiva.getHoras() + "% de las horas."; /*List<Integer> faltas = FXCollections.observableArrayList();
-		for (Alumnos alumnos : alumnosLista) {
-			List<Asistencia> faltasAlumno = ast.verAllAsistenciasAlumnoUF(alumnos, UFMarcada);
-			alumnos.setTotal((100*faltasAlumno.size())/UFMarcada.getHoras());*/
+				contenido += "\nSiendo el total de faltas un " + (listaFaltas.size()* 100) / UFActiva.getHoras() + "% de las horas.";
 				contenido += "\n\n A fecha de "+hoy+ " a las "+hora+".";
 		try {
 			FileOutputStream archivo = new FileOutputStream(nombreFichero + ".pdf");
@@ -264,9 +268,15 @@ public class VistaAlumnoController {
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setHeaderText("Informe faltas creado");
 			alert.showAndWait();
-			System.out.println("pdf creado");
+
 		} catch (Exception e) {
-			System.out.println("no hecho");
+
 		}
 	}
+    @FXML
+    public void volver(){
+		Stage Actual = (Stage) volver.getScene().getWindow();
+		Actual.close();
+
+    }
 }
