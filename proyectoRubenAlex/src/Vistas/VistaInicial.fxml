@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
@@ -14,22 +19,19 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="503.0" prefWidth="869.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vistas.VistaIniciController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="503.0" prefWidth="869.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vistas.VistaIniciController">
    <children>
       <ImageView fitHeight="612.0" fitWidth="1017.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@Imagenes/IMG_0336%202.jpg" />
          </image>
       </ImageView>
-      <AnchorPane fx:id="VentanaPrincipal" prefHeight="563.0" prefWidth="813.0">
+      <AnchorPane fx:id="VentanaPrincipal" prefHeight="563.0" prefWidth="813.0" visible="false">
          <children>
             <BorderPane layoutX="185.0" layoutY="86.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <left>
                   <AnchorPane prefHeight="543.0" prefWidth="804.0" BorderPane.alignment="CENTER">
                      <children>
-                        <Button fx:id="BtnAjustes" layoutX="30.0" layoutY="391.0" mnemonicParsing="false" onAction="#configuracion" prefHeight="27.0" prefWidth="136.0" style="-fx-background-image: www;" text="Ajustes" />
-                        <Button fx:id="BtnInfo" layoutX="29.0" layoutY="418.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="136.0" text="Informacion" />
-                        <Button fx:id="BtnCerrarSession" layoutX="28.0" layoutY="445.0" mnemonicParsing="false" onAction="#cerrarSesion" prefHeight="27.0" prefWidth="137.0" text="Cerrar Session" />
                         <TableView fx:id="tablaCursos" layoutX="353.0" layoutY="41.0" prefHeight="266.0" prefWidth="226.0">
                           <columns>
                             <TableColumn fx:id="ColCursos" prefWidth="225.0" text="Mis Cursos" />
@@ -40,8 +42,24 @@
                             <TableColumn fx:id="ColUF" prefWidth="205.0" text="UFs" />
                           </columns>
                         </TableView>
-                        <Button fx:id="addCursoBTN" layoutX="354.0" layoutY="307.0" mnemonicParsing="false" onAction="#addUF" text="añadir" />
-                        <Button fx:id="AlumnosBTN" layoutX="412.0" layoutY="307.0" mnemonicParsing="false" onAction="#addAlumno" text="alumnos" />
+                        <Button fx:id="addCursoBTN" layoutX="354.0" layoutY="307.0" mnemonicParsing="false" onAction="#addUF" style="-fx-background-color: transparent; -fx-text-fill: white;" text="Unidad Formativa" />
+                        <Button fx:id="AlumnosBTN" layoutX="497.0" layoutY="308.0" mnemonicParsing="false" onAction="#addAlumno" style="-fx-background-color: transparent; -fx-text-fill: white;" text="Alumno" />
+                        <MenuBar fx:id="Menu" layoutX="-6.0" prefHeight="29.0" prefWidth="889.0">
+                          <menus>
+                            <Menu fx:id="Opciones" mnemonicParsing="false" text="Opciones">
+                                 <items>
+                                    <MenuItem fx:id="Ajustes" mnemonicParsing="false" onAction="#configuracion" text="Ajustes" />
+                                <MenuItem fx:id="BtnInfo" mnemonicParsing="false" text="Informacion" />
+                                 </items>
+                            </Menu>
+                              <Menu mnemonicParsing="false" text="Salir">
+                                <items>
+                                  <MenuItem fx:id="cerrarSession" mnemonicParsing="false" onAction="#cerrarSesion" text="Cerrar Sesion" />
+                                    <MenuItem fx:id="Salir" mnemonicParsing="false" onAction="#salir" text="Cerrar Programa" />
+                                </items>
+                              </Menu>
+                          </menus>
+                        </MenuBar>
                      </children>
                   </AnchorPane>
                </left>
@@ -63,28 +81,28 @@
             <DatePicker fx:id="DiaAsistenciaSelect" layoutX="278.0" layoutY="435.0" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="PaneAddUF" layoutX="424.0" layoutY="23.0" prefHeight="347.0" prefWidth="427.0" visible="false">
+      <AnchorPane fx:id="PaneAddUF" layoutX="424.0" layoutY="23.0" prefHeight="347.0" prefWidth="427.0">
          <children>
-            <ChoiceBox fx:id="cursos" layoutX="33.0" layoutY="60.0" prefWidth="150.0" />
-            <Label layoutX="40.0" layoutY="34.0" text="Curso" textFill="#f5f5f5">
+            <ChoiceBox fx:id="cursos" layoutX="86.0" layoutY="66.0" prefWidth="150.0" />
+            <Label layoutX="58.0" layoutY="34.0" text="Curso" textFill="#f5f5f5">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
             </Label>
-            <ChoiceBox fx:id="ufCB" layoutX="33.0" layoutY="140.0" prefWidth="150.0" />
-            <Label layoutX="39.0" layoutY="105.0" text="UF" textFill="WHITE">
+            <ChoiceBox fx:id="ufCB" layoutX="86.0" layoutY="194.0" prefWidth="150.0" />
+            <Label layoutX="56.0" layoutY="174.0" text="UF" textFill="WHITE">
                <font>
                   <Font size="17.0" />
                </font>
             </Label>
-            <Label layoutX="233.0" layoutY="34.0" text="Asignatura" textFill="#fffbfb">
+            <Label layoutX="56.0" layoutY="106.0" text="Asignatura" textFill="#fffbfb">
                <font>
                   <Font size="17.0" />
                </font>
             </Label>
-            <ChoiceBox fx:id="asignaturaCB" layoutX="224.0" layoutY="60.0" prefWidth="150.0" />
-            <Button fx:id="addUF" layoutX="39.0" layoutY="179.0" mnemonicParsing="false" onAction="#addUF2DB" text="añadir" />
-            <Button fx:id="volverBTN1" layoutX="299.0" layoutY="271.0" mnemonicParsing="false" onAction="#back" text="volver" />
+            <ChoiceBox fx:id="asignaturaCB" layoutX="86.0" layoutY="136.0" prefWidth="150.0" />
+            <Button fx:id="addUF" layoutX="176.0" layoutY="236.0" mnemonicParsing="false" onAction="#addUF2DB" text="añadir" />
+            <Button fx:id="volverBTN1" layoutX="9.0" layoutY="300.0" mnemonicParsing="false" onAction="#back" text="volver" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="PaneAddAlumno" layoutX="331.0" layoutY="23.0" prefHeight="347.0" prefWidth="524.0" visible="false">
@@ -95,26 +113,33 @@
                   <Font name="System Bold" size="17.0" />
                </font>
             </Label>
-            <ChoiceBox fx:id="ufCBAlumno" layoutX="33.0" layoutY="140.0" prefWidth="150.0" />
-            <Label layoutX="39.0" layoutY="105.0" text="UF" textFill="WHITE">
+            <ChoiceBox fx:id="ufCBAlumno" layoutX="33.0" layoutY="197.0" prefWidth="150.0" />
+            <Label layoutX="40.0" layoutY="169.0" text="UF" textFill="WHITE">
                <font>
                   <Font size="17.0" />
                </font>
             </Label>
-            <Label layoutX="233.0" layoutY="34.0" text="Asignatura" textFill="#fffbfb">
+            <Label layoutX="40.0" layoutY="101.0" text="Asignatura" textFill="#fffbfb">
                <font>
                   <Font size="17.0" />
                </font>
             </Label>
-            <ChoiceBox fx:id="asignaturaCB1Alumno" layoutX="224.0" layoutY="60.0" prefWidth="150.0" />
-            <Button fx:id="matricularBTN" layoutX="227.0" layoutY="192.0" mnemonicParsing="false" onAction="#matricular" prefHeight="27.0" prefWidth="150.0" text="Matricular" />
-            <Button fx:id="volverBTNAlumno" layoutX="398.0" layoutY="306.0" mnemonicParsing="false" onAction="#back" text="volver" />
-            <Label layoutX="224.0" layoutY="108.0" text="Alumno" textFill="WHITE">
+            <ChoiceBox fx:id="asignaturaCB1Alumno" layoutX="33.0" layoutY="128.0" prefWidth="150.0" />
+            <Button fx:id="matricularBTN" layoutX="221.0" layoutY="307.0" mnemonicParsing="false" onAction="#matricular" prefHeight="27.0" prefWidth="150.0" text="Matricular" />
+            <Button fx:id="volverBTNAlumno" layoutX="10.0" layoutY="308.0" mnemonicParsing="false" onAction="#back" text="volver" />
+            <Label layoutX="228.0" layoutY="35.0" text="Alumno" textFill="WHITE">
                <font>
                   <Font size="17.0" />
                </font>
             </Label>
-            <ChoiceBox fx:id="CBAlumnos" layoutX="224.0" layoutY="140.0" prefHeight="27.0" prefWidth="285.0" />
+            <TextField fx:id="alumnoBuscar" layoutX="221.0" layoutY="60.0" prefHeight="25.0" prefWidth="198.0" promptText="Alumno a buscar" />
+            <Button fx:id="search" layoutX="420.0" layoutY="60.0" mnemonicParsing="false" onAction="#buscar" prefHeight="25.0" prefWidth="23.0" />
+            <TableView fx:id="tablaBusqueda" layoutX="220.0" layoutY="97.0" prefHeight="200.0" prefWidth="275.0">
+              <columns>
+                <TableColumn fx:id="ColNombreBusqueda" prefWidth="169.0" text="Nombre" />
+                  <TableColumn fx:id="colDNIBusqueda" prefWidth="104.0" text="DNI" />
+              </columns>
+            </TableView>
          </children>
       </AnchorPane>
    </children>

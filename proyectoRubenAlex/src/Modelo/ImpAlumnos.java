@@ -174,7 +174,7 @@ public class ImpAlumnos implements AlumnosInterface{
 		Session session = factory.openSession();
 		Transaction tx = null;
 		Alumnos alum = null;
-		String hql = "FROM Alumnos a WHERE a.nombre LIKE " + "'" + "%"+nombre + "%" + "' OR a.apellidos LIKE " + "'" + "%" + nombre + "%" + "'";
+		String hql = "FROM Alumnos a WHERE a.nombre LIKE " + "'" + "%"+nombre + "%" + "' OR a.apellidos LIKE " + "'" + "%" + nombre + "%" + "'" + "OR a.dni LIKE " + "'" + "%" + nombre + "%" + "'";
 		Query query = session.createQuery(hql);
 		List resultado = query.list();
 		try {

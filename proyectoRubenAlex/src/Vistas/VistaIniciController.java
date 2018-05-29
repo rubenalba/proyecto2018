@@ -40,6 +40,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.Alert.AlertType;
@@ -49,6 +52,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import pojos.Alumnos;
@@ -79,8 +83,20 @@ public class VistaIniciController {
 	static CicloInterface c = DAO.getCicloInterface();
 	static AlumnosInterface a = DAO.getAlumnosInterface();
 	static MatriculaInterface m = DAO.getMatriculaInterface();
+
+    @FXML
+    private MenuItem cerrarSession;
 	@FXML
-	private Button BtnInfo;
+    private MenuItem Salir;
+    @FXML
+    private MenuItem Ajustes;
+	@FXML
+	private Menu Opciones;
+    @FXML
+    private MenuBar Menu;
+
+    @FXML
+    private MenuItem BtnInfo;
 
 	@FXML
 	private TableColumn<String, String> ColHorario;
@@ -95,9 +111,6 @@ public class VistaIniciController {
 	private Button BtnCerrarSession, BtnVolverConfig;
 
 	private ObservableList<String> alumnosList;
-
-	@FXML
-	private Button BtnAjustes;
 
 	@FXML
 	private Button addFranja;
@@ -162,6 +175,8 @@ public class VistaIniciController {
 
 	@FXML
 	private TableColumn<Alumnos, String> ColNom;
+    @FXML
+    private TextField alumnoBuscar;
 
 	//TABLA ALUMNOS ASISTENCIA
 	@FXML
@@ -182,6 +197,12 @@ public class VistaIniciController {
 	int hora, minutos, segundos;
 	@FXML
 	private TableColumn<Alumnos, String> ColAsistencia;
+    @FXML
+    private TableView<Alumnos> tablaBusqueda;
+    @FXML
+    private TableColumn<Alumnos, String> ColNombreBusqueda;
+    @FXML
+    private TableColumn<Alumnos, String> colDNIBusqueda;
 
 	//-----------------------------------------------
 	@FXML
@@ -217,8 +238,6 @@ public class VistaIniciController {
 	@FXML
 	private Button volverBTNAlumno;
 
-	@FXML
-	private ChoiceBox<Alumnos> CBAlumnos;
 	ObservableList<Alumnos> listaAlumnos;
 
 
@@ -286,7 +305,7 @@ public class VistaIniciController {
 		for (Alumnos alumnos : alumne) {
 			listaAlumnos.add(alumnos);
 		}
-		CBAlumnos.setItems(listaAlumnos);
+		tablaBusqueda.setItems(listaAlumnos);
 
 
 
@@ -384,7 +403,7 @@ public class VistaIniciController {
 
 	@FXML
 	public void cerrarSesion(){
-		Stage Actual = (Stage) BtnCerrarSession.getScene().getWindow();
+		Stage Actual = (Stage) tablaCursos.getScene().getWindow();
 		Actual.close();
 
 		try{
@@ -468,13 +487,14 @@ public class VistaIniciController {
 	}
 
 	public void matricular() {
-		MatriculaId mId = new MatriculaId(CBAlumnos.getSelectionModel().getSelectedItem().getDni(),ufCBAlumno.getSelectionModel().getSelectedItem().getIdUnidadFormativa());
+		MatriculaId mId = new MatriculaId(tablaBusqueda.getSelectionModel().getSelectedItem().getDni(),ufCBAlumno.getSelectionModel().getSelectedItem().getIdUnidadFormativa());
+		Matricula mat = new Matricula(mId,tablaBusqueda.getSelectionModel().getSelectedItem(),ufCBAlumno.getSelectionModel().getSelectedItem());
 
-		Matricula mat = new Matricula(mId,CBAlumnos.getSelectionModel().getSelectedItem(),ufCBAlumno.getSelectionModel().getSelectedItem());
+
 		try {
 			m.matricularAlumno(mat);
 			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setHeaderText(CBAlumnos.getSelectionModel().getSelectedItem().getNombreCompleto() + " ha sido matriculado.");
+			alert.setHeaderText(tablaBusqueda.getSelectionModel().getSelectedItem().getNombreCompleto() + " ha sido matriculado.");
 			alert.showAndWait();
 		}catch (Exception e) {
 			Alert alert = new Alert(AlertType.ERROR);
@@ -549,6 +569,7 @@ public class VistaIniciController {
 
 	@FXML
 	public void configuracion(ActionEvent event) throws IOException{
+		System.out.println("ha llegado hasta aqui");
 		Parent root = FXMLLoader.load(getClass().getResource("../Vistas/VistaConfiguracion.fxml"));
 		Scene scene = new Scene(root);
 		Stage stage = new Stage();
@@ -584,6 +605,7 @@ public class VistaIniciController {
 		//Seleccionar hora actual para generar las faltas
 		hora =calendario.get(Calendar.HOUR_OF_DAY);
 		minutos = calendario.get(Calendar.MINUTE);
+		listaNoAsistencia = new ArrayList<Alumnos>();
 		String minuts ="";
 		if (minutos<10)
 			TextHoraAsistencia.setText(hora+":0"+minuts);
@@ -600,9 +622,36 @@ public class VistaIniciController {
 		List<Integer> faltas = FXCollections.observableArrayList();
 		for (Alumnos alumnos : alumnosLista) {
 			List<Asistencia> faltasAlumno = ast.verAllAsistenciasAlumnoUF(alumnos, UFMarcada);
-			alumnos.setTotal((100*faltasAlumno.size())/UFMarcada.getHoras());
+			int porcentaje= (100*faltasAlumno.size())/UFMarcada.getHoras();
+			if (porcentaje >= 10) ColAsistencia.setStyle("-fx-text-fill=red");
+			alumnos.setTotal(porcentaje);
 			ColAsistencia.setCellValueFactory(new PropertyValueFactory<Alumnos, String>("FaltasUF"));
 		}
+
+		ColAsistencia.setCellFactory( column -> {
+			return new TableCell<Alumnos, String>() {
+				@Override
+				protected void updateItem(String item, boolean empty) {
+					super.updateItem(item,  empty);
+					if (item == null || empty) {
+
+					}else {
+						String itemsplit[] = item.split("%");
+						int num = Integer.valueOf(itemsplit[0]);
+						setText(item);
+						if (num >= 25) {
+							setTextFill(Color.RED);
+						}
+						else if(num >=15 && num <25) {
+							setTextFill(Color.ORANGE);
+						}
+						else {
+							setTextFill(Color.GREEN);
+						}
+					}
+				}
+			};
+		});
 
 		Checkers.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Alumnos, Boolean>, ObservableValue<Boolean>>() {
 			@Override
@@ -708,6 +757,7 @@ public class VistaIniciController {
 							Alert alert = new Alert(AlertType.ERROR);
 							alert.setHeaderText("Falta de asistencia duplicada");
 							alert.showAndWait();
+							listaNoAsistencia = new ArrayList<Alumnos>();
 						}
 					}
 				}
@@ -737,6 +787,22 @@ public class VistaIniciController {
 			alert.setHeaderText("Error al cargar la ventana de alumno, vuelva a intentarlo");
 		}
 
+	}
+	@FXML
+	public void salir() {
+		Stage Actual = (Stage) tablaCursos.getScene().getWindow();
+		Actual.close();
+		System.exit(0);
+	}
+	@FXML
+	public void buscar(){
+		String alumno = alumnoBuscar.getText();
+		List<Alumnos> alumnos = a.verAlumnobyName(alumno);
+		tablaBusqueda.setItems(FXCollections.observableArrayList(alumnos));
+		for (Alumnos alumnos2 : alumnos) {
+			ColNombreBusqueda.setCellValueFactory(new PropertyValueFactory<Alumnos, String>("nombreCompleto"));
+			colDNIBusqueda.setCellValueFactory(new PropertyValueFactory<Alumnos, String>("Dni"));
+		}
 	}
 }
 
