@@ -271,7 +271,7 @@ public class ImpProfesor implements ProfesorInterface{
 			byte [] key = Arrays.copyOf(hash, keysize/8);
 			skey = new SecretKeySpec (key, "AES");
 		}catch (Exception e) {
-			System.out.println("Error generando la clave");
+			
 		}
 		return skey;
 	}
@@ -288,7 +288,7 @@ public class ImpProfesor implements ProfesorInterface{
 			dats = b.encode(datos);
 
 		}catch (Exception ex) {
-			System.out.println("Error cifrando");
+		
 		}
 
 		return dats;

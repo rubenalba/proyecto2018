@@ -98,7 +98,7 @@ public class ImpAsignatura implements AsignaturaInterface{
 		}
 		return listaAsignatura;
 	}
-	
+
 	public List<Asignatura> verAsignaturaByCurso(String curso){
 		Session session = factory.openSession();
 		Transaction tx = null;
@@ -130,16 +130,14 @@ public class ImpAsignatura implements AsignaturaInterface{
 		Transaction tx = null;
 		Asignatura asignaturas = null;
 		Integer num = null;
-		System.out.println(ciclo + asignatura + "<---");
 		String sql = "select a.ID_Asignatura "
 				+ " from asignatura a, ciclo c "
 				+ " where c.Nombre_Ciclo = " + "'"+asignatura+"'"
 				+ " and a.Nombre_Asignatura = " + "'"+ciclo+"'";
 		num = (Integer) session.createNativeQuery(sql).uniqueResult();
-		
-		System.out.println("Esto es la var num" + num);
+
 		asignaturas = as.verAsignaturaById(num);
-		return asignaturas; 
+		return asignaturas;
 	}
 
 

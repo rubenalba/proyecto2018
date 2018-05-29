@@ -50,7 +50,7 @@ public class ConfiguracionController {
 		return profesorActivo;
 	}
 
-	@FXML 
+	@FXML
 	private void closeWindow(ActionEvent event) {
 		cerrarVentana(event);
 	}
@@ -58,13 +58,13 @@ public class ConfiguracionController {
 		Node source = (Node)event.getSource();
 		Stage stage= (Stage)source.getScene().getWindow();
 		stage.close();
-	} 
+	}
 	@FXML
 	public void actualizarPassword (ActionEvent event) {
 		profesorActivo();
 		System.out.println("HA entrado en el metodo");
 		if (contraseñaTF.getText().equals(ConfirmarPWDTF.getText()) && contraseñaTF.getLength() > 6) {
-			System.out.println("YA las ha comparado");
+
 			Profesor mod = p.verProfesorByDni(profesorActivo.getDniProfesor());
 			SecretKey skey = passWordKeyGeneration(profesorActivo.getDniProfesor());
 			String pwd = encryptedData(skey,ConfirmarPWDTF.getText());
@@ -74,7 +74,7 @@ public class ConfiguracionController {
 				contraseñaTF.setText("");
 				ConfirmarPWDTF.setText("");
 				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setHeaderText("Contraseña cambiada"); 
+				alert.setHeaderText("Contraseña cambiada");
 				alert.showAndWait();
 			} catch (Exception e) {
 			}
@@ -95,7 +95,7 @@ public class ConfiguracionController {
 			byte [] key = Arrays.copyOf(hash, keysize/8);
 			skey = new SecretKeySpec (key, "AES");
 		}catch (Exception e) {
-			System.out.println("Error generando la clave");
+
 		}
 		return skey;
 	}
@@ -111,7 +111,7 @@ public class ConfiguracionController {
 			dats = b.encode(datos);
 
 		}catch (Exception ex) {
-			System.out.println("Error cifrando");
+
 		}
 
 		return dats;

@@ -39,18 +39,6 @@ public class ImpCiclos implements CicloInterface {
 		Query query = session.createQuery(sql);
 		c = (Ciclo)query.uniqueResult();
 		return c;
-		/*@Override
-		public Serveis buscarServicioByNombre(String nombre) {
-			Session session = factory.openSession();
-			Transaction tx = null;
-			Serveis servei = null;
-			String sql = "FROM Serveis S WHERE S.descripcio = " + "'" + nombre + "'";
-			Query query = session.createQuery(sql);
-			servei = (Serveis) query.uniqueResult();
-			System.out.println(servei.getDescripcio() + "hola jesssi");
-			return servei;
-			
-		}*/
 	}
 
 

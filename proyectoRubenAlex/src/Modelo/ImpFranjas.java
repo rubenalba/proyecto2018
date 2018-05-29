@@ -108,10 +108,9 @@ public class ImpFranjas implements FranjaInterface{
 			tx = session.beginTransaction();
 			franjaList = session.createNativeQuery(sql, Franjas.class).list();
 			tx.commit();
-			System.out.println(franjaList.size());
+		
 			for (Franjas franj : franjaList) {
 				r = franj;
-				System.out.println(r.getDia());
 			}
 		}catch  (HibernateException e) {
 			if (tx!=null) tx.rollback();

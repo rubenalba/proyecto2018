@@ -8,6 +8,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import dao.SessionFactoryUtil;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import pojos.Alumnos;
 import pojos.Asignatura;
 import pojos.Asistencia;
@@ -27,7 +29,9 @@ public class ImpAsistencia implements AsistenciaInterface{
 			tx.commit();
 		}catch  (HibernateException e) {
 			if (tx!=null) tx.rollback();
-			e.printStackTrace();
+			Alert alert = new Alert (AlertType.ERROR);
+			alert.setHeaderText("Error al generar falta");
+			alert.showAndWait();
 		}finally {
 			session.close();
 		}
@@ -90,9 +94,6 @@ public class ImpAsistencia implements AsistenciaInterface{
 			tx = session.beginTransaction();
 			listaAsistencia = session.createNativeQuery(sql, Asistencia.class).list();
 			tx.commit();
-			for (Asistencia asistencia : listaAsistencia) {
-				System.out.println(asistencia.getId().getFecha());
-			}
 		}catch  (HibernateException e) {
 			if (tx!=null) tx.rollback();
 			e.printStackTrace();
