@@ -250,8 +250,7 @@ public class VistaIniciController {
 		cargarCiclo();
 		cargarCiclo2();
 		cargarAlumnos();
-		today = LocalDate.now( ZoneId.of( "Europe/Paris" ) );
-
+		
 
 		VentanaAlumnos.setVisible(false);
 		VentanaPrincipal.setVisible(true);
@@ -585,6 +584,7 @@ public class VistaIniciController {
 		else TextHoraAsistencia.setText(hora+":"+minutos);
 		//-------------------------------------------------
 		//Seleccionar el dia actual para generar las faltas
+		today = LocalDate.now( ZoneId.of( "Europe/Paris" ) );
 
 		DiaAsistenciaSelect.setValue(today);
 		//-------------------------------------------------
