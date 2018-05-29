@@ -8,6 +8,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
@@ -101,7 +103,7 @@ public class VistaIniciController {
 	private Button addFranja;
 
 	@FXML
-    private Button addCursoBTN;
+	private Button addCursoBTN;
 
 	@FXML
 	private Button ConfirmFranjaCB;
@@ -124,12 +126,12 @@ public class VistaIniciController {
 	@FXML
 	private TableColumn<Unidadformativa, String> ColUF;
 
-    @FXML
-    private AnchorPane PaneAddUF;
+	@FXML
+	private AnchorPane PaneAddUF;
 
 
-    @FXML
-    private Button AlumnosBTN;
+	@FXML
+	private Button AlumnosBTN;
 
 	@FXML
 	private ChoiceBox<Ciclo> cursos;
@@ -172,16 +174,16 @@ public class VistaIniciController {
 	ObservableList<Alumnos>alumnosLista;
 	@FXML
 	private TextField TextHoraAsistencia;
-    @FXML
-    private DatePicker DiaAsistenciaSelect;
-    @FXML
-    private Button BtnGenerarAsistencia;
-    Calendar calendario = new GregorianCalendar();
-    int hora, minutos, segundos;
+	@FXML
+	private DatePicker DiaAsistenciaSelect;
+	@FXML
+	private Button BtnGenerarAsistencia;
+	Calendar calendario = new GregorianCalendar();
+	int hora, minutos, segundos;
 	@FXML
 	private TableColumn<Alumnos, String> ColAsistencia;
 
-    //-----------------------------------------------
+	//-----------------------------------------------
 	@FXML
 	private AnchorPane VentanaPrincipal;
 	@FXML
@@ -191,33 +193,33 @@ public class VistaIniciController {
 	private Button volverBTN;
 	LocalDate today;
 
-    @FXML
-    private Button volverBTN1;
+	@FXML
+	private Button volverBTN1;
 
-    @FXML
-    private AnchorPane PaneAddAlumno;
+	@FXML
+	private AnchorPane PaneAddAlumno;
 
-    @FXML
-    private ChoiceBox<Ciclo> cursosAlumno;
+	@FXML
+	private ChoiceBox<Ciclo> cursosAlumno;
 
-    @FXML
-    private ChoiceBox<Unidadformativa> ufCBAlumno;
+	@FXML
+	private ChoiceBox<Unidadformativa> ufCBAlumno;
 
-    @FXML
-    private ChoiceBox<Asignatura> asignaturaCB1Alumno;
+	@FXML
+	private ChoiceBox<Asignatura> asignaturaCB1Alumno;
 
-    @FXML
-    private Button matricularBTN;
+	@FXML
+	private Button matricularBTN;
 
-    @FXML
-    private Button addAlumno;
+	@FXML
+	private Button addAlumno;
 
-    @FXML
-    private Button volverBTNAlumno;
+	@FXML
+	private Button volverBTNAlumno;
 
-    @FXML
-    private ChoiceBox<Alumnos> CBAlumnos;
-    ObservableList<Alumnos> listaAlumnos;
+	@FXML
+	private ChoiceBox<Alumnos> CBAlumnos;
+	ObservableList<Alumnos> listaAlumnos;
 
 
 	boolean franjaVisible = true;
@@ -241,9 +243,13 @@ public class VistaIniciController {
 
 	/*********************************************************
 	 *	COMIENZAN LOS MÉTODOS
+	 * @throws IOException 
 	 ********************************************************/
 	@FXML
-	public void initialize() {
+	public void initialize()  {
+		//Locale locale = new Locale ("cat");
+		//ResourceBundle resourceBundle = ResourceBundle.getBundle("resources/idioma_cat");
+
 		profesorActivo=getProfesorActivo();
 
 		cargarCursos();
@@ -259,11 +265,11 @@ public class VistaIniciController {
 
 
 		tablaAlumnos.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-		    if (newSelection != null) {
-		        setAlumnoMarcado(newSelection);
-		        abrirAlumno(alumnoMarcado);
+			if (newSelection != null) {
+				setAlumnoMarcado(newSelection);
+				abrirAlumno(alumnoMarcado);
 
-		    }
+			}
 		});
 		asignaturaCB.setVisible(true);
 		ufCB.setVisible(true);
@@ -310,8 +316,8 @@ public class VistaIniciController {
 				}
 
 			}
-			});
-		}
+		});
+	}
 
 
 
@@ -327,8 +333,8 @@ public class VistaIniciController {
 					cargarAsignatura2(cursoActivo.getNombreCiclo());
 				}
 			}
-			});
-			asignaturaCB1Alumno.valueProperty().addListener(new ChangeListener<Asignatura>() {
+		});
+		asignaturaCB1Alumno.valueProperty().addListener(new ChangeListener<Asignatura>() {
 
 			@Override
 			public void changed(ObservableValue<? extends Asignatura> observable, Asignatura oldValue, Asignatura newValue) {
@@ -340,7 +346,7 @@ public class VistaIniciController {
 				}
 
 
-				}
+			}
 
 
 		});
@@ -525,13 +531,13 @@ public class VistaIniciController {
 		});
 		TablaUFs.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Unidadformativa>() {
 
-		@Override
-		public void changed(ObservableValue<? extends Unidadformativa> observable, Unidadformativa oldValue, Unidadformativa newValue) {
-			if (newValue != null){
-				UFMarcada = TablaUFs.getSelectionModel().getSelectedItem();
-				VentanaPrincipal.setVisible(false);
-				VentanaAlumnos.setVisible(true);
-				setCheckBox();
+			@Override
+			public void changed(ObservableValue<? extends Unidadformativa> observable, Unidadformativa oldValue, Unidadformativa newValue) {
+				if (newValue != null){
+					UFMarcada = TablaUFs.getSelectionModel().getSelectedItem();
+					VentanaPrincipal.setVisible(false);
+					VentanaAlumnos.setVisible(true);
+					setCheckBox();
 				}
 
 
@@ -580,7 +586,7 @@ public class VistaIniciController {
 		minutos = calendario.get(Calendar.MINUTE);
 		String minuts ="";
 		if (minutos<10)
-		TextHoraAsistencia.setText(hora+":0"+minuts);
+			TextHoraAsistencia.setText(hora+":0"+minuts);
 		else TextHoraAsistencia.setText(hora+":"+minutos);
 		//-------------------------------------------------
 		//Seleccionar el dia actual para generar las faltas
@@ -599,11 +605,11 @@ public class VistaIniciController {
 		}
 
 		Checkers.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Alumnos, Boolean>, ObservableValue<Boolean>>() {
-	        @Override
-	        public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<Alumnos, Boolean> features) {
-	            return new SimpleBooleanProperty(features.getValue() != null);
-	            }
-	        });
+			@Override
+			public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<Alumnos, Boolean> features) {
+				return new SimpleBooleanProperty(features.getValue() != null);
+			}
+		});
 
 		Checkers.setCellFactory(new ColumnCheckBox<Alumnos, Boolean>(){
 
@@ -628,11 +634,11 @@ public class VistaIniciController {
 			public void checkAction(int index, Alumnos element, boolean value) {
 				if (value){
 					if (!listaNoAsistencia.contains(alumnosLista.get(index)))
-					listaNoAsistencia.add(alumnosLista.get(index));
+						listaNoAsistencia.add(alumnosLista.get(index));
 				}
 				else {
 					if (listaNoAsistencia.contains(alumnosLista.get(index)))
-					listaNoAsistencia.remove(alumnosLista.get(index));
+						listaNoAsistencia.remove(alumnosLista.get(index));
 				}
 			}
 		});
@@ -660,28 +666,34 @@ public class VistaIniciController {
 	 */
 	public void generarFaltas(){
 		Horas horaFalta = h.getHorasByRango(TextHoraAsistencia.getText());
-		Asignatura asignaturaFalta = as.verAsignaturaById(UFMarcada.getAsignatura().getIdAsignatura());
-		String fecha = DiaAsistenciaSelect.getValue().toString();
-		String dia = DiaAsistenciaSelect.getValue().getDayOfWeek().name();
-		Franjas franjaFalta = fr.verFranjaFalta(horaFalta, profesorActivo, dia, asignaturaFalta);
-		if (listaNoAsistencia.isEmpty()){
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setHeaderText("Indica faltas a generar");
+		if (horaFalta == null) {
+			Alert alert = new Alert (AlertType.INFORMATION);
+			alert.setHeaderText("Introduzca la hora de la falta");
 			alert.showAndWait();
-		} else {
-		for (Alumnos alumnos : listaNoAsistencia) {
-			Asistencia falta = new Asistencia();
-			AsistenciaId a = new AsistenciaId(alumnos.getDni(), UFMarcada.getIdUnidadFormativa(), franjaFalta.getIdFranja(), fecha);
-			falta.setId(a);
-			try {
-				ast.addAsistencia(falta);
-			} catch(Exception e){
+		}else {
+			Asignatura asignaturaFalta = as.verAsignaturaById(UFMarcada.getAsignatura().getIdAsignatura());
+			String fecha = DiaAsistenciaSelect.getValue().toString();
+			String dia = DiaAsistenciaSelect.getValue().getDayOfWeek().name();
+			Franjas franjaFalta = fr.verFranjaFalta(horaFalta, profesorActivo, dia, asignaturaFalta);
+			if (listaNoAsistencia.isEmpty()){
 				Alert alert = new Alert(AlertType.ERROR);
-				alert.setHeaderText("Falta de asistencia duplicada");
+				alert.setHeaderText("Indica faltas a generar");
 				alert.showAndWait();
+			} else {
+				for (Alumnos alumnos : listaNoAsistencia) {
+					Asistencia falta = new Asistencia();
+					AsistenciaId a = new AsistenciaId(alumnos.getDni(), UFMarcada.getIdUnidadFormativa(), franjaFalta.getIdFranja(), fecha);
+					falta.setId(a);
+					try {
+						ast.addAsistencia(falta);
+					} catch(Exception e){
+						Alert alert = new Alert(AlertType.ERROR);
+						alert.setHeaderText("Falta de asistencia duplicada");
+						alert.showAndWait();
+					}
+				}
+				setCheckBox();
 			}
-		}
-		setCheckBox();
 		}
 
 	}
