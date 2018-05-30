@@ -6,6 +6,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.exception.ConstraintViolationException;
 
 import dao.SessionFactoryUtil;
 import javafx.scene.control.Alert;
@@ -20,22 +21,29 @@ public class ImpAsistencia implements AsistenciaInterface{
 	private static SessionFactory factory = SessionFactoryUtil.getSessionFactory();
 	@Override
 
-	public void addAsistencia(Asistencia asistencia) {
+	public void addAsistencia(Asistencia asistencia) throws Exception {
 		Session session = factory.openSession();
 		Transaction tx = null;
+		String a = "";
 		try {
-			tx = session.beginTransaction();
-			session.save(asistencia);
-			tx.commit();
-		}catch  (HibernateException e) {
+		tx = session.beginTransaction();
+		a = "save";
+		session.save(asistencia);
+		a = "antes";
+		tx.commit();
+		a = "despues";
+		} catch(ConstraintViolationException e){
 			if (tx!=null) tx.rollback();
-			Alert alert = new Alert (AlertType.ERROR);
-			alert.setHeaderText("Error al generar falta");
-			alert.showAndWait();
-		}finally {
-			session.close();
+			System.out.println(a + "1r catch");
+			throw new Exception(e);
+		} catch (HibernateException e){
+			if (tx!=null) tx.rollback();
+			System.out.println(a + "2 catch");
+		} catch (Exception e){
+			if (tx!=null) tx.rollback();
+			System.out.println(a + "3 catch");
 		}
-
+		session.close();
 	}
 
 	@Override

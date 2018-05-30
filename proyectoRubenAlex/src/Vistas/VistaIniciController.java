@@ -114,7 +114,8 @@ public class VistaIniciController {
 
 	@FXML
 	private Button addFranja;
-
+    @FXML
+    private Button btnAddFranja;
 	@FXML
 	private Button addCursoBTN;
 
@@ -141,7 +142,8 @@ public class VistaIniciController {
 
 	@FXML
 	private AnchorPane PaneAddUF;
-
+    @FXML
+    private AnchorPane paneAddFranja;
 
 	@FXML
 	private Button AlumnosBTN;
@@ -386,22 +388,6 @@ public class VistaIniciController {
 	}
 
 	@FXML
-	public void añadirFranja(){
-		setVisibleFranja(true);
-	}
-
-	@FXML
-	public void confirmarAñadirFranja(){
-		setVisibleFranja(false);
-	}
-
-	public void setVisibleFranja(boolean state){
-		ConfirmFranjaCB.setVisible(state);
-		idFranjaCB.setVisible(state);
-		UFranjaCB.setVisible(state);
-	}
-
-	@FXML
 	public void cerrarSesion(){
 		Stage Actual = (Stage) tablaCursos.getScene().getWindow();
 		Actual.close();
@@ -432,6 +418,7 @@ public class VistaIniciController {
 		VentanaPrincipal.setVisible(true);
 		PaneAddUF.setVisible(false);
 		PaneAddAlumno.setVisible(false);
+		paneAddFranja.setVisible(false);
 	}
 
 	public void cargarCiclo () {
@@ -699,6 +686,7 @@ public class VistaIniciController {
 		VentanaPrincipal.setVisible(false);
 		PaneAddUF.setVisible(true);
 		PaneAddAlumno.setVisible(false);
+		paneAddFranja.setVisible(false);
 	}
 
 	@FXML
@@ -707,7 +695,17 @@ public class VistaIniciController {
 		VentanaPrincipal.setVisible(false);
 		PaneAddUF.setVisible(false);
 		PaneAddAlumno.setVisible(true);
+		paneAddFranja.setVisible(false);
 
+	}
+
+	@FXML
+	public void addFranja() throws IOException {
+		VentanaAlumnos.setVisible(false);
+		VentanaPrincipal.setVisible(false);
+		PaneAddUF.setVisible(false);
+		PaneAddAlumno.setVisible(false);
+		paneAddFranja.setVisible(true);
 	}
 
 	/**
@@ -737,6 +735,7 @@ public class VistaIniciController {
 				alert.showAndWait();
 			} else {
 				Asistencia falta = null;
+				boolean mostrado = false;
 				for (Alumnos alumnos : listaNoAsistencia) {
 					boolean error = false;
 					try {
@@ -744,19 +743,27 @@ public class VistaIniciController {
 					AsistenciaId a = new AsistenciaId(alumnos.getDni(), UFMarcada.getIdUnidadFormativa(), franjaFalta.getIdFranja(), fecha);
 					falta.setId(a);
 					} catch(Exception e){
-						Alert alert = new Alert (AlertType.INFORMATION);
-						alert.setHeaderText("Dia incorrecto para esta UF");
-						alert.showAndWait();
-						error = true;
+						if (!mostrado){
+							Alert alert = new Alert (AlertType.INFORMATION);
+							alert.setHeaderText("Dia incorrecto para esta UF");
+							alert.showAndWait();
+							error = true;
+							mostrado = true;
+						}
 						listaNoAsistencia = new ArrayList<Alumnos>();
 					}
 					if (!error){
 						try {
 							ast.addAsistencia(falta);
 						} catch(Exception e){
-							Alert alert = new Alert(AlertType.ERROR);
-							alert.setHeaderText("Falta de asistencia duplicada");
-							alert.showAndWait();
+							if (!mostrado){
+								Alert alert = new Alert(AlertType.ERROR);
+								alert.setHeaderText("Falta de asistencia duplicada");
+								alert.showAndWait();
+								mostrado = true;
+								error = true;
+							}
+							e.printStackTrace();
 							listaNoAsistencia = new ArrayList<Alumnos>();
 						}
 					}

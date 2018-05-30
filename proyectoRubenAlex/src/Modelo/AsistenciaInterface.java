@@ -14,7 +14,7 @@ import pojos.Unidadformativa;
  * @version 1.0
  */
 public interface AsistenciaInterface {
-	public void addAsistencia (Asistencia asistencia);
+	public void addAsistencia (Asistencia asistencia) throws Exception;
 	public void eliminarAsistencia (AsistenciaId id);
 	public void modificarAsistencia (Asistencia asistenciaModificada);
 	public Asistencia verAsistenciaById (AsistenciaId id);
