@@ -14,7 +14,7 @@ import pojos.Profesor;
  * @version 1.0
  */
 public interface FranjaInterface {
- public void addFranja (Franjas franja);
+ public void addFranja (Franjas franja) throws Exception;
  public void eliminarFranja (String idFranja);
  public void modificarFranja(Franjas franjaModificada);
  public List<Franjas> verAlFranjas();
