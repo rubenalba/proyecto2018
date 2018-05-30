@@ -171,6 +171,7 @@ public class VistaAlumnoController {
     	NotaAsigAlumno.setEditable(true);
     	GuardarNota.setVisible(true);
     	calificarNota.setVisible(false);
+    	NotaAsigAlumno.setText("");
     }
 
     /**
