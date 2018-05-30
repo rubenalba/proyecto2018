@@ -10,6 +10,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import dao.SessionFactoryUtil;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import pojos.Alumnos;
 import pojos.Asignatura;
 import pojos.Aula;
@@ -22,7 +24,7 @@ public class ImpFranjas implements FranjaInterface{
 
 	//FUNCIONA NO BORRAR!!
 	@Override
-	public void addFranja(Franjas franja) {
+	public void addFranja(Franjas franja) throws Exception {
 		Session session = factory.openSession();
 		Transaction tx = null;
 		try {
@@ -31,7 +33,7 @@ public class ImpFranjas implements FranjaInterface{
 			tx.commit();
 		}catch  (Exception e) {
 			if (tx!=null) tx.rollback();
-			e.printStackTrace();
+			throw new Exception(e);
 		}finally {
 			session.close();
 		}

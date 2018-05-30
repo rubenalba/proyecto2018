@@ -837,12 +837,11 @@ public class VistaIniciController {
 		try{
 			fr.addFranja(franja);
 			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setHeaderText("Franja añadida");
+			alert.setHeaderText("Franja creada");
 			alert.showAndWait();
 		} catch(Exception e){
-			e.printStackTrace();
 			Alert alert = new Alert(AlertType.ERROR);
-			alert.setHeaderText("Error al crear Franja");
+			alert.setHeaderText("Franja duplicada");
 			alert.showAndWait();
 		}
 	}
