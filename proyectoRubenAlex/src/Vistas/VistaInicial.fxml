@@ -22,7 +22,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="503.0" prefWidth="869.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vistas.VistaIniciController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="503.0" prefWidth="869.0" stylesheets="@../application/StyleVistaInici.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vistas.VistaIniciController">
    <children>
       <ImageView fitHeight="612.0" fitWidth="1017.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -45,9 +45,9 @@
                             <TableColumn fx:id="ColUF" prefWidth="205.0" text="UFs" />
                           </columns>
                         </TableView>
-                        <Button fx:id="addCursoBTN" layoutX="353.0" layoutY="314.0" mnemonicParsing="false" onAction="#addUF" style="-fx-background-color: transparent; -fx-text-fill: white;" text="Unidad Formativa" />
-                        <Button fx:id="AlumnosBTN" layoutX="498.0" layoutY="314.0" mnemonicParsing="false" onAction="#addAlumno" style="-fx-background-color: transparent; -fx-text-fill: white;" text="Alumno" />
-                        <Button fx:id="btnAddFranja" layoutX="584.0" layoutY="314.0" mnemonicParsing="false" onAction="#addFranja" style="-fx-background-color: transparent; -fx-text-fill: white;" text="Franja" />
+                        <Button fx:id="addCursoBTN" layoutX="353.0" layoutY="314.0" mnemonicParsing="false" onAction="#addUF" text="Unidad Formativa" />
+                        <Button fx:id="AlumnosBTN" layoutX="517.0" layoutY="314.0" mnemonicParsing="false" onAction="#addAlumno" style="-fx-background-color: ; : ;" text="Alumno" />
+                        <Button fx:id="btnAddFranja" layoutX="608.0" layoutY="314.0" mnemonicParsing="false" onAction="#addFranja" style=": ; -fx-text-fill: ;" text="Franja" />
                      </children>
                   </AnchorPane>
                </left>
@@ -123,7 +123,7 @@
                </font>
             </Label>
             <TextField fx:id="alumnoBuscar" layoutX="522.0" layoutY="53.0" prefHeight="25.0" prefWidth="198.0" promptText="Alumno a buscar" />
-            <Button fx:id="search" layoutX="722.0" layoutY="52.0" mnemonicParsing="false" onAction="#buscar" prefHeight="25.0" prefWidth="23.0" />
+            <Button fx:id="search" layoutX="725.0" layoutY="50.0" mnemonicParsing="false" onAction="#buscar" prefHeight="31.0" prefWidth="32.0" />
             <TableView fx:id="tablaBusqueda" layoutX="522.0" layoutY="89.0" prefHeight="200.0" prefWidth="275.0">
               <columns>
                 <TableColumn fx:id="ColNombreBusqueda" prefWidth="169.0" text="Nombre" />
