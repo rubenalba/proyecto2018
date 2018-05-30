@@ -840,10 +840,10 @@ public class VistaIniciController {
 			alert.setHeaderText("Franja añadida");
 			alert.showAndWait();
 		} catch(Exception e){
-
+			e.printStackTrace();
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setHeaderText("Error al crear Franja");
-
+			alert.showAndWait();
 		}
 	}
 }
