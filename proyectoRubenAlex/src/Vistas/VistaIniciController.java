@@ -121,13 +121,15 @@ public class VistaIniciController {
 
 	@FXML
 	private Button ConfirmFranjaCB;
-
+    @FXML
+    private ChoiceBox<Horas> CBHoraFranja;
 	@FXML
 	private ChoiceBox<?> idFranjaCB;
 
 	@FXML
 	private ChoiceBox<?> UFranjaCB;
-
+    @FXML
+    private ChoiceBox<String> diasSemana;
 	@FXML
 	private TableView<Asignatura> tablaCursos;
 
@@ -139,7 +141,8 @@ public class VistaIniciController {
 
 	@FXML
 	private TableColumn<Unidadformativa, String> ColUF;
-
+    @FXML
+    private ChoiceBox<Asignatura> AsigFranja;
 	@FXML
 	private AnchorPane PaneAddUF;
     @FXML
@@ -277,7 +280,7 @@ public class VistaIniciController {
 		cargarCiclo();
 		cargarCiclo2();
 		cargarAlumnos();
-
+		cargarHoras();
 
 		VentanaAlumnos.setVisible(false);
 		VentanaPrincipal.setVisible(true);
@@ -809,6 +812,35 @@ public class VistaIniciController {
 		for (Alumnos alumnos2 : alumnos) {
 			ColNombreBusqueda.setCellValueFactory(new PropertyValueFactory<Alumnos, String>("nombreCompleto"));
 			colDNIBusqueda.setCellValueFactory(new PropertyValueFactory<Alumnos, String>("Dni"));
+		}
+	}
+
+	public void cargarHoras(){
+		List<Horas> horas = h.getAllHoras();
+		List<Asignatura> asignaturasStr = pr.misAsignaturas(profesorActivo);
+		ObservableList observablehoras = FXCollections.observableArrayList(horas);
+		CBHoraFranja.setItems(observablehoras);
+		List<String> dias  = new ArrayList<String>();
+		dias.add("MONDAY");
+		dias.add("TUESDAY");
+		dias.add("WEDNESDAY");
+		dias.add("THURSDAY");
+		dias.add("FRIDAY");
+		ObservableList value = FXCollections.observableArrayList(dias);
+		diasSemana.setItems(value);
+		ObservableList asignaturas = FXCollections.observableArrayList(asignaturasStr);
+		AsigFranja.setItems(asignaturas);
+	}
+
+	public void guardarFranja(){
+		Franjas franja = new Franjas(CBHoraFranja.getSelectionModel().getSelectedItem(), AsigFranja.getSelectionModel().getSelectedItem(), profesorActivo, diasSemana.getSelectionModel().getSelectedItem());
+		try{
+			fr.addFranja(franja);
+		} catch(Exception e){
+
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setHeaderText("Error al crear Franja");
+
 		}
 	}
 }

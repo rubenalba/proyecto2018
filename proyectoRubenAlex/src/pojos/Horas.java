@@ -60,5 +60,10 @@ public class Horas implements java.io.Serializable {
 	public void setFranjases(Set<Franjas> franjases) {
 		this.franjases = franjases;
 	}
+	@Override
+	public String toString() {
+		return horaInicio+ " / " + horaFin;
+	}
+
 
 }

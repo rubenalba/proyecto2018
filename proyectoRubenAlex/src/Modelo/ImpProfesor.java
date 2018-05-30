@@ -31,6 +31,7 @@ public class ImpProfesor implements ProfesorInterface{
 	static AlumnosInterface a = DAO.getAlumnosInterface();
 	static AsignaturaInterface as = DAO.getAsignaturaInterface();
 	static UnidadFormativaInterface uf = DAO.getUnidadFormativaInterface();
+	static CicloInterface c = DAO.getCicloInterface();
 	//Funciona NO TOCAR!!!
 	@Override
 	public void addProfesor(Profesor profesor) {
@@ -119,10 +120,11 @@ public class ImpProfesor implements ProfesorInterface{
 			asignaturasMias = session.createNativeQuery(sql).list();
 			for (Integer asignatura : asignaturasMias) {
 				Asignatura a = as.verAsignaturaById(asignatura);
+				a.setCiclo(c.verCicloByID(a.getCiclo().getIdCiclo()));
 				asignaturasEnviadas.add(a);
-				//Hibernate.initialize(a.getCiclo());
+
 			}
-			
+
 		}catch  (HibernateException e) {
 			if (tx!=null) tx.rollback();
 			e.printStackTrace();
@@ -131,7 +133,7 @@ public class ImpProfesor implements ProfesorInterface{
 		}
 		return asignaturasEnviadas;
 	}
-	
+
 	public List<Unidadformativa>misUFs (Profesor profesor, Asignatura idAsignatura){
 		Session session = factory.openSession();
 		Transaction tx = null;
@@ -141,7 +143,7 @@ public class ImpProfesor implements ProfesorInterface{
 			tx = session.beginTransaction();
 			String sql ="select u.ID_UnidadFormativa "
 					+ "from unidadformativa u "
-					+ "where u.DNI_Profesor = " + "'"+ profesor.getDniProfesor() + "'" 
+					+ "where u.DNI_Profesor = " + "'"+ profesor.getDniProfesor() + "'"
 					+ " and u.ID_Asignatura = " +  "'"+ idAsignatura.getIdAsignatura()+ "'";
 			idUF = session.createNativeQuery(sql).list();
 			for (Integer integer : idUF) {
@@ -155,14 +157,14 @@ public class ImpProfesor implements ProfesorInterface{
 			session.close();
 		}
 		return ufsMias;
-		
+
 	}
 	//Obtener el dni para luego buscarlo por dni
 	public List<Alumnos> misAlumnosByAsignatura(Profesor profesor, Unidadformativa uf){
 		Session session = factory.openSession();
 		Transaction tx = null;
 		List <String> alumnos = null;
-		List<Alumnos> lista = new ArrayList<Alumnos>(); 
+		List<Alumnos> lista = new ArrayList<Alumnos>();
 		try {
 			tx = session.beginTransaction();
 			String sql = "Select a.DNI "
@@ -229,7 +231,7 @@ public class ImpProfesor implements ProfesorInterface{
 		}
 		return idAsignaturas;
 	}
-	//Sin uso 
+	//Sin uso
 	@Override
 	public List<String> UFSimpartidas(String asignatura, String dni){
 		String[] parts = asignatura.split(" /");
@@ -271,7 +273,7 @@ public class ImpProfesor implements ProfesorInterface{
 			byte [] key = Arrays.copyOf(hash, keysize/8);
 			skey = new SecretKeySpec (key, "AES");
 		}catch (Exception e) {
-			
+
 		}
 		return skey;
 	}
@@ -288,7 +290,7 @@ public class ImpProfesor implements ProfesorInterface{
 			dats = b.encode(datos);
 
 		}catch (Exception ex) {
-		
+
 		}
 
 		return dats;

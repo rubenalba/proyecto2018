@@ -39,4 +39,22 @@ public class ImpHoras implements HorasInterface{
 		return r;
 	}
 
+	@Override
+	public List<Horas> getAllHoras() {
+		Session session = factory.openSession();
+		Transaction tx = null;
+		List <Horas> listaHoras = null;
+			try {
+				tx = session.beginTransaction();
+				listaHoras = session.createQuery("FROM Horas").list();
+				tx.commit();
+			}catch  (HibernateException e) {
+				if (tx!=null) tx.rollback();
+				e.printStackTrace();
+			}finally {
+				session.close();
+			}
+			return listaHoras;
+		}
+
 }

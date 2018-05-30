@@ -29,7 +29,7 @@ public class ImpFranjas implements FranjaInterface{
 			tx = session.beginTransaction();
 			session.save(franja);
 			tx.commit();
-		}catch  (HibernateException e) {
+		}catch  (Exception e) {
 			if (tx!=null) tx.rollback();
 			e.printStackTrace();
 		}finally {
@@ -108,7 +108,7 @@ public class ImpFranjas implements FranjaInterface{
 			tx = session.beginTransaction();
 			franjaList = session.createNativeQuery(sql, Franjas.class).list();
 			tx.commit();
-		
+
 			for (Franjas franj : franjaList) {
 				r = franj;
 			}

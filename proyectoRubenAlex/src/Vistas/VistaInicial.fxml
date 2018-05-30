@@ -150,14 +150,14 @@
       </MenuBar>
       <AnchorPane fx:id="paneAddFranja" layoutX="357.0" layoutY="30.0" prefHeight="363.0" prefWidth="482.0" visible="false">
          <children>
-            <ChoiceBox layoutX="39.0" layoutY="70.0" prefWidth="150.0" />
+            <ChoiceBox fx:id="CBHoraFranja" layoutX="39.0" layoutY="70.0" prefWidth="150.0" />
             <Label layoutX="48.0" layoutY="43.0" text="Hora" textFill="WHITE" />
-            <ChoiceBox layoutX="39.0" layoutY="142.0" prefWidth="150.0" />
+            <ChoiceBox fx:id="diasSemana" layoutX="39.0" layoutY="142.0" prefWidth="150.0" />
             <Label layoutX="46.0" layoutY="116.0" text="Dia" textFill="WHITE" />
-            <ChoiceBox layoutX="39.0" layoutY="212.0" prefWidth="150.0" />
+            <ChoiceBox fx:id="AsigFranja" layoutX="39.0" layoutY="212.0" prefWidth="150.0" />
             <Label layoutX="46.0" layoutY="190.0" text="Asignatura" textFill="WHITE" />
             <Button fx:id="volverFranja" layoutX="343.0" layoutY="261.0" mnemonicParsing="false" onAction="#back" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-radius: 10; -fx-text-fill: white;" text="Volver" />
-            <Button fx:id="guardarFranja" layoutX="37.0" layoutY="261.0" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 10;" text="Guardar" />
+            <Button fx:id="guardarFranja" layoutX="37.0" layoutY="261.0" mnemonicParsing="false" onAction="#guardarFranja" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 10;" text="Guardar" />
          </children>
       </AnchorPane>
    </children>

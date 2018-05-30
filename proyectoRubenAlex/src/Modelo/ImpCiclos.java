@@ -10,6 +10,7 @@ import org.hibernate.Transaction;
 
 import dao.SessionFactoryUtil;
 import pojos.Ciclo;
+import pojos.Franjas;
 
 public class ImpCiclos implements CicloInterface {
 	private static SessionFactory factory = SessionFactoryUtil.getSessionFactory();
@@ -40,7 +41,13 @@ public class ImpCiclos implements CicloInterface {
 		c = (Ciclo)query.uniqueResult();
 		return c;
 	}
-
-
+	@Override
+	public Ciclo verCicloByID(int idciclo) {
+			Session session = factory.openSession();
+			Transaction tx = null;
+			Ciclo ciclo = (Ciclo)session.get(Ciclo.class, idciclo);
+			session.close();
+			return ciclo;
+	}
 }
 
