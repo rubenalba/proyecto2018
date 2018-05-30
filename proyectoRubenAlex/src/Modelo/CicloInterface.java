@@ -14,4 +14,5 @@ public interface CicloInterface {
 
 	public List<Ciclo> verAllCiclos();
 	public Ciclo verCicloByName(String name);
+	public Ciclo verCicloByID(int ciclo);
 }

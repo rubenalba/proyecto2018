@@ -1,5 +1,5 @@
 package pojos;
-// Generated 25/05/2018 16:43:07 by Hibernate Tools 4.0.1.Final
+// Generated 30/05/2018 19:29:46 by Hibernate Tools 4.0.1.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -9,7 +9,7 @@ import java.util.Set;
  */
 public class Franjas implements java.io.Serializable {
 
-	private int idFranja;
+	private Integer idFranja;
 	private Horas horas;
 	private Asignatura asignatura;
 	private Profesor profesor;
@@ -19,17 +19,14 @@ public class Franjas implements java.io.Serializable {
 	public Franjas() {
 	}
 
-	public Franjas(int idFranja, Horas horas, Asignatura asignatura, Profesor profesor, String dia) {
-		this.idFranja = idFranja;
+	public Franjas(Horas horas, Asignatura asignatura, Profesor profesor, String dia) {
 		this.horas = horas;
 		this.asignatura = asignatura;
 		this.profesor = profesor;
 		this.dia = dia;
 	}
 
-	public Franjas(int idFranja, Horas horas, Asignatura asignatura, Profesor profesor, String dia,
-			Set<Asistencia> asistencias) {
-		this.idFranja = idFranja;
+	public Franjas(Horas horas, Asignatura asignatura, Profesor profesor, String dia, Set<Asistencia> asistencias) {
 		this.horas = horas;
 		this.asignatura = asignatura;
 		this.profesor = profesor;
@@ -37,11 +34,11 @@ public class Franjas implements java.io.Serializable {
 		this.asistencias = asistencias;
 	}
 
-	public int getIdFranja() {
+	public Integer getIdFranja() {
 		return this.idFranja;
 	}
 
-	public void setIdFranja(int idFranja) {
+	public void setIdFranja(Integer idFranja) {
 		this.idFranja = idFranja;
 	}
 
