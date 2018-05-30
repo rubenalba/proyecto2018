@@ -280,4 +280,21 @@ public class VistaAlumnoController {
 		Actual.close();
 
     }
+    @FXML
+    public void desmatricular(){
+    	Matricula borrar = mi.verMatriculaUFDNI(UFActiva, alumno);
+    	try{
+    		Alert alert = new Alert(AlertType.CONFIRMATION);
+    		alert.setHeaderText("Seguro que desea eliminar la matricula del alumno "+alumno.getNombreCompleto()+"?");
+    		Optional<ButtonType> result = alert.showAndWait();
+	    	if(result.isPresent()&& result.get() == ButtonType.OK){
+	    		mi.eliminarMatricula(borrar.getId());
+	    	}
+
+    	}catch(Exception e){
+    		Alert alert = new Alert(AlertType.ERROR);
+    		alert.setHeaderText("No se ha podido desmatricular");
+    		alert.showAndWait();
+    	}
+    }
 }
