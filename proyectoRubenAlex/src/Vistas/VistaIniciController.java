@@ -836,11 +836,14 @@ public class VistaIniciController {
 		Franjas franja = new Franjas(CBHoraFranja.getSelectionModel().getSelectedItem(), AsigFranja.getSelectionModel().getSelectedItem(), profesorActivo, diasSemana.getSelectionModel().getSelectedItem());
 		try{
 			fr.addFranja(franja);
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setHeaderText("Franja añadida");
+			alert.showAndWait();
 		} catch(Exception e){
-
+			e.printStackTrace();
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setHeaderText("Error al crear Franja");
-
+			alert.showAndWait();
 		}
 	}
 }
