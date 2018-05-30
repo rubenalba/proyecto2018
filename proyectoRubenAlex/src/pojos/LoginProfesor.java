@@ -56,13 +56,8 @@ public class LoginProfesor {
 			datos = cipher.doFinal(pwdEncriptado);
 			BASE64Encoder b = new BASE64Encoder();
 			dats = b.encode(datos);
-
-		}catch (Exception ex) {
-
-		}
-
+		}catch (Exception ex) {}
+		
 		return dats;
-
 	}
-
 }

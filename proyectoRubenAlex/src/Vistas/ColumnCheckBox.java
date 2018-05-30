@@ -7,17 +7,6 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.util.Callback;
 
-/* 	Column button
-  	this.colCheck.setCellFactory(new ColumnCheckBox<ClasseModel, Boolean>(enabled){
-		@Override
-		public void checkAction(ClasseModel element, boolean value) {
-			// Acció ...
-		}
-		public boolean checkValue(ClasseModel element) {
-			return ??;
-		}
-	});
- */
 abstract class ColumnCheckBox<S, T> implements Callback<TableColumn<S, T>, TableCell<S, T>> {
 
     public ColumnCheckBox() {

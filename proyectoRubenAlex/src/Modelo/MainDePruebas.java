@@ -86,7 +86,7 @@ public class MainDePruebas {
 		Unidadformativa u = uf.verUnidadformativaByID(1);
 		asist.setUnidadformativa(u);
 		//asist.setId(new AsistenciaId("11111111a", 1, 1));
-		asisten.addAsistencia(asist);
+		//asisten.addAsistencia(asist);
 		ciclobyString();
 	}
 
