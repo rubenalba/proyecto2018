@@ -104,6 +104,7 @@ public class ImpProfesor implements ProfesorInterface{
 		String hql = "FROM Profesor p WHERE p.usuari LIKE " +"'"+ userProfesor + "'";
 		Query query = session.createQuery(hql);
 		profesor = (Profesor) query.uniqueResult();
+		session.close();
 		return profesor;
 	}
 	public List<Asignatura> misAsignaturas(Profesor profesor){

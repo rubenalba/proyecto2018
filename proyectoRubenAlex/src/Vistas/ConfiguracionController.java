@@ -99,6 +99,7 @@ public class ConfiguracionController {
 		}
 		return skey;
 	}
+
 	public static String encryptedData(SecretKey skey, String pwd) {
 		byte [] datos = null;
 		String dats=null;
@@ -113,9 +114,23 @@ public class ConfiguracionController {
 		}catch (Exception ex) {
 
 		}
-
 		return dats;
+	}
 
+	public void passwordTemporal(){
+		profesorActivo();
+		Profesor mod = p.verProfesorByDni(profesorActivo.getDniProfesor());
+		SecretKey skey = passWordKeyGeneration(profesorActivo.getDniProfesor());
+		String pwd = encryptedData(skey,pwdTemporalTF.getText());
+		mod.setPasswordTemp(pwd);
+		try {
+			p.modificarProfesor(mod);
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setHeaderText("Password Temp Generada");
+			alert.showAndWait();
+		} catch (Exception e) {
+
+	}
 	}
 
 }

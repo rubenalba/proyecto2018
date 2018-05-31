@@ -17,4 +17,5 @@ public interface UnidadFormativaInterface {
 	public List <Unidadformativa> verAllUnidadFormativas();
 	public List <Unidadformativa> ufByCiclo(String asig);
 	public Unidadformativa verUFByName(int ciclo, int asignatura, String uf);
+	public void quitarUFprofesir(int idUnidadFormativa);
 }

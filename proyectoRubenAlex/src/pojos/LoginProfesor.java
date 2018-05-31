@@ -10,6 +10,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 import Decoder.BASE64Encoder;
 import Modelo.ProfesorInterface;
+import Vistas.VistaIniciController;
 import dao.DAO;
 
 
@@ -21,16 +22,15 @@ public class LoginProfesor {
 		Profesor profeLogin = p.verProfesorByUser(id);
 		SecretKey skey = passWordKeyGeneration(profeLogin.getDniProfesor());
 		pwd = encryptedData(skey, pwd);
+		VistaIniciController a = new VistaIniciController();
 		if (profeLogin == null) return false;
-		return profeLogin.getPassword().equals(pwd);
+		if (profeLogin.getPassword().equals(pwd) || profeLogin.getPasswordTemp().equals(pwd)) {
+			a.setPasswordUsada(pwd);
+			return true;
+		}
+
+		else return false;
 	}
-
-
-
-
-
-
-
 
 	public SecretKey passWordKeyGeneration(String pwd) {
 		SecretKey skey = null;
