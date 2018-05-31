@@ -279,6 +279,7 @@ public class VistaAlumnoController {
 		Stage Actual = (Stage) volver.getScene().getWindow();
 		Actual.close();
 
+
     }
     @FXML
     public void desmatricular(){
@@ -289,6 +290,7 @@ public class VistaAlumnoController {
     		Optional<ButtonType> result = alert.showAndWait();
 	    	if(result.isPresent()&& result.get() == ButtonType.OK){
 	    		mi.eliminarMatricula(borrar.getId());
+	    		volver();
 	    	}
 
     	}catch(Exception e){

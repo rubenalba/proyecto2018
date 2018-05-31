@@ -304,6 +304,7 @@ public class VistaIniciController {
 				}
 			}
 		});
+
 		asignaturaCB.setVisible(true);
 		ufCB.setVisible(true);
 
@@ -349,9 +350,6 @@ public class VistaIniciController {
 		});
 	}
 
-
-
-
 	private void listeners2() {
 		cursosAlumno.valueProperty().addListener(new ChangeListener<Ciclo>() {
 
@@ -374,11 +372,7 @@ public class VistaIniciController {
 
 					cargarUF2(AsignaturaActiva.getNombreAsignatura());
 				}
-
-
 			}
-
-
 		});
 
 		CBAsignaturaBorrar.valueProperty().addListener(new ChangeListener<Asignatura>(){
@@ -393,8 +387,6 @@ public class VistaIniciController {
 			}
 		});
 	}
-
-
 
 	public Profesor getProfesorActivo(){
 		return profesorActivo;
@@ -626,8 +618,8 @@ public class VistaIniciController {
 		listaNoAsistencia = new ArrayList<Alumnos>();
 		String minuts ="";
 		if (minutos<10)
-			TextHoraAsistencia.setText(hora+":0"+minuts);
-		else TextHoraAsistencia.setText(hora+":"+minutos);
+			this.TextHoraAsistencia.setText(hora+":0"+minuts);
+		else this.TextHoraAsistencia.setText(hora+":"+minutos);
 		//-------------------------------------------------
 		//Seleccionar el dia actual para generar las faltas
 		today = LocalDate.now( ZoneId.of( "Europe/Paris" ) );
@@ -806,7 +798,6 @@ public class VistaIniciController {
 				setCheckBox();
 			}
 		}
-
 	}
 	/**
 	 * Metodo para abrir la vista de un alumno con la informacion de este.
@@ -821,14 +812,12 @@ public class VistaIniciController {
 			Stage stage = new Stage();
 			stage.setScene(scene);
 			stage.show();
-
 		} catch (IOException e) {
 			e.printStackTrace();
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Error");
 			alert.setHeaderText("Error al cargar la ventana de alumno, vuelva a intentarlo");
 		}
-
 	}
 	@FXML
 	public void salir() {
@@ -893,8 +882,6 @@ public class VistaIniciController {
 		}
 		CBUfBorrar.getItems().clear();
 		cargarAsigborrar();
-
-
 	}
 
 	public void comprobacionTemporal(){
