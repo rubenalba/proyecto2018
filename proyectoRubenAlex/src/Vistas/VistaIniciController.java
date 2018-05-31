@@ -821,11 +821,11 @@ public class VistaIniciController {
 		ObservableList observablehoras = FXCollections.observableArrayList(horas);
 		CBHoraFranja.setItems(observablehoras);
 		List<String> dias  = new ArrayList<String>();
-		dias.add("MONDAY");
-		dias.add("TUESDAY");
-		dias.add("WEDNESDAY");
-		dias.add("THURSDAY");
-		dias.add("FRIDAY");
+		dias.add("LUNES");
+		dias.add("MARTES");
+		dias.add("MIÉRCOLES");
+		dias.add("JUEVES");
+		dias.add("VIERNES");
 		ObservableList value = FXCollections.observableArrayList(dias);
 		diasSemana.setItems(value);
 		ObservableList asignaturas = FXCollections.observableArrayList(asignaturasStr);
@@ -833,7 +833,19 @@ public class VistaIniciController {
 	}
 
 	public void guardarFranja(){
-		Franjas franja = new Franjas(CBHoraFranja.getSelectionModel().getSelectedItem(), AsigFranja.getSelectionModel().getSelectedItem(), profesorActivo, diasSemana.getSelectionModel().getSelectedItem());
+		String dia ="";
+		if (diasSemana.getValue().equals("LUNES")){
+			dia ="MONDAY";
+		}else if (diasSemana.getValue().equals("MARTES")){
+			dia ="TUESDAY";
+		}else if (diasSemana.getValue().equals("MIÉRCOLES")){
+			dia ="WEDNESDAY";
+		}else if (diasSemana.getValue().equals("JUEVES")){
+			dia ="THURSDAY";
+		}else if (diasSemana.getValue().equals("VIERNES")){
+			dia ="FRIDAY";
+		}
+		Franjas franja = new Franjas(CBHoraFranja.getSelectionModel().getSelectedItem(), AsigFranja.getSelectionModel().getSelectedItem(), profesorActivo, dia);
 		try{
 			fr.addFranja(franja);
 			Alert alert = new Alert(AlertType.INFORMATION);
