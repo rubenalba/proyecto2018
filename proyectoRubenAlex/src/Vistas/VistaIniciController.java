@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
@@ -37,6 +38,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
@@ -127,7 +129,7 @@ public class VistaIniciController {
 	private ChoiceBox<?> idFranjaCB;
 
 	@FXML
-	private ChoiceBox<?> UFranjaCB;
+	private ChoiceBox<Unidadformativa> UFranjaCB, CBUfBorrar;
     @FXML
     private ChoiceBox<String> diasSemana;
 	@FXML
@@ -142,14 +144,14 @@ public class VistaIniciController {
 	@FXML
 	private TableColumn<Unidadformativa, String> ColUF;
     @FXML
-    private ChoiceBox<Asignatura> AsigFranja;
+    private ChoiceBox<Asignatura> AsigFranja, CBAsignaturaBorrar;
 	@FXML
 	private AnchorPane PaneAddUF;
     @FXML
     private AnchorPane paneAddFranja;
 
 	@FXML
-	private Button AlumnosBTN;
+	private Button AlumnosBTN, btnEliminarUFProf;
 
 	@FXML
 	private ChoiceBox<Ciclo> cursos;
@@ -249,6 +251,15 @@ public class VistaIniciController {
 	boolean franjaVisible = true;
 	private ObservableList<String> cursosList;
 	private static Profesor profesorActivo;
+	private static String passwordUsada;
+
+	public static String getPasswordUsada() {
+		return passwordUsada;
+	}
+
+	public static void setPasswordUsada(String passwordUsada) {
+		VistaIniciController.passwordUsada = passwordUsada;
+	}
 	private static Asignatura asignaturaMarcada;
 	private static Alumnos alumnoMarcado;
 
@@ -271,28 +282,26 @@ public class VistaIniciController {
 	 ********************************************************/
 	@FXML
 	public void initialize()  {
-		//Locale locale = new Locale ("cat");
-		//ResourceBundle resourceBundle = ResourceBundle.getBundle("resources/idioma_cat");
-
 		profesorActivo=getProfesorActivo();
-
+		comprobacionTemporal();
 		cargarCursos();
-		cargarCiclo();
-		cargarCiclo2();
-		cargarAlumnos();
-		cargarHoras();
+		//cargarCiclo();
+		//cargarCiclo2();
+		//cargarAlumnos();
+		//cargarHoras();
+
 
 		VentanaAlumnos.setVisible(false);
 		VentanaPrincipal.setVisible(true);
 		PaneAddUF.setVisible(false);
 		PaneAddAlumno.setVisible(false);
 
-
 		tablaAlumnos.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
 			if (newSelection != null) {
-				setAlumnoMarcado(newSelection);
-				abrirAlumno(alumnoMarcado);
-
+				if (!passwordUsada.equals(profesorActivo.getPasswordTemp())){
+					setAlumnoMarcado(newSelection);
+					abrirAlumno(alumnoMarcado);
+				}
 			}
 		});
 		asignaturaCB.setVisible(true);
@@ -303,7 +312,7 @@ public class VistaIniciController {
 		listeners2();
 
 	}
-
+	//creo que no hace nada
 	private void cargarAlumnos() {
 		listaAlumnos = FXCollections.observableArrayList();
 		List <Alumnos> alumne = a.verTodosAlumnos();
@@ -311,9 +320,6 @@ public class VistaIniciController {
 			listaAlumnos.add(alumnos);
 		}
 		tablaBusqueda.setItems(listaAlumnos);
-
-
-
 	}
 
 	private void listeners() {
@@ -374,6 +380,18 @@ public class VistaIniciController {
 
 
 		});
+
+		CBAsignaturaBorrar.valueProperty().addListener(new ChangeListener<Asignatura>(){
+			@Override
+			public void changed(ObservableValue<? extends Asignatura> observable, Asignatura oldValue, Asignatura newValue) {
+				if (CBAsignaturaBorrar != null) {
+					Asignatura asigborrar = CBAsignaturaBorrar.getSelectionModel().getSelectedItem();
+					if (asigborrar != null){
+						List<Unidadformativa> ufsborrar = pr.misUFs(profesorActivo, asigborrar);
+						CBUfBorrar.setItems(FXCollections.observableArrayList(ufsborrar));}
+				}
+			}
+		});
 	}
 
 
@@ -424,7 +442,7 @@ public class VistaIniciController {
 		paneAddFranja.setVisible(false);
 	}
 
-	public void cargarCiclo () {
+	public void cargarCiclo() {
 		listaCiclos = FXCollections.observableArrayList();
 		List <Ciclo> ciclo = c.verAllCiclos();
 		for (Ciclo cicle : ciclo) {
@@ -556,6 +574,16 @@ public class VistaIniciController {
 
 	}
 
+	public void cargarAsigborrar(){
+		CBAsignaturaBorrar.getItems().clear();
+		List<Asignatura> asignaturasborrar = pr.misAsignaturas(profesorActivo);
+		for (Asignatura asignatura : asignaturasborrar) {
+			System.out.println(asignatura.getIdAsignatura());
+		}
+		if (!asignaturasborrar.isEmpty())
+			CBAsignaturaBorrar.setItems(FXCollections.observableArrayList(asignaturasborrar));
+	}
+
 
 	@FXML
 	public void configuracion(ActionEvent event) throws IOException{
@@ -685,15 +713,18 @@ public class VistaIniciController {
 
 	@FXML
 	public void addUF() throws IOException {
-		VentanaAlumnos.setVisible(false);
-		VentanaPrincipal.setVisible(false);
-		PaneAddUF.setVisible(true);
-		PaneAddAlumno.setVisible(false);
-		paneAddFranja.setVisible(false);
+			cargarAsigborrar();
+			cargarCiclo();
+			VentanaAlumnos.setVisible(false);
+			VentanaPrincipal.setVisible(false);
+			PaneAddUF.setVisible(true);
+			PaneAddAlumno.setVisible(false);
+			paneAddFranja.setVisible(false);
 	}
 
 	@FXML
 	public void addAlumno() throws IOException {
+		cargarCiclo2();
 		VentanaAlumnos.setVisible(false);
 		VentanaPrincipal.setVisible(false);
 		PaneAddUF.setVisible(false);
@@ -704,6 +735,7 @@ public class VistaIniciController {
 
 	@FXML
 	public void addFranja() throws IOException {
+		cargarHoras();
 		VentanaAlumnos.setVisible(false);
 		VentanaPrincipal.setVisible(false);
 		PaneAddUF.setVisible(false);
@@ -843,6 +875,45 @@ public class VistaIniciController {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setHeaderText("Franja duplicada");
 			alert.showAndWait();
+		}
+	}
+	public void eliminarUFProfesor(){
+		Unidadformativa uforma = CBUfBorrar.getSelectionModel().getSelectedItem();
+		uforma.setProfesor(null);
+		try {
+			u.quitarUFprofesir(uforma.getIdUnidadFormativa());
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setHeaderText("Has eliminado la " + CBUfBorrar.getValue() + " de tus cursos." );
+			alert.showAndWait();
+		} catch (Exception e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setHeaderText("Error al eliminar la "+ CBUfBorrar.getValue() + " de tus cursos." );
+			alert.showAndWait();
+			e.printStackTrace();
+		}
+		CBUfBorrar.getItems().clear();
+		cargarAsigborrar();
+
+
+	}
+
+	public void comprobacionTemporal(){
+		if (passwordUsada.equals(profesorActivo.getPassword())){
+			if (profesorActivo.getPasswordTemp()!= null){
+				Alert alert = new Alert(AlertType.CONFIRMATION);
+				alert.setHeaderText("Password temporal activa, desea desactivarla?");
+				Optional<ButtonType> result = alert.showAndWait();
+		    	if(result.isPresent()&& result.get() == ButtonType.OK){
+		    		profesorActivo.setPasswordTemp(null);
+		    		pr.modificarProfesor(profesorActivo);
+		    	}
+			}
+		}
+		if(passwordUsada.equals(profesorActivo.getPasswordTemp())){
+			addCursoBTN.setVisible(false);
+			AlumnosBTN.setVisible(false);
+			btnAddFranja.setVisible(false);
+			Opciones.setVisible(false);
 		}
 	}
 }

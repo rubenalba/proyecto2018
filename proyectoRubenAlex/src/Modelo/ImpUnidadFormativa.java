@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -18,7 +19,7 @@ import pojos.Unidadformativa;
 public class ImpUnidadFormativa implements UnidadFormativaInterface{
 	private static SessionFactory factory = SessionFactoryUtil.getSessionFactory();
 	static UnidadFormativaInterface uf = DAO.getUnidadFormativaInterface();
-	
+
 	//FUNCIONA NO ELIMINAR!!
 	@Override
 	public void addUnidadFormativa(Unidadformativa unidad) {
@@ -46,7 +47,7 @@ public class ImpUnidadFormativa implements UnidadFormativaInterface{
 			Unidadformativa uf = (Unidadformativa)session.get(Unidadformativa.class, idUnidadFormativa);
 			session.delete(uf);
 			tx.commit();
-			
+
 		}catch  (HibernateException e) {
 			if (tx!=null) tx.rollback();
 			e.printStackTrace();
@@ -72,7 +73,7 @@ public class ImpUnidadFormativa implements UnidadFormativaInterface{
 		}
 
 	}
-	
+
 	//FUNCIONA NO ELIMINAR!!
 	@Override
 	public Unidadformativa verUnidadformativaByID(int idUnidadFormativa) {
@@ -135,11 +136,23 @@ public class ImpUnidadFormativa implements UnidadFormativaInterface{
 				+ " from unidadformativa u, ciclo c, asignatura a "
 				+ " where c.ID_Ciclo = " + "'" + ciclo + "'"
 				+ " and a.ID_Asignatura = " + "'" + asignatura + "'"
-				+ " and u.NombreUF = " + "'" + uf + "'"; 
+				+ " and u.NombreUF = " + "'" + uf + "'";
 		num = (Integer)session.createNativeQuery(sql).uniqueResult();
 		u = ImpUnidadFormativa.uf.verUnidadformativaByID(num);
 
 		return u;
+	}
+	@Override
+	public void quitarUFprofesir(int idUnidadFormativa) {
+		Session session = factory.openSession();
+		Transaction tx = null;
+		tx = session.beginTransaction();
+		String sql = "UPDATE Unidadformativa SET DNI_Profesor = NULL WHERE ID_UnidadFormativa = "+idUnidadFormativa;
+
+		Query query = session.createQuery(sql);
+		query.executeUpdate();
+		tx.commit();
+		session.close();
 	}
 
 }
