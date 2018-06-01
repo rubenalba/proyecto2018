@@ -305,7 +305,7 @@ public class VistaIniciController {
 		profesorActivo=getProfesorActivo();
 		comprobacionTemporal();
 		cargarCursos();
-		cargarIdioma(vlc);
+		//cargarIdioma(vlc);
 		//cargarCiclo();
 		//cargarCiclo2();
 		//cargarAlumnos();
