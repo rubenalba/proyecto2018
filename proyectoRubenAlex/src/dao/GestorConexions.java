@@ -1,4 +1,4 @@
-package dao;
+/*package dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -47,4 +47,4 @@ public class GestorConexions {
 			e.printStackTrace();
 		}
 	}
-}
+}*/

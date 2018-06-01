@@ -114,9 +114,6 @@ public class VistaListaAlumnosController implements Initializable {
 			@Override
 			public void checkAction(int index, Alumnos element, boolean value) {
 				if (value){
-					//coger el alumno de esta posicion y guardarlo en una lista Alumnos falta
-					//despues recorrer esa lista y por cada alumno generar una falta de asistencfia
-					//para la unMarcada
 					if (!listaNoAsistencia.contains(alumnosLista.get(index)))
 					listaNoAsistencia.add(alumnosLista.get(index));
 
