@@ -44,7 +44,7 @@ public class MainDePruebas {
 		//crearDatosdepruebaAulaYAlumno(); // OK
 		//eliminarDatosDePruebaAulaYAlumno(); OK
 		//modificiarAlumnoYAula(); OK
-		verTodosAlumnos(); //OK
+		//verTodosAlumnos(); //OK
 		//verTodasAulas(); OK
 		//verAlumnoByName(); OK
 		//verAlumnoDNI(); OK

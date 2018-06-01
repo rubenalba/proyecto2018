@@ -149,7 +149,7 @@ public class ImpUnidadFormativa implements UnidadFormativaInterface{
 		tx = session.beginTransaction();
 		String sql = "UPDATE Unidadformativa SET DNI_Profesor = NULL WHERE ID_UnidadFormativa = "+idUnidadFormativa;
 
-		Query query = session.createQuery(sql);
+		Query query = session.createNativeQuery(sql);
 		query.executeUpdate();
 		tx.commit();
 		session.close();

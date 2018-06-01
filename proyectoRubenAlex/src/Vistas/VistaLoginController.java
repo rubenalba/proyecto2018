@@ -2,6 +2,8 @@ package Vistas;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import Modelo.ProfesorInterface;
 import dao.DAO;
@@ -14,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import pojos.LoginProfesor;
@@ -36,6 +39,50 @@ public class VistaLoginController {
 	private TextField IdPassword;
 
 	public static String usuarioActivo;
+
+
+	@FXML
+	private Button espBTN;
+
+	@FXML
+	private Button catBTN;
+
+	@FXML
+	private Label usu;
+
+	@FXML
+	private Label cont;
+	
+	private ResourceBundle bundle;
+	private Locale locale;
+	private static  String langActivo;
+	
+	
+
+	public static String getLangActivo() {
+		return langActivo;
+	}
+	public static void setLangActivo(String langActivo) {
+		VistaLoginController.langActivo = langActivo;
+	}
+	public void loadLang(String lang) {
+		locale = new Locale(lang);
+		bundle = ResourceBundle.getBundle("resources.lang", locale);
+		usu.setText(bundle.getString("usu"));
+		cont.setText(bundle.getString("cont"));
+		
+	}
+	@FXML 
+	private void spanish(ActionEvent event) {
+		loadLang("es");
+		langActivo = "es";
+	}
+	
+	@FXML 
+	private void catalanish(ActionEvent event) {
+		loadLang("cat");
+		langActivo = "cat";
+	}
 
 	public String getUsuarioActivo() {
 		return usuarioActivo;

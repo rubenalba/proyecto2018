@@ -246,6 +246,12 @@ public class VistaIniciController {
 	private Button volverBTNAlumno;
 
 	ObservableList<Alumnos> listaAlumnos;
+	
+	private ResourceBundle bundle;
+	private Locale locale;
+	
+	String vlc = obtenerlang();
+	VistaLoginController v = new VistaLoginController();
 
 
 	boolean franjaVisible = true;
@@ -255,6 +261,17 @@ public class VistaIniciController {
 
 	public static String getPasswordUsada() {
 		return passwordUsada;
+	}
+
+	private String obtenerlang() {
+		vlc = v.getLangActivo();
+		return vlc;
+	}
+	private void cargarIdioma (String lang) {
+		locale = new Locale(lang);
+		bundle = ResourceBundle.getBundle("resources.lang", locale);
+		Opciones.setText(bundle.getString("Opciones"));
+		Ajustes.setText(bundle.getString("Ajustes"));
 	}
 
 	public static void setPasswordUsada(String passwordUsada) {
@@ -285,6 +302,7 @@ public class VistaIniciController {
 		profesorActivo=getProfesorActivo();
 		comprobacionTemporal();
 		cargarCursos();
+		cargarIdioma(vlc);
 		//cargarCiclo();
 		//cargarCiclo2();
 		//cargarAlumnos();
