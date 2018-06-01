@@ -55,6 +55,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import pojos.Alumnos;
@@ -614,7 +615,7 @@ public class VistaIniciController {
 	 * Configuracion de la tabla donde se muestran todos los alumnos a la hora de pasar lista.
 	 */
 	private void setCheckBox(){
-		//Seleccionar hora actual para generar las faltas
+		//Seleccionar hora actual para generar las faltas;
 		hora =calendario.get(Calendar.HOUR_OF_DAY);
 		minutos = calendario.get(Calendar.MINUTE);
 		listaNoAsistencia = new ArrayList<Alumnos>();
@@ -784,6 +785,9 @@ public class VistaIniciController {
 					if (!error){
 						try {
 							ast.addAsistencia(falta);
+							Alert alert2 = new Alert(AlertType.INFORMATION);
+							alert2.setHeaderText("Falta añadida correctamente");
+							alert2.showAndWait();
 						} catch(Exception e){
 							if (!mostrado){
 								Alert alert = new Alert(AlertType.ERROR);
@@ -813,7 +817,9 @@ public class VistaIniciController {
 			Scene scene = new Scene(root);
 			Stage stage = new Stage();
 			stage.setScene(scene);
-			stage.show();
+			stage.initOwner(tablaAlumnos.getScene().getWindow());
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.showAndWait();
 		} catch (IOException e) {
 			e.printStackTrace();
 			Alert alert = new Alert(AlertType.ERROR);
@@ -876,6 +882,7 @@ public class VistaIniciController {
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setHeaderText("Has eliminado la " + CBUfBorrar.getValue() + " de tus cursos." );
 			alert.showAndWait();
+			cargarCursos();
 		} catch (Exception e) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setHeaderText("Error al eliminar la "+ CBUfBorrar.getValue() + " de tus cursos." );
@@ -954,7 +961,11 @@ public class VistaIniciController {
 					    	Optional<ButtonType> result = alert.showAndWait();
 					    	if(result.isPresent()&& result.get() == ButtonType.OK){
 					    		ast.eliminarAsistencia(falta.getId());
+					    		Alert alert2 = new Alert(AlertType.INFORMATION);
+								alert2.setHeaderText("Falta eliminada correctamente");
+								alert2.showAndWait();
 					    	}
+
 						} catch(Exception e){
 							if (!mostrado){
 								Alert alert = new Alert(AlertType.ERROR);
