@@ -122,7 +122,12 @@ public class VistaLoginController {
 		String contraseña = IdPassword.getText();
 
 		LoginProfesor logg = new LoginProfesor ();
-		boolean verificar = logg.login(id, contraseña);
+		boolean verificar = false;
+		try{
+			verificar = logg.login(id, contraseña);
+		} catch (Exception e){
+			verificar = false;
+		}
 		if (verificar) {
 
 			closeWindow(event);

@@ -124,6 +124,8 @@ public class VistaIniciController {
 	@FXML
 	private Button ConfirmFranjaCB;
     @FXML
+    private Button btneliminarFaltaAsistencia;
+    @FXML
     private ChoiceBox<Horas> CBHoraFranja;
 	@FXML
 	private ChoiceBox<?> idFranjaCB;
@@ -322,6 +324,7 @@ public class VistaIniciController {
 				}
 			}
 		});
+
 		asignaturaCB.setVisible(true);
 		ufCB.setVisible(true);
 
@@ -367,9 +370,6 @@ public class VistaIniciController {
 		});
 	}
 
-
-
-
 	private void listeners2() {
 		cursosAlumno.valueProperty().addListener(new ChangeListener<Ciclo>() {
 
@@ -392,11 +392,7 @@ public class VistaIniciController {
 
 					cargarUF2(AsignaturaActiva.getNombreAsignatura());
 				}
-
-
 			}
-
-
 		});
 
 		CBAsignaturaBorrar.valueProperty().addListener(new ChangeListener<Asignatura>(){
@@ -411,8 +407,6 @@ public class VistaIniciController {
 			}
 		});
 	}
-
-
 
 	public Profesor getProfesorActivo(){
 		return profesorActivo;
@@ -644,8 +638,8 @@ public class VistaIniciController {
 		listaNoAsistencia = new ArrayList<Alumnos>();
 		String minuts ="";
 		if (minutos<10)
-			TextHoraAsistencia.setText(hora+":0"+minuts);
-		else TextHoraAsistencia.setText(hora+":"+minutos);
+			this.TextHoraAsistencia.setText(hora+":0"+minuts);
+		else this.TextHoraAsistencia.setText(hora+":"+minutos);
 		//-------------------------------------------------
 		//Seleccionar el dia actual para generar las faltas
 		today = LocalDate.now( ZoneId.of( "Europe/Paris" ) );
@@ -824,7 +818,6 @@ public class VistaIniciController {
 				setCheckBox();
 			}
 		}
-
 	}
 	/**
 	 * Metodo para abrir la vista de un alumno con la informacion de este.
@@ -839,14 +832,12 @@ public class VistaIniciController {
 			Stage stage = new Stage();
 			stage.setScene(scene);
 			stage.show();
-
 		} catch (IOException e) {
 			e.printStackTrace();
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Error");
 			alert.setHeaderText("Error al cargar la ventana de alumno, vuelva a intentarlo");
 		}
-
 	}
 	@FXML
 	public void salir() {
@@ -923,8 +914,6 @@ public class VistaIniciController {
 		}
 		CBUfBorrar.getItems().clear();
 		cargarAsigborrar();
-
-
 	}
 
 	public void comprobacionTemporal(){
@@ -944,6 +933,73 @@ public class VistaIniciController {
 			AlumnosBTN.setVisible(false);
 			btnAddFranja.setVisible(false);
 			Opciones.setVisible(false);
+		}
+	}
+
+	public void eliminarFaltaAsistencia(){
+		Horas horaFalta = h.getHorasByRango(TextHoraAsistencia.getText());
+		if (horaFalta == null) {
+			Alert alert = new Alert (AlertType.INFORMATION);
+			alert.setHeaderText("Introduzca la hora de la falta");
+			alert.showAndWait();
+		}else {
+			Asignatura asignaturaFalta = as.verAsignaturaById(UFMarcada.getAsignatura().getIdAsignatura());
+			String fecha = DiaAsistenciaSelect.getValue().toString();
+			String dia = DiaAsistenciaSelect.getValue().getDayOfWeek().name();
+			Franjas franjaFalta = null;
+			try {
+			franjaFalta	 = fr.verFranjaFalta(horaFalta, profesorActivo, dia, asignaturaFalta);
+			} catch(Exception e){
+				Alert alert = new Alert (AlertType.INFORMATION);
+				alert.setHeaderText("Dia incorrecto para esta UF");
+				alert.showAndWait();
+			}
+			if (listaNoAsistencia.isEmpty()){
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setHeaderText("Indica faltas a generar");
+				alert.showAndWait();
+			} else {
+				Asistencia falta = null;
+				boolean mostrado = false;
+				for (Alumnos alumnos : listaNoAsistencia) {
+					boolean error = false;
+					try {
+					falta = new Asistencia();
+					AsistenciaId a = new AsistenciaId(alumnos.getDni(), UFMarcada.getIdUnidadFormativa(), franjaFalta.getIdFranja(), fecha);
+					falta.setId(a);
+					} catch(Exception e){
+						if (!mostrado){
+							Alert alert = new Alert (AlertType.INFORMATION);
+							alert.setHeaderText("Dia incorrecto para esta UF");
+							alert.showAndWait();
+							error = true;
+							mostrado = true;
+						}
+						listaNoAsistencia = new ArrayList<Alumnos>();
+					}
+					if (!error){
+						try {
+							Alert alert = new Alert(AlertType.CONFIRMATION);
+							alert.setHeaderText("Desea eliminar las faltas de asistencia indicadas?");
+					    	Optional<ButtonType> result = alert.showAndWait();
+					    	if(result.isPresent()&& result.get() == ButtonType.OK){
+					    		ast.eliminarAsistencia(falta.getId());
+					    	}
+						} catch(Exception e){
+							if (!mostrado){
+								Alert alert = new Alert(AlertType.ERROR);
+								alert.setHeaderText("Falta de asistencia duplicada");
+								alert.showAndWait();
+								mostrado = true;
+								error = true;
+							}
+							e.printStackTrace();
+							listaNoAsistencia = new ArrayList<Alumnos>();
+						}
+					}
+				}
+				setCheckBox();
+			}
 		}
 	}
 }
