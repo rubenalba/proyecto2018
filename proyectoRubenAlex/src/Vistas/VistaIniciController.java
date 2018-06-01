@@ -508,7 +508,7 @@ public class VistaIniciController {
 	@FXML
 	public void addUF2DB () {
 		Ciclo cic = c.verCicloByName(cursoActivo.getNombreCiclo());
-		Asignatura asi = as.verAsignaturaByName(AsignaturaActiva.getNombreAsignatura(), cursoActivo.getNombreCiclo());
+		Asignatura asi = as.verAsignaturaByName(AsignaturaActiva.getNombreAsignatura(), cursoActivo.getIdCiclo());
 		asi.getIdAsignatura();
 		Unidadformativa uforma = ufCB.getSelectionModel().getSelectedItem();
 

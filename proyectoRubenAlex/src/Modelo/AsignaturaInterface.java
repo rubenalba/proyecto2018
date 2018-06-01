@@ -16,5 +16,5 @@ public interface AsignaturaInterface {
 	public Asignatura verAsignaturaById(int idAsignatura);
 	public List <Asignatura> verAllAsignaturas();
 	public List<Asignatura> verAsignaturaByCurso(String curso);
-	public Asignatura verAsignaturaByName(String ciclo, String asignatura);
+	public Asignatura verAsignaturaByName(String ciclo, int i);
 }
