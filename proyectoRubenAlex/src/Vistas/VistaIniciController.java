@@ -949,7 +949,12 @@ public class VistaIniciController {
 					}
 					if (!error){
 						try {
-							ast.eliminarAsistencia(falta.getId());
+							Alert alert = new Alert(AlertType.CONFIRMATION);
+							alert.setHeaderText("Desea eliminar las faltas de asistencia indicadas?");
+					    	Optional<ButtonType> result = alert.showAndWait();
+					    	if(result.isPresent()&& result.get() == ButtonType.OK){
+					    		ast.eliminarAsistencia(falta.getId());
+					    	}
 						} catch(Exception e){
 							if (!mostrado){
 								Alert alert = new Alert(AlertType.ERROR);
