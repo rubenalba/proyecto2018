@@ -16,11 +16,18 @@ import pojos.Asignatura;
 import pojos.Asistencia;
 import pojos.AsistenciaId;
 import pojos.Unidadformativa;
-
+/**
+ * 
+ * @author cfgs
+ * @version 1.0
+ */
 public class ImpAsistencia implements AsistenciaInterface{
 	private static SessionFactory factory = SessionFactoryUtil.getSessionFactory();
+	/**
+	 *  Metodo para añadir una asistencia a la base de datos.
+	 *  @param Asistencia asistencia
+	 */
 	@Override
-
 	public void addAsistencia(Asistencia asistencia) throws Exception {
 		Session session = factory.openSession();
 		Transaction tx = null;
@@ -38,7 +45,10 @@ public class ImpAsistencia implements AsistenciaInterface{
 		}
 		session.close();
 	}
-
+	/**
+	 * Metodo para eliminar una asistencia de la base de datos
+	 * @param  AsistenciaId id, id de la asistencia que se eliminara
+	 */
 	@Override
 	public void eliminarAsistencia(AsistenciaId id) {
 		Session session = factory.openSession();
@@ -54,9 +64,11 @@ public class ImpAsistencia implements AsistenciaInterface{
 		}finally {
 			session.close();
 		}
-
 	}
-
+	/**
+	 * Metodo que actualizara una asistencia de la base de datos.
+	 * @param Asistencia asistenciaModificada, asistencia sobre la que se realizara el update
+	 */
 	@Override
 	public void modificarAsistencia(Asistencia asistenciaModificada) {
 		Session session = factory.openSession();

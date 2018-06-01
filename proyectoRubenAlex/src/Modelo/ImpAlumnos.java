@@ -21,7 +21,6 @@ import pojos.Unidadformativa;
 */
 public class ImpAlumnos implements AlumnosInterface{
 	private static SessionFactory factory = SessionFactoryUtil.getSessionFactory();
-	//Funciona, no tocar!!
 	/**
 	 *  Añade alumnos a la base de datos pasándole el alumno
 	 *   @pararm Alumno alumno
@@ -41,7 +40,6 @@ public class ImpAlumnos implements AlumnosInterface{
 			session.close();
 		}
 	}
-	//Funciona, no tocar!!
 	/**
 	 *  Elimina alumnos a la base de datos pasándole el dni
 	 *   @pararm String dni
@@ -82,7 +80,6 @@ public class ImpAlumnos implements AlumnosInterface{
 		}finally {
 			session.close();
 		}
-
 	}
 
 	/**
@@ -107,7 +104,6 @@ public class ImpAlumnos implements AlumnosInterface{
 		return listaAsistencia;
 	}
 
-	//Esto deberia estar aqui?
 	/**
 	 * Obtiene una falta de asistencia en concreto a partir de la id
 	 * @param String dni
@@ -134,7 +130,6 @@ public class ImpAlumnos implements AlumnosInterface{
 	 * @param String DNI
 	 */
 	@Override
-	//FUNCIONA, NO TOCAR!!
 	public Alumnos verAlumnobyDNI(String DNI) {
 		Session session = factory.openSession();
 		Transaction tx = null;
@@ -143,7 +138,6 @@ public class ImpAlumnos implements AlumnosInterface{
 		return alumno;
 	}
 
-	//FUNCIONA, NO TOCAR!!
 	/**
 	 * Lista todos los alumnos.
 	 */
@@ -164,8 +158,6 @@ public class ImpAlumnos implements AlumnosInterface{
 		}
 		return listaAlumnos;
 	}
-	//FUNCIONA, NO TOCAR!!
-	//No deberiamos pasar el apellido tambien?
 	/**
 	 * Lista los alumnos a partir de su nombre.
 	 */
