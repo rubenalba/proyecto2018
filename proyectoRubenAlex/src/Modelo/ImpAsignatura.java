@@ -125,15 +125,16 @@ public class ImpAsignatura implements AsignaturaInterface{
 		return asign;
 	}
 	@Override
-	public Asignatura verAsignaturaByName(String ciclo, String asignatura) {
+	public Asignatura verAsignaturaByName(String asignatura, int ciclo ) {
 		Session session = factory.openSession();
 		Transaction tx = null;
 		Asignatura asignaturas = null;
 		Integer num = null;
+		System.out.println(asignatura +"  "+ ciclo);
 		String sql = "select a.ID_Asignatura "
-				+ " from asignatura a, ciclo c "
-				+ " where c.Nombre_Ciclo = " + "'"+asignatura+"'"
-				+ " and a.Nombre_Asignatura = " + "'"+ciclo+"'";
+				+ " from asignatura a "
+				+ " where a.ID_Ciclo = " + "'"+ciclo+"'"
+				+ " and a.Nombre_Asignatura = " + "'"+asignatura+"'";
 		num = (Integer) session.createNativeQuery(sql).uniqueResult();
 
 		asignaturas = as.verAsignaturaById(num);

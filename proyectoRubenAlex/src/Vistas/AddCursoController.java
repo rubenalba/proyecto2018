@@ -1,4 +1,4 @@
-package Vistas;
+/*package Vistas;
 
 import java.net.URL;
 import java.util.List;
@@ -157,9 +157,9 @@ public class AddCursoController implements Initializable {
 
 		}
 		VistaIniciController vc = new VistaIniciController();
-	
+
 	}
-	@FXML 
+	@FXML
 	private void closeWindow(ActionEvent event) {
 		cerrarVentana(event);
 	}
@@ -167,5 +167,5 @@ public class AddCursoController implements Initializable {
 		Node source = (Node)event.getSource();
 		Stage stage= (Stage)source.getScene().getWindow();
 		stage.close();
-	} 
-}
+	}
+}*/
