@@ -297,8 +297,4 @@ public class ImpProfesor implements ProfesorInterface{
 		return dats;
 
 	}
-
-
-	/////SELECT a.Nombre from alumnos a, matricula m, unidadformativa f WHERE a.DNI Like m.DNI_Alumno and m.ID_UnidadFormativa like f.ID_UnidadFormativa and f.DNI_Profesor like '32435465V'
-
 }

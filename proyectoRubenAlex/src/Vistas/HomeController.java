@@ -30,44 +30,19 @@ static ProfesorInterface p = DAO.getProfesorInterface();
     public void currentUser() {
     	VistaLoginController v = new VistaLoginController();
     	usuarioActual = v.getUsuarioActivo();
-     profesorActual = p.verProfesorByUser(usuarioActual);    }
-   
- 
-    
+     profesorActual = p.verProfesorByUser(usuarioActual);
+     }
+
     private void cargaLista() {
     	List<String>asig = p.asignaturasImpartidas(profesorActual.getDniProfesor());
     	ObservableList<String> cursosImpartidos = FXCollections.observableArrayList(asig);
     	lista.setItems(cursosImpartidos);
-    	/*ObservableList<String> asig;
-    	asig = FXCollections.observableArrayList();
-    	List <Asignatura> listaAsignaturas = a.verAllAsignaturas();
-    	for (Iterator listaAsig = listaAsignaturas.iterator();listaAsig.hasNext();) {
-    		Asignatura asignat = (Asignatura)listaAsig.next();
-    		asig.add(asignat.getNombreAsignatura());
-    		System.out.println(usuarioActual + "usuarioActivo");
-    	}
-    	lista.setItems(asig);*/
-    	/*	List <String> cursos = pr.asignaturasImpartidas();
-		ObservableList<String> cursosimpartidos = FXCollections.observableArrayList(cursos);
-		ListaCursos.setItems(cursosimpartidos);
-		ListaCursos.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-			public void changed(
-				ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				System.out.println("Has seleccionado" + newValue);
-				verUFAsignaturaSelected(newValue);
-			}
-		});*/
     }
-    
-
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		currentUser();
 		cargaLista();
-		
+
 	}
-
-
-	
 }

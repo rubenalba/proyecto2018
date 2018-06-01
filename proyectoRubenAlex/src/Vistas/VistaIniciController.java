@@ -334,7 +334,12 @@ public class VistaIniciController {
 				if (cursos != null) {
 					asignaturaCB.setVisible(true);
 					cursoActivo = cursos.getValue();
+					try{
 					cargarAsignatura(cursoActivo.getNombreCiclo());
+
+					} catch(Exception e){
+
+					}
 				}
 			}
 		});
@@ -345,8 +350,11 @@ public class VistaIniciController {
 				if (asignaturaCB != null) {
 					ufCB.setVisible(true);
 					AsignaturaActiva = asignaturaCB.getSelectionModel().getSelectedItem();
+					try{
+						cargarUF(AsignaturaActiva.getNombreAsignatura());
+					} catch(Exception e){
 
-					cargarUF(AsignaturaActiva.getNombreAsignatura());
+					}
 				}
 
 			}
@@ -361,7 +369,11 @@ public class VistaIniciController {
 				if (cursosAlumno != null) {
 					asignaturaCB1Alumno.setVisible(true);
 					cursoActivo = cursosAlumno.getSelectionModel().getSelectedItem();
-					cargarAsignatura2(cursoActivo.getNombreCiclo());
+					try {
+						cargarAsignatura2(cursoActivo.getNombreCiclo());
+					} catch (Exception e) {
+
+					}
 				}
 			}
 		});
@@ -372,8 +384,11 @@ public class VistaIniciController {
 				if (asignaturaCB1Alumno != null) {
 					ufCBAlumno.setVisible(true);
 					AsignaturaActiva = asignaturaCB1Alumno.getValue();
+					try {
+						cargarUF2(AsignaturaActiva.getNombreAsignatura());
+					} catch (Exception e){
 
-					cargarUF2(AsignaturaActiva.getNombreAsignatura());
+					}
 				}
 			}
 		});
@@ -435,6 +450,15 @@ public class VistaIniciController {
 		PaneAddUF.setVisible(false);
 		PaneAddAlumno.setVisible(false);
 		paneAddFranja.setVisible(false);
+	}
+
+	private void clearChoiceBox() {
+		cursos.getItems().clear();
+		asignaturaCB.getItems().clear();
+		ufCB.getItems().clear();
+		CBAsignaturaBorrar.getItems().clear();
+		CBUfBorrar.getItems().clear();
+
 	}
 
 	public void cargarCiclo() {
@@ -572,9 +596,6 @@ public class VistaIniciController {
 	public void cargarAsigborrar(){
 		CBAsignaturaBorrar.getItems().clear();
 		List<Asignatura> asignaturasborrar = pr.misAsignaturas(profesorActivo);
-		for (Asignatura asignatura : asignaturasborrar) {
-			System.out.println(asignatura.getIdAsignatura());
-		}
 		if (!asignaturasborrar.isEmpty())
 			CBAsignaturaBorrar.setItems(FXCollections.observableArrayList(asignaturasborrar));
 	}
@@ -582,7 +603,6 @@ public class VistaIniciController {
 
 	@FXML
 	public void configuracion(ActionEvent event) throws IOException{
-		System.out.println("ha llegado hasta aqui");
 		Parent root = FXMLLoader.load(getClass().getResource("../Vistas/VistaConfiguracion.fxml"));
 		Scene scene = new Scene(root);
 		Stage stage = new Stage();
@@ -882,7 +902,6 @@ public class VistaIniciController {
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setHeaderText("Has eliminado la " + CBUfBorrar.getValue() + " de tus cursos." );
 			alert.showAndWait();
-			cargarCursos();
 		} catch (Exception e) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setHeaderText("Error al eliminar la "+ CBUfBorrar.getValue() + " de tus cursos." );

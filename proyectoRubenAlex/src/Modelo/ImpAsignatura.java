@@ -130,7 +130,6 @@ public class ImpAsignatura implements AsignaturaInterface{
 		Transaction tx = null;
 		Asignatura asignaturas = null;
 		Integer num = null;
-		System.out.println(asignatura +"  "+ ciclo);
 		String sql = "select a.ID_Asignatura "
 				+ " from asignatura a "
 				+ " where a.ID_Ciclo = " + "'"+ciclo+"'"

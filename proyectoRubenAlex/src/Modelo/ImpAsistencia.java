@@ -24,24 +24,17 @@ public class ImpAsistencia implements AsistenciaInterface{
 	public void addAsistencia(Asistencia asistencia) throws Exception {
 		Session session = factory.openSession();
 		Transaction tx = null;
-		String a = "";
 		try {
 		tx = session.beginTransaction();
-		a = "save";
 		session.save(asistencia);
-		a = "antes";
 		tx.commit();
-		a = "despues";
 		} catch(ConstraintViolationException e){
 			if (tx!=null) tx.rollback();
-			System.out.println(a + "1r catch");
 			throw new Exception(e);
 		} catch (HibernateException e){
 			if (tx!=null) tx.rollback();
-			System.out.println(a + "2 catch");
 		} catch (Exception e){
 			if (tx!=null) tx.rollback();
-			System.out.println(a + "3 catch");
 		}
 		session.close();
 	}
