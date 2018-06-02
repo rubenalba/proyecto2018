@@ -71,6 +71,9 @@ public class Asignatura implements java.io.Serializable {
 	public void setUnidadformativas(Set<Unidadformativa> unidadformativas) {
 		this.unidadformativas = unidadformativas;
 	}
+	/**
+	 * Muestra el nombre de la asignatura
+	 */
 	 @Override
 	    public String toString() {
 	        return this.nombreAsignatura;

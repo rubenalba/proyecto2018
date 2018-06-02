@@ -60,6 +60,9 @@ public class Horas implements java.io.Serializable {
 	public void setFranjases(Set<Franjas> franjases) {
 		this.franjases = franjases;
 	}
+	/**
+	 * Retorna la concatenacion de la horaInicio y horaFin
+	 */
 	@Override
 	public String toString() {
 		return horaInicio+ " / " + horaFin;

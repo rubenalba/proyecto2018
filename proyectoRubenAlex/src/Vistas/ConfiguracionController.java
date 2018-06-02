@@ -43,7 +43,10 @@ public class ConfiguracionController {
 	private PasswordField ConfirmarPWDTF;
 	private Profesor profesorActivo;
 
-
+	/**
+	 * Accede a la informacion del profesor que ha logueado
+	 * @return retorna el profesor logueado
+	 */
 	public Profesor profesorActivo() {
 		VistaIniciController v = new VistaIniciController();
 		profesorActivo = v.getProfesorActivo();
@@ -54,11 +57,19 @@ public class ConfiguracionController {
 	private void closeWindow(ActionEvent event) {
 		cerrarVentana(event);
 	}
+	/**
+	 * Cierra la ventana actual
+	 * @param event parametro que recibe al haber accion en el botton que llama a este metodo
+	 */
 	private void cerrarVentana(ActionEvent event) {
 		Node source = (Node)event.getSource();
 		Stage stage= (Stage)source.getScene().getWindow();
 		stage.close();
 	}
+	/**
+	 * Genera una password nueva a partir de lo indicado en los textLine de la ventana configuracion
+	 * @param event
+	 */
 	@FXML
 	public void actualizarPassword (ActionEvent event) {
 		profesorActivo();
@@ -116,7 +127,9 @@ public class ConfiguracionController {
 		}
 		return dats;
 	}
-
+	/**
+	 * Genera una password temporal al profesorActivo
+	 */
 	public void passwordTemporal(){
 		profesorActivo();
 		Profesor mod = p.verProfesorByDni(profesorActivo.getDniProfesor());

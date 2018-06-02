@@ -95,19 +95,31 @@ public class Alumnos implements java.io.Serializable {
 	public void setAsistencias(Set<Asistencia> asistencias) {
 		this.asistencias = asistencias;
 	}
-
+	/**
+	 * Retorna el nombre completo del alumno
+	 * @return
+	 */
 	public String getNombreCompleto(){
 		String nom = apellidos + ", " + nombre;
 		return nom;
 	}
-
+	/**
+	 * Indica el valor total de faltas de asistencia del alumno en la uf concreta
+	 * @param total, porcentaje de faltas
+	 */
 	public void setTotal(int total){
 		this.total = String.valueOf(total)+"%";
 	}
-
+	/**
+	 * retorna el total de faltas de una uf concreta
+	 * @return
+	 */
 	public String getFaltasUF(){
 		return total;
 	}
+	/**
+	 * Retorna el dni, seguido del nombre y apellidos del alumno
+	 */
 	 @Override
 	    public String toString() {
 	        return this.dni + " - " + this.nombre + " " + this.apellidos;

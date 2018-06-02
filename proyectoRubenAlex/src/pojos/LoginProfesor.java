@@ -17,7 +17,13 @@ import dao.DAO;
 
 public class LoginProfesor {
 	ProfesorInterface p = DAO.getProfesorInterface();
-
+	/**
+	 * Comprueba que los datos introducidos para hacer login sean correctos
+	 * @param id Usuario que logueara
+	 * @param pwd Password del usuario
+	 * @return retornara true o false dependiendo de si es correcto o no
+	 * @throws SQLException Lanzara esta Excepcion en caso de que el login falle
+	 */
 	public boolean login (String id, String pwd) throws SQLException{
 		Profesor profeLogin = p.verProfesorByUser(id);
 		SecretKey skey = passWordKeyGeneration(profeLogin.getDniProfesor());

@@ -66,7 +66,10 @@ public class Asistencia implements java.io.Serializable {
 	public String getHora(){
 		return getId().getFecha();
 	}
-
+	/**
+	 * retorna si una falta esta jsutificada o no
+	 * @return
+	 */
 	public String getJustificado(){
 		if (justificante) return "Si";
 		else  return "No";
