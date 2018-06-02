@@ -40,7 +40,7 @@ public class ImpFranjas implements FranjaInterface{
 	}
 	//FUNCIONA NO BORRAR!
 	@Override
-	public void eliminarFranja(String idFranja) {
+	public void eliminarFranja(int idFranja) {
 		Session session = factory.openSession();
 		Transaction tx = null;
 		try {

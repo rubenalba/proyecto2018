@@ -154,7 +154,7 @@ public class VistaIniciController {
     private AnchorPane paneAddFranja;
 
 	@FXML
-	private Button AlumnosBTN, btnEliminarUFProf;
+	private Button AlumnosBTN, btnEliminarUFProf, btnEliminarFranja;
 
 	@FXML
 	private ChoiceBox<Ciclo> cursos;
@@ -1000,6 +1000,25 @@ public class VistaIniciController {
 				}
 				setCheckBox();
 			}
+		}
+	}
+
+	public void eliminarFranjaProfesor(){
+		Franjas franja = new Franjas(CBHoraFranja.getSelectionModel().getSelectedItem(), AsigFranja.getSelectionModel().getSelectedItem(), profesorActivo, diasSemana.getSelectionModel().getSelectedItem());
+		try{
+			Alert alert2 = new Alert(AlertType.CONFIRMATION);
+			alert2.setHeaderText("Esta seguro que desea eliminar esta franja?");
+			Optional<ButtonType> result = alert2.showAndWait();
+	    	if(result.isPresent()&& result.get() == ButtonType.OK){
+	    		fr.eliminarFranja(franja.getIdFranja());
+	    		Alert alert = new Alert(AlertType.INFORMATION);
+	    		alert.setHeaderText("Franja creada");
+	    		alert.showAndWait();
+	    	}
+		} catch(Exception e){
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setHeaderText("Franja duplicada");
+			alert.showAndWait();
 		}
 	}
 }
