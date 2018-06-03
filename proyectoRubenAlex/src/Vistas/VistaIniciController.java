@@ -1122,7 +1122,7 @@ public class VistaIniciController {
 		} catch(Exception e){
 			System.out.println("esta en el catch y dice " + e.getMessage());
 			Alert alert = new Alert(AlertType.ERROR);
-			alert.setHeaderText("Franja duplicada");
+			alert.setHeaderText("Imposible eliminar franja");
 			alert.showAndWait();
 		}
 	}
