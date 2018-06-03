@@ -114,6 +114,7 @@ public class ImpFranjas implements FranjaInterface{
 
 			for (Franjas franj : franjaList) {
 				r = franj;
+				System.out.println("ha entrado en el bucle");
 			}
 		}catch  (HibernateException e) {
 			if (tx!=null) tx.rollback();

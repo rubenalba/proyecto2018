@@ -42,12 +42,12 @@
       <Button fx:id="catBTN" layoutX="320.0" layoutY="28.0" mnemonicParsing="false" onAction="#catalanish" opacity="0.0" prefHeight="23.0" prefWidth="10.0" text="Cat" />
       <ImageView disable="true" fitHeight="31.0" fitWidth="47.0" layoutX="315.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../Desktop/cat.png" />
+            <Image url="@Imagenes/cat.png" />
          </image>
       </ImageView>
       <ImageView disable="true" fitHeight="51.0" fitWidth="55.0" layoutX="360.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../Desktop/es.png" />
+            <Image url="@Imagenes/es.png" />
          </image>
       </ImageView>
    </children>

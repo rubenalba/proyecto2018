@@ -52,12 +52,12 @@ public class VistaLoginController {
 
 	@FXML
 	private Label cont;
-	
+
 	private ResourceBundle bundle;
 	private Locale locale;
 	private static  String langActivo = "es";
-	
-	
+
+
 
 	public static String getLangActivo() {
 		return langActivo;
@@ -70,14 +70,14 @@ public class VistaLoginController {
 		bundle = ResourceBundle.getBundle("resources.lang", locale);
 		usu.setText(bundle.getString("usu"));
 		cont.setText(bundle.getString("cont"));
-		
+
 	}
 	@FXML 
 	private void spanish(ActionEvent event) {
 		loadLang("es");
 		langActivo = "es";
 	}
-	
+
 	@FXML 
 	private void catalanish(ActionEvent event) {
 		loadLang("cat");
@@ -146,10 +146,16 @@ public class VistaLoginController {
 		}else {
 
 			Alert alert = new Alert (AlertType.ERROR);
-			alert.setTitle("Credenciales  incorrectos");
-			alert.setHeaderText("El password o el usuario son incorrectos");
-			alert.showAndWait();
+			if (langActivo== "es") {
+				alert.setTitle("Credenciales  incorrectos");
+				alert.setHeaderText("El password o el usuario son incorrectos");
+				alert.showAndWait();
 
+			}else {
+				alert.setTitle("Credencials incorrectes");
+				alert.setHeaderText("La contrasenya o l'usuari són incorrectes");
+				alert.showAndWait();
+			}
 		}
 
 	}
