@@ -55,7 +55,7 @@ public class VistaLoginController {
 	
 	private ResourceBundle bundle;
 	private Locale locale;
-	private static  String langActivo;
+	private static  String langActivo = "es";
 	
 	
 
@@ -89,7 +89,7 @@ public class VistaLoginController {
 	}
 
 	public void setUsuarioActivo(String usuarioActivo) {
-		this.usuarioActivo= usuarioActivo;
+		this.usuarioActivo = usuarioActivo;
 	}
 
 	/**
