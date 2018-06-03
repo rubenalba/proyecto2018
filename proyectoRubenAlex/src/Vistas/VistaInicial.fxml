@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="503.0" prefWidth="869.0" stylesheets="@../application/StyleVistaInici.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vistas.VistaIniciController">
+<Pane fx:id="PanePantallaEntera" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="503.0" prefWidth="869.0" stylesheets="@../application/StyleVistaInici.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vistas.VistaIniciController">
    <children>
       <ImageView fitHeight="612.0" fitWidth="1017.0" pickOnBounds="true" preserveRatio="true">
          <image>

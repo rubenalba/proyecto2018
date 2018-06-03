@@ -99,6 +99,8 @@ public class VistaIniciController {
 	@FXML
 	private MenuBar Menu;
 
+    @FXML
+    private Pane PanePantallaEntera;
 	@FXML
 	private MenuItem BtnInfo;
 	@FXML
@@ -831,7 +833,7 @@ public class VistaIniciController {
 		paneAddFranja.setVisible(false);
 	}
 	/**
-	 * Muestra la ventana de A�adir alumno
+	 * Muestra la ventana de Añadir alumno
 	 * @throws IOException, lanzara esta excepcion en caso de error al modificar la visibilidad de esta.
 	 */
 	@FXML
@@ -845,7 +847,7 @@ public class VistaIniciController {
 
 	}
 	/**
-	 * Muestra la ventana de A�adir franja
+	 * Muestra la ventana de Añadir franja
 	 * @throws IOException, lanzara esta excepcion en caso de error al modificar la visibilidad de esta.
 	 */
 	@FXML
@@ -964,6 +966,7 @@ public class VistaIniciController {
 		Parent root;
 		alumnoMarcado = newSelection;
 		try {
+			
 			root = FXMLLoader.load(getClass().getResource("../Vistas/VistaAlumno.fxml"));
 			Scene scene = new Scene(root);
 			Stage stage = new Stage();
@@ -971,6 +974,7 @@ public class VistaIniciController {
 			stage.initOwner(tablaAlumnos.getScene().getWindow());
 			stage.initModality(Modality.APPLICATION_MODAL);
 			stage.showAndWait();
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 			Alert alert = new Alert(AlertType.ERROR);

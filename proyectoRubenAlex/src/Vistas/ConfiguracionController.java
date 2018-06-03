@@ -63,7 +63,6 @@ public class ConfiguracionController implements Initializable{
 
 	private String idioma = obtenerlang();
 
-
 	/**
 	 * Accede a la informacion del profesor que ha logueado
 	 * @return retorna el profesor logueado
