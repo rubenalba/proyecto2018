@@ -101,9 +101,9 @@ public class VistaIniciController {
 
 	@FXML
 	private MenuItem BtnInfo;
-	@FXML 
+	@FXML
 	private Label fechaLabel, CursoLabel,EliminaLabel, Allabel, curLb ;
-	
+
 
 
 	@FXML
@@ -258,9 +258,9 @@ public class VistaIniciController {
 	private ResourceBundle bundle;
 	private Locale locale;
 
-	public static String vlc = obtenerlang();
+	public static String vlc;
 	static VistaLoginController v = new VistaLoginController();
-	
+
 	public String getIdioma() {
 		System.out.println("Etoy mirando el idioma " + vlc);
 		return vlc;
@@ -305,7 +305,7 @@ public class VistaIniciController {
 		alumnoBuscar.setPromptText("Alumne a cercar");
 		SalirMENU.setText(bundle.getString("SalirMENU"));
 		cerrarSession.setText(bundle.getString("cerrarSession"));
-		
+
 	}
 
 	public static void setPasswordUsada(String passwordUsada) {
@@ -336,6 +336,7 @@ public class VistaIniciController {
 		profesorActivo=getProfesorActivo();
 		comprobacionTemporal();
 		cargarCursos();
+		vlc = obtenerlang();
 		cargarIdioma(vlc);
 		//cargarCiclo();
 		//cargarCiclo2();
