@@ -41,6 +41,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -94,12 +95,15 @@ public class VistaIniciController {
 	@FXML
 	private MenuItem Ajustes;
 	@FXML
-	private Menu Opciones;
+	private Menu Opciones, SalirMENU;
 	@FXML
 	private MenuBar Menu;
 
 	@FXML
 	private MenuItem BtnInfo;
+	@FXML 
+	private Label fechaLabel, CursoLabel,EliminaLabel, Allabel, curLb ;
+	
 
    
 	@FXML
@@ -112,7 +116,7 @@ public class VistaIniciController {
 	private ListView<String> ListaCursos, ListaUfs;
 
 	@FXML
-	private Button BtnCerrarSession, BtnVolverConfig;
+	private Button BtnCerrarSession, BtnVolverConfig, volverFranja;
 
 	private ObservableList<String> alumnosList;
 
@@ -203,7 +207,7 @@ public class VistaIniciController {
 	@FXML
 	private DatePicker DiaAsistenciaSelect;
 	@FXML
-	private Button BtnGenerarAsistencia;
+	private Button BtnGenerarAsistencia, search;
 	Calendar calendario = new GregorianCalendar();
 	int hora, minutos, segundos;
 	@FXML
@@ -254,9 +258,13 @@ public class VistaIniciController {
 	private ResourceBundle bundle;
 	private Locale locale;
 
-	String vlc = obtenerlang();
-	VistaLoginController v = new VistaLoginController();
-
+	public static String vlc = obtenerlang();
+	static VistaLoginController v = new VistaLoginController();
+	
+	public String getIdioma() {
+		System.out.println("Etoy mirando el idioma " + vlc);
+		return vlc;
+	}
 
 	boolean franjaVisible = true;
 	private ObservableList<String> cursosList;
@@ -267,7 +275,7 @@ public class VistaIniciController {
 		return passwordUsada;
 	}
 
-	private String obtenerlang() {
+	private static String obtenerlang() {
 		vlc = v.getLangActivo();
 		return vlc;
 	}
@@ -276,6 +284,28 @@ public class VistaIniciController {
 		bundle = ResourceBundle.getBundle("resources.lang", locale);
 		Opciones.setText(bundle.getString("Opciones"));
 		Ajustes.setText(bundle.getString("Ajustes"));
+		Salir.setText(bundle.getString("Salir"));
+		ColCursos.setText(bundle.getString("ColCursos"));
+		addCursoBTN.setText(bundle.getString("addCursoBTN"));
+		AlumnosBTN.setText(bundle.getString("AlumnosBTN"));
+		ColAlumnos.setText(bundle.getString("ColAlumnos"));
+		Checkers.setText(bundle.getString("Checkers"));
+		fechaLabel.setText(bundle.getString("fechaLabel"));
+		volverBTN.setText(bundle.getString("volverBTN"));
+		btneliminarFaltaAsistencia.setText(bundle.getString("btneliminarFaltaAsistencia"));
+		CursoLabel.setText(bundle.getString("CursoLabel"));
+		addUF.setText(bundle.getString("addUF"));
+		volverBTN1.setText(bundle.getString("volverBTN1"));
+		btnEliminarUFProf.setText(bundle.getString("btnEliminarUFProf"));
+		curLb.setText(bundle.getString("curLb"));
+		search.setText(bundle.getString("search"));
+		ColNombreBusqueda.setText(bundle.getString("ColNombreBusqueda"));
+		volverBTNAlumno.setText(bundle.getString("volverBTNAlumno"));
+		volverFranja.setText(bundle.getString("volverFranja"));
+		alumnoBuscar.setPromptText("Alumne a cercar");
+		SalirMENU.setText(bundle.getString("SalirMENU"));
+		cerrarSession.setText(bundle.getString("cerrarSession"));
+		
 	}
 
 	public static void setPasswordUsada(String passwordUsada) {
@@ -306,7 +336,7 @@ public class VistaIniciController {
 		profesorActivo=getProfesorActivo();
 		comprobacionTemporal();
 		cargarCursos();
-		//cargarIdioma(vlc);
+		cargarIdioma(vlc);
 		//cargarCiclo();
 		//cargarCiclo2();
 		//cargarAlumnos();

@@ -1,7 +1,10 @@
 package Vistas;
 
+import java.net.URL;
 import java.security.MessageDigest;
 import java.util.Arrays;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
@@ -12,16 +15,20 @@ import Modelo.ProfesorInterface;
 import dao.DAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import pojos.Profesor;
 
-public class ConfiguracionController {
+public class ConfiguracionController implements Initializable{
 	static ProfesorInterface p = DAO.getProfesorInterface();
 
 	@FXML
@@ -35,13 +42,27 @@ public class ConfiguracionController {
 
 	@FXML
 	private Button BtnVolverConfig;
+	@FXML
+	private Label labelPWD, tempLB;
+    @FXML
+    private MenuButton menubutonIDioma;
+    @FXML
+    private MenuItem catBTN;
+
+    @FXML
+    private MenuItem espBTN;
 
 	@FXML
 	private PasswordField contrasenyaTF;
+	private ResourceBundle bundle;
+	private Locale locale;
 
 	@FXML
 	private PasswordField ConfirmarPWDTF;
 	private Profesor profesorActivo;
+	
+	private String idioma = obtenerlang();
+	
 
 	/**
 	 * Accede a la informacion del profesor que ha logueado
@@ -52,7 +73,11 @@ public class ConfiguracionController {
 		profesorActivo = v.getProfesorActivo();
 		return profesorActivo;
 	}
-
+	private String obtenerlang() {
+		VistaIniciController v = new VistaIniciController();
+		idioma = v.getIdioma();
+		return idioma;
+	}
 	@FXML
 	private void closeWindow(ActionEvent event) {
 		cerrarVentana(event);
@@ -144,6 +169,25 @@ public class ConfiguracionController {
 		} catch (Exception e) {
 
 	}
+	}
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		obtenerlang();
+		cargarIdioma(idioma);
+		
+		
+	}
+	private void cargarIdioma(String idioma) {
+		locale = new Locale(idioma);
+		bundle = ResourceBundle.getBundle("resources.lang", locale);
+		tempLB.setText(bundle.getString("tempLB"));
+		pwdTempBTN.setText(bundle.getString("tempLB"));
+		BtnVolverConfig.setText(bundle.getString("BtnVolverConfig"));
+		menubutonIDioma.setText(bundle.getString("menubutonIDioma"));
+		catBTN.setText(bundle.getString("catBTN"));
+		espBTN.setText(bundle.getString("espBTN"));
+		labelPWD.setText(bundle.getString("labelPWD"));
+		
 	}
 
 }
