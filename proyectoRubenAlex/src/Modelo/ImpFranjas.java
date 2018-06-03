@@ -23,7 +23,11 @@ import pojos.Profesor;
 public class ImpFranjas implements FranjaInterface{
 	private static SessionFactory factory = SessionFactoryUtil.getSessionFactory();
 
-	//FUNCIONA NO BORRAR!!
+
+	/**
+	 * Añade un franja a la bbdd
+	 * @param franja, objeto a añadir a la bbdd
+	 */
 	@Override
 	public void addFranja(Franjas franja) throws Exception {
 		Session session = factory.openSession();
@@ -39,7 +43,10 @@ public class ImpFranjas implements FranjaInterface{
 			session.close();
 		}
 	}
-	//FUNCIONA NO BORRAR!
+	/**
+	 * elimina una Franja de la bbdd
+	 * @param idFranja numero del aula a eliminar
+	 */
 	@Override
 	public void eliminarFranja(int idFranja) {
 		Session session = factory.openSession();
@@ -56,7 +63,10 @@ public class ImpFranjas implements FranjaInterface{
 			session.close();
 		}
 	}
-
+	/**
+	 * Modifica una franja de la bbdd
+	 * @param franjaModificada, objeto a modificar
+	 */
 	@Override
 	public void modificarFranja(Franjas franjaModificada) {
 		Session session = factory.openSession();
@@ -73,7 +83,10 @@ public class ImpFranjas implements FranjaInterface{
 		}
 	}
 
-	//FUNCIONA NO TOCAR!!
+	/**
+	 * retorna todas las franjas
+	 * @return Lista de franjas
+	 */
 	@Override
 	public List<Franjas> verAlFranjas() {
 		Session session = factory.openSession();
@@ -91,7 +104,11 @@ public class ImpFranjas implements FranjaInterface{
 		}
 		return listaFranjas;
 	}
-	//FUNCIONA NO BORRAR
+	/**
+	 * Muestra una franja a partir de su id
+	 * @param idFranja id de la que buscara informacion
+	 * @return objeto franja
+	 */
 	@Override
 	public Franjas verFranjaByID(int idFranja) {
 		Session session = factory.openSession();
@@ -100,6 +117,14 @@ public class ImpFranjas implements FranjaInterface{
 		session.close();
 		return franja;
 	}
+	/**
+	 * Obtiene una franja a partir de todos sus atributos para poder acceder a la id de esta
+	 * @param Hora de la frnaja
+	 * @param profesor de la franja
+	 * @param dia de la franja
+	 * @param asignatura de la franja
+	 * @return objeto franja
+	 */
 	@Override
 	public Franjas verFranjaFalta(Horas Hora, Profesor profesor, String dia, Asignatura asignatura) {
 		Session session = factory.openSession();
@@ -124,6 +149,12 @@ public class ImpFranjas implements FranjaInterface{
 		}
 		return r;
 	}
+	/**
+	 * Retorna todas las franjas de una asignatura para un profesor concreto
+	 * @param profesor al que pertenece la franja
+	 * @param asignatura que se da en esa franja
+	 * @return Lista de franjas
+	 */
 	@Override
 	public List<Franjas> verFranjaAsignatura(Profesor profesor, Asignatura asignatura) {
 		Session session = factory.openSession();
@@ -144,6 +175,12 @@ public class ImpFranjas implements FranjaInterface{
 		}
 		return franjaList;
 	}
+	/**
+	 * Retorna todas las franjas de un profesor en un dia concreto
+	 * @param dni del profesor al que pertenecen las franjas
+	 * @param dia de las franjas
+	 * @return Lista de franjas
+	 */
 	public List<Franjas>completarHorario(String dni, String dia){
 		Session session = factory.openSession();
 		Transaction tx = null;

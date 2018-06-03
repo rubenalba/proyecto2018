@@ -15,7 +15,11 @@ import pojos.Horas;
 
 public class ImpHoras implements HorasInterface{
 	private static SessionFactory factory = SessionFactoryUtil.getSessionFactory();
-
+	/**
+	 * Retorna un objeto hora al que pertenezca la hora introducida
+	 * @return objeto hora
+	 * @param hora introducida
+	 */
 	@Override
 	public Horas getHorasByRango(String hora) {
 		Session session = factory.openSession();
@@ -38,7 +42,10 @@ public class ImpHoras implements HorasInterface{
 		}
 		return r;
 	}
-
+	/**
+	 * Lista todas las horas de la bbdd
+	 * @return retorna una lista
+	 */
 	@Override
 	public List<Horas> getAllHoras() {
 		Session session = factory.openSession();

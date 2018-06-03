@@ -18,8 +18,11 @@ import pojos.Aula;
  */
 public class ImpAula implements AulaInterface{
 	private static SessionFactory factory = SessionFactoryUtil.getSessionFactory();
-	
-	//FUNCIONA, NO TOCAR!!
+
+	/**
+	 * Añade un aula a la bbdd
+	 * @param aula, objeto a añadir a la bbdd
+	 */
 	@Override
 	public void addAula(Aula aula) {
 		Session session = factory.openSession();
@@ -35,7 +38,10 @@ public class ImpAula implements AulaInterface{
 			session.close();
 		}
 	}
-	//MODIFICADO EL MÃ‰TODO DE CÃ“MO SE BORRA. FUNCIONA, NO TOCAR!!
+	/**
+	 * elimina un aula de la bbdd
+	 * @param numAula numero del aula a eliminar
+	 */
 	@Override
 	public void eliminarAula(int numAula) {
 		Session session = factory.openSession();
@@ -52,7 +58,10 @@ public class ImpAula implements AulaInterface{
 			session.close();
 		}
 	}
-
+	/**
+	 * Modifica un aula de la bbdd
+	 * @param aula, objeto a modificar
+	 */
 	@Override
 	public void modificarAula(Aula aula) {
 		Session session = factory.openSession();
@@ -69,7 +78,11 @@ public class ImpAula implements AulaInterface{
 		}
 
 	}
-
+	/**
+	 * muestra un aula a partir de su numero
+	 * @return retorna un aula
+	 * @param numAula, numero a partir del que buscara el aula
+	 */
 	@Override
 	public Aula verAulaByID(int numAula) {
 		Session session = factory.openSession();
@@ -78,7 +91,10 @@ public class ImpAula implements AulaInterface{
 		session.close();
 		return aula;
 	}
-
+/**
+ * Retorna todas las aulas
+ * @param retorna una lista
+ */
 	@Override
 	public List<Aula> verAllAulas() {
 		Session session = factory.openSession();

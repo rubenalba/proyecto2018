@@ -21,7 +21,10 @@ import pojos.Unidadformativa;
 public class ImpMatricula  implements MatriculaInterface{
 	private static SessionFactory factory = SessionFactoryUtil.getSessionFactory();
 
-	//FUNCIONA; NO TOCAR
+	/**
+	 * Añade una matricula a la base de datos
+	 * @param matricula a añadir
+	 */
 	@Override
 	public void matricularAlumno(Matricula matricula) {
 		Session session = factory.openSession();
@@ -39,12 +42,11 @@ public class ImpMatricula  implements MatriculaInterface{
 
 	}
 
-	@Override
-	public Boolean validarNota(Double nota) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	//FUNCIONA NO TOCAR!!
+	/**
+	 * muestra un Matricula a partir de su numero
+	 * @return retorna un Matricula
+	 * @param Matricula, id a partir del que buscara el Matricula
+	 */
 	@Override
 	public Matricula verMatricula(MatriculaId id) {
 		Session session = factory.openSession();
@@ -65,7 +67,10 @@ public class ImpMatricula  implements MatriculaInterface{
 
 		return mat;
 	}
-	//FUNCIONA NO TOCAR!!
+	/**
+	 * elimina un matricula de la bbdd
+	 * @param id la matricula a eliminar
+	 */
 	@Override
 	public void eliminarMatricula(MatriculaId id) {
 		Session session = factory.openSession();
@@ -84,13 +89,12 @@ public class ImpMatricula  implements MatriculaInterface{
 		}
 	}
 
-	@Override
-	public void addNota(MatriculaId id, Double nota) {
 
-	}
-
-
-
+/**
+ * Retorna todas las matriculas de un alumno
+ * @param alumno al que pertenecen las matriculas
+ * @return retorna una lista
+ */
 	@Override
 	public List<Matricula> matriculasAlumno(Alumnos alumno) {
 		Session session = factory.openSession();
@@ -115,7 +119,12 @@ public class ImpMatricula  implements MatriculaInterface{
 	}
 
 
-
+	/**
+	 * Muestra la matricula que hay de una uf para un alumno concreto
+	 * @param UF a la que esta matriculado
+	 * @param alumno matriculado
+	 * @return retorna un objeto matricula
+	 */
 	@Override
 	public Matricula verMatriculaUFDNI(Unidadformativa UF, Alumnos alumno) {
 		Session session = factory.openSession();
@@ -137,7 +146,10 @@ public class ImpMatricula  implements MatriculaInterface{
 	}
 
 
-
+	/**
+	 * Modifica un matricula de la bbdd
+	 * @param mat, objeto a modificar
+	 */
 	@Override
 	public void modificarNota(Matricula mat) {
 		Session session = factory.openSession();

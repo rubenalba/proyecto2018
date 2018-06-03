@@ -15,9 +15,7 @@ import pojos.Unidadformativa;
  */
 public interface MatriculaInterface {
 	public void matricularAlumno(Matricula matricula);
-	public void addNota (MatriculaId id, Double nota);
 	public void eliminarMatricula (MatriculaId id);
-	public Boolean validarNota(Double nota);
 	public Matricula verMatricula(MatriculaId id);
 	public List<Matricula> matriculasAlumno(Alumnos alumno);
 	public Matricula verMatriculaUFDNI(Unidadformativa UF, Alumnos alumno);

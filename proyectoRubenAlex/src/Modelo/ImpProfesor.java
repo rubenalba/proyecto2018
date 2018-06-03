@@ -32,7 +32,10 @@ public class ImpProfesor implements ProfesorInterface{
 	static AsignaturaInterface as = DAO.getAsignaturaInterface();
 	static UnidadFormativaInterface uf = DAO.getUnidadFormativaInterface();
 	static CicloInterface c = DAO.getCicloInterface();
-	//Funciona NO TOCAR!!!
+
+	/**
+	 * añade un profesor a la base de datos
+	 */
 	@Override
 	public void addProfesor(Profesor profesor) {
 		Session session = factory.openSession();
@@ -51,7 +54,9 @@ public class ImpProfesor implements ProfesorInterface{
 			session.close();
 		}
 	}
-	//FUNCIONA, NO TOCAR!!
+	/**
+	 * elimina un profesor de la base de datos
+	 */
 	@Override
 	public void eliminarProfesor(String dniProfesor) {
 		Session session = factory.openSession();
@@ -70,6 +75,9 @@ public class ImpProfesor implements ProfesorInterface{
 
 	}
 
+	/**
+	 * modifica un profesor en la base de datos
+	 */
 	@Override
 	public void modificarProfesor(Profesor profesorModificado) {
 		Session session = factory.openSession();
@@ -86,7 +94,9 @@ public class ImpProfesor implements ProfesorInterface{
 		}
 
 	}
-	//FUNCIONA NO BORRAR!
+	/**
+	 * retorna un profesor a partir de su dni
+	 */
 	@Override
 	public Profesor verProfesorByDni(String dniProfesor) {
 		Session session = factory.openSession();
@@ -95,7 +105,9 @@ public class ImpProfesor implements ProfesorInterface{
 		session.close();
 		return profesor;
 	}
-
+	/**
+	 * retorna un profesor a partir de su usuario
+	 */
 	@Override
 	public Profesor verProfesorByUser(String userProfesor) {
 		Session session = factory.openSession();
@@ -107,6 +119,9 @@ public class ImpProfesor implements ProfesorInterface{
 		session.close();
 		return profesor;
 	}
+	/**
+	 * retorna todas las asignaturas impartidas por un profesor
+	 */
 	public List<Asignatura> misAsignaturas(Profesor profesor){
 		Session session = factory.openSession();
 		Transaction tx = null;
@@ -134,7 +149,9 @@ public class ImpProfesor implements ProfesorInterface{
 		}
 		return asignaturasEnviadas;
 	}
-
+/**
+ * Retorna todas las ufs impartidas por un profesor
+ */
 	public List<Unidadformativa>misUFs (Profesor profesor, Asignatura idAsignatura){
 		Session session = factory.openSession();
 		Transaction tx = null;
@@ -160,7 +177,9 @@ public class ImpProfesor implements ProfesorInterface{
 		return ufsMias;
 
 	}
-	//Obtener el dni para luego buscarlo por dni
+	/**
+	 * Retorna una lista de alumnos a los que le da clase el profesor
+	 */
 	public List<Alumnos> misAlumnosByAsignatura(Profesor profesor, Unidadformativa uf){
 		Session session = factory.openSession();
 		Transaction tx = null;
@@ -188,7 +207,9 @@ public class ImpProfesor implements ProfesorInterface{
 		}
 		return lista;
 	}
-	//FUNCIONA NO BORRAR!
+	/**
+	 * retorna una lista con todos los profesores
+	 */
 	@Override
 	public List<Profesor> verProfesores() {
 		Session session = factory.openSession();
@@ -206,8 +227,10 @@ public class ImpProfesor implements ProfesorInterface{
 		}
 		return listaProfesor;
 	}
-	//SIN USO
-	@Override
+	/**
+	 * retorna todas las asignaturas impartidas por un profesor
+	 */
+		@Override
 	public List<String> asignaturasImpartidas(String dniProfesor){
 		Session session = factory.openSession();
 		Transaction tx = null;
@@ -233,6 +256,9 @@ public class ImpProfesor implements ProfesorInterface{
 		return idAsignaturas;
 	}
 	//Sin uso
+	/**
+	 * Retorna una lista de todas las ufs impartidas por un profesor
+	 */
 	@Override
 	public List<String> UFSimpartidas(String asignatura, String dni){
 		String[] parts = asignatura.split(" /");
@@ -263,7 +289,11 @@ public class ImpProfesor implements ProfesorInterface{
 	}
 
 
-
+	/**
+	 * retorna una clave de encriptacion
+	 * @param pwd password a partird e la que crea la clave
+	 * @return clave de encriptacion
+	 */
 	public SecretKey passWordKeyGeneration(String pwd) {
 		SecretKey skey = null;
 		int keysize = 128;
@@ -278,7 +308,12 @@ public class ImpProfesor implements ProfesorInterface{
 		}
 		return skey;
 	}
-
+	/**
+	 * encripta una password a partir de una clave
+	 * @param skey clave para encriptar
+	 * @param pwd password a encriptar
+	 * @return password encriptada
+	 */
 	public static String encryptedData(SecretKey skey, String pwd) {
 		byte [] datos = null;
 		String dats=null;

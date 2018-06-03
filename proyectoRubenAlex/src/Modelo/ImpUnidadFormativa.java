@@ -20,7 +20,10 @@ public class ImpUnidadFormativa implements UnidadFormativaInterface{
 	private static SessionFactory factory = SessionFactoryUtil.getSessionFactory();
 	static UnidadFormativaInterface uf = DAO.getUnidadFormativaInterface();
 
-	//FUNCIONA NO ELIMINAR!!
+	/**
+	 * Añade un uf a la bbdd
+	 * @param uf, objeto a añadir a la bbdd
+	 */
 	@Override
 	public void addUnidadFormativa(Unidadformativa unidad) {
 		Session session = factory.openSession();
@@ -37,7 +40,10 @@ public class ImpUnidadFormativa implements UnidadFormativaInterface{
 		}
 
 	}
-	//FUNCIONA NO ELIMINAR!!
+	/**
+	 * elimina un uf de la bbdd
+	 * @param numAula numero del uf a eliminar
+	 */
 	@Override
 	public void eliminarUnidadFormativa(String idUnidadFormativa) {
 		Session session = factory.openSession();
@@ -56,7 +62,10 @@ public class ImpUnidadFormativa implements UnidadFormativaInterface{
 		}
 
 	}
-
+	/**
+	 * Modifica un uf de la bbdd
+	 * @param unidadFormativaModificada, objeto a modificar
+	 */
 	@Override
 	public void modificarUnidadFormativa(Unidadformativa unidadFormativaModificada) {
 		Session session = factory.openSession();
@@ -74,7 +83,10 @@ public class ImpUnidadFormativa implements UnidadFormativaInterface{
 
 	}
 
-	//FUNCIONA NO ELIMINAR!!
+	/**
+	 * retorna una unidad formativa a partir de su id
+	 * @return objeto unidad formativa
+	 */
 	@Override
 	public Unidadformativa verUnidadformativaByID(int idUnidadFormativa) {
 		Session session = factory.openSession();
@@ -83,7 +95,10 @@ public class ImpUnidadFormativa implements UnidadFormativaInterface{
 		session.close();
 		return unidad;
 	}
-	//FUNCIONA; NO TOCAR
+	/**
+	 * retorna todas las ufs
+	 * @return retorna una lista
+	 */
 	@Override
 	public List<Unidadformativa> verAllUnidadFormativas() {
 		Session session = factory.openSession();
@@ -101,6 +116,11 @@ public class ImpUnidadFormativa implements UnidadFormativaInterface{
 		}
 		return listaUnidad;
 	}
+	/**
+	 * Retorna todas las ufs de una asignatura
+	 * @param nombre de la asignatura
+	 * @return retorna una lista
+	 */
 	@Override
 	public List<Unidadformativa> ufByCiclo(String asig) {
 		Session session = factory.openSession();
@@ -126,6 +146,13 @@ public class ImpUnidadFormativa implements UnidadFormativaInterface{
 		}
 		return u;
 	}
+	/**
+	 * Retorna una uf a partir de su ciclom asignatura y nombre
+	 * @param id del ciclo
+	 * @param id de la asignatura
+	 * @param nombre de la uf
+	 * @return retorna un objeto unidad formativa
+	 */
 	@Override
 	public Unidadformativa verUFByName(int ciclo, int asignatura, String uf) {
 		Session session = factory.openSession();
@@ -142,6 +169,10 @@ public class ImpUnidadFormativa implements UnidadFormativaInterface{
 
 		return u;
 	}
+	/**
+	 * Quita una uf de un profesor
+	 * @param id de la unidad formativa a eliminar
+	 */
 	@Override
 	public void quitarUFprofesir(int idUnidadFormativa) {
 		Session session = factory.openSession();

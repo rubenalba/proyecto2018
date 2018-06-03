@@ -84,6 +84,12 @@ public class ImpAsignatura implements AsignaturaInterface{
 		}
 
 	}
+
+	/**
+	 * Obtener un objeto asignatura a partir de su ID
+	 * @param idAsignatura id perteneciente a la asignatura a buscar
+	 * @return asignatura Retorna la asignatura obtenida
+	 */
 	@Override
 	public Asignatura verAsignaturaById(int idAsignatura) {
 		Session session = factory.openSession();

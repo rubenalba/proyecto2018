@@ -17,7 +17,7 @@ import pojos.Asistencia;
 import pojos.AsistenciaId;
 import pojos.Unidadformativa;
 /**
- * 
+ *
  * @author cfgs
  * @version 1.0
  */
@@ -85,7 +85,11 @@ public class ImpAsistencia implements AsistenciaInterface{
 		}
 
 	}
-
+	/**
+	 * Muestra una asistencia concreta a partir de su id
+	 * @param id Objeto id de la asistencia
+	 * @return retorna un objeto asistencia
+	 */
 	@Override
 	public Asistencia verAsistenciaById(AsistenciaId id) {
 		Session session = factory.openSession();
@@ -95,6 +99,12 @@ public class ImpAsistencia implements AsistenciaInterface{
 		return asistencia;
 	}
 
+	/**
+	 * Muestra todas las asistencias de un alumno en una uf concreta
+	 * @param alumno alumno del que se buscaran las faltas
+	 * @param uf uf de la que se buscaran las faltas
+	 * @return retorna una lista
+	 */
 	@Override
 	public List<Asistencia> verAllAsistenciasAlumnoUF(Alumnos alumno, Unidadformativa uf){
 		Session session = factory.openSession();
