@@ -99,6 +99,8 @@ public class VistaIniciController {
 	@FXML
 	private MenuBar Menu;
 
+    @FXML
+    private Pane PanePantallaEntera;
 	@FXML
 	private MenuItem BtnInfo;
 	@FXML
@@ -494,12 +496,19 @@ public class VistaIniciController {
 		} catch (Exception e) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Error");
-			alert.setHeaderText("Error al cerrar sesion");
-			alert.setContentText("No se ha podido desconectar correctamente, el programa se cerrara.");
-			alert.showAndWait();
-			Stage Actual2 = (Stage) BtnCerrarSession.getScene().getWindow();
-			Actual2.close();
-			e.printStackTrace();
+			if (vlc=="es") {
+				alert.setHeaderText("Error al cerrar sessión");
+				alert.setContentText("No se ha podido desconectar correctamente, el programa se cerrara.");
+				alert.showAndWait();
+				Stage Actual2 = (Stage) BtnCerrarSession.getScene().getWindow();
+				Actual2.close();
+			}else {
+				alert.setHeaderText("Error al tancar sessió");
+				alert.setContentText("No s'ha pogut desconectar correctament, el programa es tancarà.");
+				alert.showAndWait();
+				Stage Actual2 = (Stage) BtnCerrarSession.getScene().getWindow();
+				Actual2.close();
+			}
 		}
 	}
 	/**
@@ -593,22 +602,29 @@ public class VistaIniciController {
 		MatriculaId mId = new MatriculaId(tablaBusqueda.getSelectionModel().getSelectedItem().getDni(),ufCBAlumno.getSelectionModel().getSelectedItem().getIdUnidadFormativa());
 		Matricula mat = new Matricula(mId,tablaBusqueda.getSelectionModel().getSelectedItem(),ufCBAlumno.getSelectionModel().getSelectedItem());
 
-
 		try {
 			m.matricularAlumno(mat);
 			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setHeaderText(tablaBusqueda.getSelectionModel().getSelectedItem().getNombreCompleto() + " ha sido matriculado.");
+			if(vlc=="es") {
+				alert.setHeaderText(tablaBusqueda.getSelectionModel().getSelectedItem().getNombreCompleto() + " ha sido matriculado.");
+			}else {
+				alert.setHeaderText(tablaBusqueda.getSelectionModel().getSelectedItem().getNombreCompleto() + " s'ha matriculat correctament");
+			}
 			alert.showAndWait();
 		}catch (Exception e) {
 			Alert alert = new Alert(AlertType.ERROR);
-			alert.setHeaderText("No se ha podido matricular, inténtelo de nuevo.");
+			if (vlc =="es") {
+				alert.setHeaderText("No se ha podido matricular, inténtelo de nuevo.");
+			}else {
+				alert.setHeaderText("No s'ha pogut matricular, provi un altre cop.");
+			}
 			alert.showAndWait();
 		}
 	}
 
 	@FXML
 	/**
-	 * A�ade una uf determinada al profesor logueado
+	 * Añade una uf determinada al profesor logueado
 	 */
 	public void addUF2DB () {
 		Ciclo cic = c.verCicloByName(cursoActivo.getNombreCiclo());
@@ -619,16 +635,26 @@ public class VistaIniciController {
 		Unidadformativa unid = u.verUFByName(cic.getIdCiclo(), asi.getIdAsignatura(), uforma.getNombreUf());
 
 		unid.setProfesor(profesorActivo);
-		try {
-			u.modificarUnidadFormativa(unid);
-			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setHeaderText("Has añadido la " + ufCB.getValue() + " a tus cursos." );
-			alert.showAndWait();
-			cargarCursos();
-		} catch (Exception e) {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setHeaderText("Error al añadir la "+ ufCB.getValue() + " a tus cursos." );
-			alert.showAndWait();
+		if (vlc == "es") {
+			try {
+				u.modificarUnidadFormativa(unid);
+				Alert alert = new Alert(AlertType.INFORMATION);
+				if(vlc=="es") {
+				alert.setHeaderText("Has añadido la " + ufCB.getValue() + " a tus cursos." );
+				}else {
+					alert.setHeaderText("Has afegit la " + ufCB.getValue() + " als teus cursos." );
+				}
+				alert.showAndWait();
+				cargarCursos();
+			} catch (Exception e) {
+				Alert alert = new Alert(AlertType.ERROR);
+				if(vlc=="es") {
+				alert.setHeaderText("Error al añadir la "+ ufCB.getValue() + " a tus cursos." );
+				}else {
+					alert.setHeaderText("Error al afegir la "+ ufCB.getValue() + " al tus cursos." );
+				}
+				alert.showAndWait();
+			}
 		}
 
 	}
@@ -698,29 +724,8 @@ public class VistaIniciController {
 		stage.show();
 	}
 
-	/*	@FXML
-	public void volver(){
-		try {
-			Stage Actual = (Stage) BtnVolverConfig.getScene().getWindow();
-
-			FXMLLoader loader = new FXMLLoader(Main.class.getResource("../Vistas/VistaInicial.fxml"));
-			AnchorPane ventanaDos = (AnchorPane) loader.load();
-			Scene sceneDos = new Scene(ventanaDos);
-			Actual.setScene(sceneDos);
-			Actual.show();
-		} catch (Exception e) {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Error");
-			alert.setHeaderText("Error al abrir la configuracion");
-			alert.setContentText("El programa se cerrara.");
-			alert.showAndWait();
-			Stage Actual2 = (Stage) BtnVolverConfig.getScene().getWindow();
-			Actual2.close();
-			e.printStackTrace();
-		}
-	}*/
 	/**
-	 * Configuracion de la tabla donde se muestran todos los alumnos a la hora de pasar lista.
+	 * Configuración de la tabla donde se muestran todos los alumnos a la hora de pasar lista.
 	 */
 	private void setCheckBox(){
 		//Seleccionar hora actual para generar las faltas;
@@ -828,7 +833,7 @@ public class VistaIniciController {
 		paneAddFranja.setVisible(false);
 	}
 	/**
-	 * Muestra la ventana de A�adir alumno
+	 * Muestra la ventana de Añadir alumno
 	 * @throws IOException, lanzara esta excepcion en caso de error al modificar la visibilidad de esta.
 	 */
 	@FXML
@@ -842,7 +847,7 @@ public class VistaIniciController {
 
 	}
 	/**
-	 * Muestra la ventana de A�adir franja
+	 * Muestra la ventana de Añadir franja
 	 * @throws IOException, lanzara esta excepcion en caso de error al modificar la visibilidad de esta.
 	 */
 	@FXML
@@ -860,10 +865,16 @@ public class VistaIniciController {
 	 */
 	public void generarFaltas(){
 		Horas horaFalta = h.getHorasByRango(TextHoraAsistencia.getText());
+
 		if (horaFalta == null) {
 			Alert alert = new Alert (AlertType.INFORMATION);
-			alert.setHeaderText("Introduzca la hora de la falta");
-			alert.showAndWait();
+			if(vlc == "es") {
+				alert.setHeaderText("Introduzca la hora de la falta");
+				alert.showAndWait();
+			}else {
+				alert.setHeaderText("Introdueixi l'hora de la falta");
+				alert.showAndWait();
+			}
 		}else {
 			Asignatura asignaturaFalta = as.verAsignaturaById(UFMarcada.getAsignatura().getIdAsignatura());
 			String fecha = DiaAsistenciaSelect.getValue().toString();
@@ -873,13 +884,23 @@ public class VistaIniciController {
 				franjaFalta	 = fr.verFranjaFalta(horaFalta, profesorActivo, dia, asignaturaFalta);
 			} catch(Exception e){
 				Alert alert = new Alert (AlertType.INFORMATION);
-				alert.setHeaderText("Dia incorrecto para esta UF");
-				alert.showAndWait();
+				if(vlc =="es") {
+					alert.setHeaderText("Dia incorrecto para esta UF");
+					alert.showAndWait();
+				}else {
+					alert.setHeaderText("Dia incorrecte per aquesta UF");
+					alert.showAndWait();
+				}
 			}
 			if (listaNoAsistencia.isEmpty()){
 				Alert alert = new Alert(AlertType.ERROR);
-				alert.setHeaderText("Indica faltas a generar");
-				alert.showAndWait();
+				if (vlc=="es") {
+					alert.setHeaderText("Indica las faltas a generar");
+					alert.showAndWait();
+				}else {
+					alert.setHeaderText("Indica les faltes a generar");
+					alert.showAndWait();
+				}
 			} else {
 				Asistencia falta = null;
 				boolean mostrado = false;
@@ -892,8 +913,13 @@ public class VistaIniciController {
 					} catch(Exception e){
 						if (!mostrado){
 							Alert alert = new Alert (AlertType.INFORMATION);
-							alert.setHeaderText("Dia incorrecto para esta UF");
-							alert.showAndWait();
+							if (vlc == "es") {
+								alert.setHeaderText("Dia incorrecto para esta UF");
+								alert.showAndWait();
+							}else {
+								alert.setHeaderText("Dia incorrecte per aquesta UF");
+								alert.showAndWait();
+							}
 							error = true;
 							mostrado = true;
 						}
@@ -903,13 +929,23 @@ public class VistaIniciController {
 						try {
 							ast.addAsistencia(falta);
 							Alert alert2 = new Alert(AlertType.INFORMATION);
-							alert2.setHeaderText("Falta añadida correctamente");
-							alert2.showAndWait();
+							if (vlc=="es") {
+								alert2.setHeaderText("Falta añadida correctamente");
+								alert2.showAndWait();
+							}else {
+								alert2.setHeaderText("Falta afegida correctament");
+								alert2.showAndWait();
+							}
 						} catch(Exception e){
 							if (!mostrado){
 								Alert alert = new Alert(AlertType.ERROR);
-								alert.setHeaderText("Falta de asistencia duplicada");
-								alert.showAndWait();
+								if (vlc=="es") {
+									alert.setHeaderText("Falta de asistencia duplicada");
+									alert.showAndWait();
+								}else {
+									alert.setHeaderText("Falta d' asistència duplicada");
+									alert.showAndWait();
+								}
 								mostrado = true;
 								error = true;
 							}
@@ -930,6 +966,7 @@ public class VistaIniciController {
 		Parent root;
 		alumnoMarcado = newSelection;
 		try {
+
 			root = FXMLLoader.load(getClass().getResource("../Vistas/VistaAlumno.fxml"));
 			Scene scene = new Scene(root);
 			Stage stage = new Stage();
@@ -937,11 +974,19 @@ public class VistaIniciController {
 			stage.initOwner(tablaAlumnos.getScene().getWindow());
 			stage.initModality(Modality.APPLICATION_MODAL);
 			stage.showAndWait();
+
 		} catch (IOException e) {
 			e.printStackTrace();
 			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Error");
-			alert.setHeaderText("Error al cargar la ventana de alumno, vuelva a intentarlo");
+			if(vlc=="es") {
+				alert.setTitle("Error");
+				alert.setHeaderText("Error al cargar la ventana de alumno, vuelva a intentarlo");
+				alert.showAndWait();
+			}else {
+				alert.setTitle("Error");
+				alert.setHeaderText("Error al carregar la finestra de l'alumne, torni a provar-ho");
+				alert.showAndWait();
+			}
 		}
 	}
 	/**
@@ -1022,13 +1067,22 @@ public class VistaIniciController {
 		try {
 			u.quitarUFprofesir(uforma.getIdUnidadFormativa());
 			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setHeaderText("Has eliminado la " + CBUfBorrar.getValue() + " de tus cursos." );
-			alert.showAndWait();
+			if (vlc == "es") {
+				alert.setHeaderText("Has eliminado la " + CBUfBorrar.getValue() + " de tus cursos." );
+				alert.showAndWait();
+			}else {
+				alert.setHeaderText("Has eliminat l'  " + CBUfBorrar.getValue() + " dels teus cursos." );
+				alert.showAndWait();
+			}
 		} catch (Exception e) {
 			Alert alert = new Alert(AlertType.ERROR);
-			alert.setHeaderText("Error al eliminar la "+ CBUfBorrar.getValue() + " de tus cursos." );
-			alert.showAndWait();
-			e.printStackTrace();
+			if (vlc == "es") {
+				alert.setHeaderText("Error al eliminar la "+ CBUfBorrar.getValue() + " de tus cursos." );
+				alert.showAndWait();
+			}else {
+				alert.setHeaderText("Error al eliminar l'  "+ CBUfBorrar.getValue() + " dels teus cursos." );
+				alert.showAndWait();
+			}
 		}
 		CBUfBorrar.getItems().clear();
 		cargarAsigborrar();
@@ -1040,8 +1094,13 @@ public class VistaIniciController {
 		if (passwordUsada.equals(profesorActivo.getPassword())){
 			if (profesorActivo.getPasswordTemp()!= null){
 				Alert alert = new Alert(AlertType.CONFIRMATION);
-				alert.setHeaderText("Password temporal activa, desea desactivarla?");
+				if (vlc=="es") {
+					alert.setHeaderText("Password temporal activa, desea desactivarla?");
+				}else {
+					alert.setHeaderText("Password temporal activa, desitja desactivar-la?");
+				}
 				Optional<ButtonType> result = alert.showAndWait();
+
 				if(result.isPresent()&& result.get() == ButtonType.OK){
 					profesorActivo.setPasswordTemp(null);
 					pr.modificarProfesor(profesorActivo);
@@ -1062,8 +1121,13 @@ public class VistaIniciController {
 		Horas horaFalta = h.getHorasByRango(TextHoraAsistencia.getText());
 		if (horaFalta == null) {
 			Alert alert = new Alert (AlertType.INFORMATION);
-			alert.setHeaderText("Introduzca la hora de la falta");
-			alert.showAndWait();
+			if(vlc=="es") {
+				alert.setHeaderText("Introduzca la hora de la falta");
+				alert.showAndWait();
+			}else {
+				alert.setHeaderText("Introdueixi l' hora de la falta");
+				alert.showAndWait();
+			}
 		}else {
 			Asignatura asignaturaFalta = as.verAsignaturaById(UFMarcada.getAsignatura().getIdAsignatura());
 			String fecha = DiaAsistenciaSelect.getValue().toString();
@@ -1073,12 +1137,20 @@ public class VistaIniciController {
 				franjaFalta	 = fr.verFranjaFalta(horaFalta, profesorActivo, dia, asignaturaFalta);
 			} catch(Exception e){
 				Alert alert = new Alert (AlertType.INFORMATION);
-				alert.setHeaderText("Dia incorrecto para esta UF");
+				if(vlc=="es") {
+					alert.setHeaderText("Dia incorrecto para esta UF");
+				}else {
+					alert.setHeaderText("Dia incorrecte per aquesta UF");
+				}
 				alert.showAndWait();
 			}
 			if (listaNoAsistencia.isEmpty()){
 				Alert alert = new Alert(AlertType.ERROR);
-				alert.setHeaderText("Indica faltas a generar");
+				if (vlc == "es") {
+					alert.setHeaderText("Indica faltas a generar");
+				}else {
+					alert.setHeaderText("Indiqui les faltas a generar");
+				}
 				alert.showAndWait();
 			} else {
 				Asistencia falta = null;
@@ -1092,7 +1164,11 @@ public class VistaIniciController {
 					} catch(Exception e){
 						if (!mostrado){
 							Alert alert = new Alert (AlertType.INFORMATION);
-							alert.setHeaderText("Dia incorrecto para esta UF");
+							if (vlc=="es") {
+								alert.setHeaderText("Dia incorrecto para esta UF");
+							}else {
+								alert.setHeaderText("Dia incorrecte per aquesta UF");
+							}
 							alert.showAndWait();
 							error = true;
 							mostrado = true;
@@ -1102,19 +1178,31 @@ public class VistaIniciController {
 					if (!error){
 						try {
 							Alert alert = new Alert(AlertType.CONFIRMATION);
-							alert.setHeaderText("Desea eliminar las faltas de asistencia indicadas?");
+							if (vlc== "es") {
+								alert.setHeaderText("Desea eliminar las faltas de asistencia indicadas?");
+							}else {
+								alert.setHeaderText("Vol eliminar les faltes d'asistència indicades?");
+							}
 							Optional<ButtonType> result = alert.showAndWait();
 							if(result.isPresent()&& result.get() == ButtonType.OK){
 								ast.eliminarAsistencia(falta.getId());
 								Alert alert2 = new Alert(AlertType.INFORMATION);
-								alert2.setHeaderText("Falta eliminada correctamente");
+								if(vlc=="es") {
+									alert2.setHeaderText("Falta eliminada correctamente");
+								}else {
+									alert2.setHeaderText("Falta eliminada correctament");
+								}
 								alert2.showAndWait();
 							}
 
 						} catch(Exception e){
 							if (!mostrado){
 								Alert alert = new Alert(AlertType.ERROR);
-								alert.setHeaderText("Falta de asistencia duplicada");
+								if(vlc=="es") {
+									alert.setHeaderText("Falta de asistencia duplicada");
+								}else {
+									alert.setHeaderText("Falta de asistència duplicada");
+								}
 								alert.showAndWait();
 								mostrado = true;
 								error = true;
@@ -1133,29 +1221,46 @@ public class VistaIniciController {
 	 */
 	public void eliminarFranjaProfesor(){
 		Franjas franja;
-		Horas hora = CBHoraFranja.getSelectionModel().getSelectedItem();
-		Asignatura asig =  AsigFranja.getSelectionModel().getSelectedItem();
-		String dia = diasSemana.getSelectionModel().getSelectedItem();
-		franja = fr.verFranjaFalta(hora, profesorActivo, dia, asig) ;
-		
-		try{
-			
 
+		try{
+
+			Horas hora = CBHoraFranja.getSelectionModel().getSelectedItem();
+			Asignatura asig =  AsigFranja.getSelectionModel().getSelectedItem();
+			String dia = diasSemana.getSelectionModel().getSelectedItem();
+			if (diasSemana.getValue().equals("LUNES")){
+				dia ="MONDAY";
+			}else if (diasSemana.getValue().equals("MARTES")){
+				dia ="TUESDAY";
+			}else if (diasSemana.getValue().equals("MIÉRCOLES")){
+				dia ="WEDNESDAY";
+			}else if (diasSemana.getValue().equals("JUEVES")){
+				dia ="THURSDAY";
+			}else if (diasSemana.getValue().equals("VIERNES")){
+				dia ="FRIDAY";
+			}
+			franja = fr.verFranjaFalta(hora, profesorActivo, dia, asig) ;
 			Alert alert2 = new Alert(AlertType.CONFIRMATION);
-			alert2.setHeaderText("Esta seguro que desea eliminar esta franja?");
+			if (vlc=="es") {
+				alert2.setHeaderText("¿Está seguro que desea eliminar esta franja?");
+			}else {
+				alert2.setHeaderText("De debó vol eliminar aquesta franja?");
+			}
 			Optional<ButtonType> result = alert2.showAndWait();
 			if(result.isPresent()&& result.get() == ButtonType.OK){
-				fr.eliminarFranja(26);
+				fr.eliminarFranja(franja.getIdFranja());
 				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setHeaderText("Franja creada");
+				alert.setHeaderText("Franja Eliminada");
 				alert.showAndWait();
 			}else {
-				System.out.println("no ha pasado nada");
+
 			}
 		} catch(Exception e){
-			System.out.println("esta en el catch y dice " + e.getMessage());
 			Alert alert = new Alert(AlertType.ERROR);
-			alert.setHeaderText("Imposible eliminar franja");
+			if (vlc=="es") {
+				alert.setHeaderText("No se ha podido eliminar la franja");
+			}else {
+				alert.setHeaderText("No s'ha pogut eliminar la franja");
+			}
 			alert.showAndWait();
 		}
 	}

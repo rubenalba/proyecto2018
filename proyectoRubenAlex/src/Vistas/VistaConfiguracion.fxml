@@ -19,7 +19,7 @@
          </image>
       </ImageView>
       <Button fx:id="confirmarBTN" layoutX="48.0" layoutY="171.0" mnemonicParsing="false" onAction="#actualizarPassword" text="Confirmar" />
-      <MenuButton fx:id="menubutonIDioma" layoutX="48.0" layoutY="231.0" mnemonicParsing="false" text="Seleccionar Idioma">
+      <MenuButton fx:id="menubutonIDioma" disable="true" layoutX="48.0" layoutY="231.0" mnemonicParsing="false" text="Seleccionar Idioma" visible="false">
         <items>
           <MenuItem fx:id="catBTN" mnemonicParsing="false" text="Catalan" />
           <MenuItem fx:id="espBTN" mnemonicParsing="false" text="Castellano" />

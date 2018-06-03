@@ -44,13 +44,13 @@ public class ConfiguracionController implements Initializable{
 	private Button BtnVolverConfig;
 	@FXML
 	private Label labelPWD, tempLB;
-    @FXML
-    private MenuButton menubutonIDioma;
-    @FXML
-    private MenuItem catBTN;
+	@FXML
+	private MenuButton menubutonIDioma;
+	@FXML
+	private MenuItem catBTN;
 
-    @FXML
-    private MenuItem espBTN;
+	@FXML
+	private MenuItem espBTN;
 
 	@FXML
 	private PasswordField contrasenyaTF;
@@ -60,9 +60,8 @@ public class ConfiguracionController implements Initializable{
 	@FXML
 	private PasswordField ConfirmarPWDTF;
 	private Profesor profesorActivo;
-	
+
 	private String idioma = obtenerlang();
-	
 
 	/**
 	 * Accede a la informacion del profesor que ha logueado
@@ -98,7 +97,6 @@ public class ConfiguracionController implements Initializable{
 	@FXML
 	public void actualizarPassword (ActionEvent event) {
 		profesorActivo();
-		System.out.println("HA entrado en el metodo");
 		if (contrasenyaTF.getText().equals(ConfirmarPWDTF.getText()) && contrasenyaTF.getLength() > 6) {
 
 			Profesor mod = p.verProfesorByDni(profesorActivo.getDniProfesor());
@@ -116,9 +114,15 @@ public class ConfiguracionController implements Initializable{
 			}
 		}else {
 			Alert alert = new Alert(AlertType.ERROR);
-			alert.setHeaderText("Las contraseñas no coinciden o no cumple con el mínimo de 6 carácteres");
-			alert.showAndWait();
+			if (idioma == "es") {
+				alert.setHeaderText("Las contraseñas no coinciden o no cumple con el mínimo de 6 carácteres");
+				alert.showAndWait();
+			}else {
+				alert.setHeaderText("Les contrasenyes no coincideixen o no tenen un mínim de 6 caràcters");
+				alert.showAndWait();
+			}
 		}
+
 	}
 
 	public SecretKey passWordKeyGeneration(String pwd) {
@@ -168,14 +172,14 @@ public class ConfiguracionController implements Initializable{
 			alert.showAndWait();
 		} catch (Exception e) {
 
-	}
+		}
 	}
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		obtenerlang();
 		cargarIdioma(idioma);
-		
-		
+
+
 	}
 	private void cargarIdioma(String idioma) {
 		locale = new Locale(idioma);
@@ -187,7 +191,7 @@ public class ConfiguracionController implements Initializable{
 		catBTN.setText(bundle.getString("catBTN"));
 		espBTN.setText(bundle.getString("espBTN"));
 		labelPWD.setText(bundle.getString("labelPWD"));
-		
+
 	}
 
 }
