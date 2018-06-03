@@ -50,6 +50,9 @@ public class Ciclo implements java.io.Serializable {
 	public void setAsignaturas(Set<Asignatura> asignaturas) {
 		this.asignaturas = asignaturas;
 	}
+	/**
+	 * Retorna el nombre completo del ciclo
+	 */
 	 @Override
 	    public String toString() {
 	        return this.nombreCiclo;

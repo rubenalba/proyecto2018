@@ -154,7 +154,7 @@ public class VistaIniciController {
     private AnchorPane paneAddFranja;
 
 	@FXML
-	private Button AlumnosBTN, btnEliminarUFProf;
+	private Button AlumnosBTN, btnEliminarUFProf, btnEliminarFranja;
 
 	@FXML
 	private ChoiceBox<Ciclo> cursos;
@@ -343,7 +343,9 @@ public class VistaIniciController {
 		}
 		tablaBusqueda.setItems(listaAlumnos);
 	}
-
+	/**
+	 * Declara los listeners de las tablas iniciales.
+	 */
 	private void listeners() {
 		cursos.valueProperty().addListener(new ChangeListener<Ciclo>() {
 
@@ -379,6 +381,9 @@ public class VistaIniciController {
 		});
 	}
 
+	/**
+	 * Declara los listeners de todos los choiceBox y tablas de las diferentes acciones.
+	 */
 	private void listeners2() {
 		cursosAlumno.valueProperty().addListener(new ChangeListener<Ciclo>() {
 
@@ -436,6 +441,9 @@ public class VistaIniciController {
 		return UFMarcada;
 	}
 
+	/**
+	 * Metodo para cerrar session, regresa a la ventana de login.
+	 */
 	@FXML
 	public void cerrarSesion(){
 		Stage Actual = (Stage) tablaCursos.getScene().getWindow();
@@ -461,6 +469,9 @@ public class VistaIniciController {
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * Oculta los items no usados en ese momento
+	 */
 	@FXML
 	public void back() {
 		VentanaAlumnos.setVisible(false);
@@ -469,16 +480,9 @@ public class VistaIniciController {
 		PaneAddAlumno.setVisible(false);
 		paneAddFranja.setVisible(false);
 	}
-
-	private void clearChoiceBox() {
-		cursos.getItems().clear();
-		asignaturaCB.getItems().clear();
-		ufCB.getItems().clear();
-		CBAsignaturaBorrar.getItems().clear();
-		CBUfBorrar.getItems().clear();
-
-	}
-
+	/**
+	 * Carga los ciclos a la hora de asignarlos a un profesor
+	 */
 	public void cargarCiclo() {
 		listaCiclos = FXCollections.observableArrayList();
 		List <Ciclo> ciclo = c.verAllCiclos();
@@ -487,6 +491,10 @@ public class VistaIniciController {
 		}
 		cursos.setItems(listaCiclos);
 	}
+
+	/**
+	 * Carga los ciclos a la hora de asignarlos a un alumno
+	 */
 	public void cargarCiclo2 () {
 		listaCiclos = FXCollections.observableArrayList();
 		List <Ciclo> ciclo = c.verAllCiclos();
@@ -496,6 +504,10 @@ public class VistaIniciController {
 		cursosAlumno.setItems(listaCiclos);
 	}
 
+	/**
+	 * Carga las de una asignatura UFS a la hora de asignarlos a un profesor
+	 * @param asignatura, asignatura de la que se cargaran las ufs
+	 */
 	public void cargarUF(String asignatura) {
 		ufs = FXCollections.observableArrayList();
 		List <Unidadformativa> uf = u.ufByCiclo(asignatura);
@@ -504,7 +516,10 @@ public class VistaIniciController {
 		}
 		ufCB.setItems(ufs);
 	}
-
+	/**
+	 * Carga las de una asignatura UFS a la hora de asignarlos a un alumno
+	 * @param asignatura, asignatura de la que se cargaran las ufs
+	 */
 	public void cargarUF2(String asignatura) {
 		ufs = FXCollections.observableArrayList();
 		List <Unidadformativa> uf = u.ufByCiclo(asignatura);
@@ -513,7 +528,10 @@ public class VistaIniciController {
 		}
 		ufCBAlumno.setItems(ufs);
 	}
-
+	/**
+	 * Carga las asignaturas pertenecientes a un ciclo para añadirlos a un profesor
+	 * @param curso, nombre del cilo del que cargara las asignaturas
+	 */
 	public void cargarAsignatura(String curso) {
 		asig = FXCollections.observableArrayList();
 		List <Asignatura> a = as.verAsignaturaByCurso(curso);
@@ -522,6 +540,11 @@ public class VistaIniciController {
 		}
 		asignaturaCB.setItems(asig);
 	}
+
+	/**
+	 * Carga las asignaturas pertenecientes a un ciclo para añadirlos a un alumno
+	 * @param curso, nombre del cilo del que cargara las asignaturas
+	 */
 	public void cargarAsignatura2(String curso) {
 		asig = FXCollections.observableArrayList();
 		List <Asignatura> a = as.verAsignaturaByCurso(curso);
@@ -530,7 +553,9 @@ public class VistaIniciController {
 		}
 		asignaturaCB1Alumno.setItems(asig);
 	}
-
+	/**
+	 * Añadira una matricula para un alumno en una uf determinada
+	 */
 	public void matricular() {
 		MatriculaId mId = new MatriculaId(tablaBusqueda.getSelectionModel().getSelectedItem().getDni(),ufCBAlumno.getSelectionModel().getSelectedItem().getIdUnidadFormativa());
 		Matricula mat = new Matricula(mId,tablaBusqueda.getSelectionModel().getSelectedItem(),ufCBAlumno.getSelectionModel().getSelectedItem());
@@ -547,7 +572,11 @@ public class VistaIniciController {
 			alert.showAndWait();
 		}
 	}
+
 	@FXML
+	/**
+	 * Añade una uf determinada al profesor logueado
+	 */
 	public void addUF2DB () {
 		Ciclo cic = c.verCicloByName(cursoActivo.getNombreCiclo());
 		Asignatura asi = as.verAsignaturaByName(AsignaturaActiva.getNombreAsignatura(), cursoActivo.getIdCiclo());
@@ -570,7 +599,7 @@ public class VistaIniciController {
 		}
 
 	}
-	//NO TOCAR!!!!!!!!!
+
 	/**
 	 * Carga los cursos impartidos por el profesor que ha hecho loggin y las UFs de estos cursos.
 	 */
@@ -610,7 +639,9 @@ public class VistaIniciController {
 		});
 
 	}
-
+	/**
+	 * Carga en un choiceBox las asignaturas del profesor
+	 */
 	public void cargarAsigborrar(){
 		CBAsignaturaBorrar.getItems().clear();
 		List<Asignatura> asignaturasborrar = pr.misAsignaturas(profesorActivo);
@@ -620,6 +651,11 @@ public class VistaIniciController {
 
 
 	@FXML
+	/**
+	 * Inicia la ventana de configuracion
+	 * @param event, evento que se genera al pulsar el boton
+	 * @throws IOException, Se lanzara en caso de error al iniciar la ventana
+	 */
 	public void configuracion(ActionEvent event) throws IOException{
 		Parent root = FXMLLoader.load(getClass().getResource("../Vistas/VistaConfiguracion.fxml"));
 		Scene scene = new Scene(root);
@@ -628,7 +664,7 @@ public class VistaIniciController {
 		stage.show();
 	}
 
-	@FXML
+/*	@FXML
 	public void volver(){
 		try {
 			Stage Actual = (Stage) BtnVolverConfig.getScene().getWindow();
@@ -648,7 +684,7 @@ public class VistaIniciController {
 			Actual2.close();
 			e.printStackTrace();
 		}
-	}
+	}*/
 	/**
 	 * Configuracion de la tabla donde se muestran todos los alumnos a la hora de pasar lista.
 	 */
@@ -743,7 +779,10 @@ public class VistaIniciController {
 			}
 		});
 	}
-
+	/**
+	 * Muestra la ventana de Añadir unidad formativa
+	 * @throws IOException, lanzara esta excepcion en caso de error al modificar la visibilidad de esta.
+	 */
 	@FXML
 	public void addUF() throws IOException {
 			cargarAsigborrar();
@@ -754,7 +793,10 @@ public class VistaIniciController {
 			PaneAddAlumno.setVisible(false);
 			paneAddFranja.setVisible(false);
 	}
-
+	/**
+	 * Muestra la ventana de Añadir alumno
+	 * @throws IOException, lanzara esta excepcion en caso de error al modificar la visibilidad de esta.
+	 */
 	@FXML
 	public void addAlumno() throws IOException {
 		cargarCiclo2();
@@ -765,7 +807,10 @@ public class VistaIniciController {
 		paneAddFranja.setVisible(false);
 
 	}
-
+	/**
+	 * Muestra la ventana de Añadir franja
+	 * @throws IOException, lanzara esta excepcion en caso de error al modificar la visibilidad de esta.
+	 */
 	@FXML
 	public void addFranja() throws IOException {
 		cargarHoras();
@@ -865,12 +910,18 @@ public class VistaIniciController {
 			alert.setHeaderText("Error al cargar la ventana de alumno, vuelva a intentarlo");
 		}
 	}
+	/**
+	 * Cerrara el programa completamente
+	 */
 	@FXML
 	public void salir() {
 		Stage Actual = (Stage) tablaCursos.getScene().getWindow();
 		Actual.close();
 		System.exit(0);
 	}
+	/**
+	 * Buscar alumno concreto a partir de un nombre o dni
+	 */
 	@FXML
 	public void buscar(){
 		String alumno = alumnoBuscar.getText();
@@ -881,7 +932,9 @@ public class VistaIniciController {
 			colDNIBusqueda.setCellValueFactory(new PropertyValueFactory<Alumnos, String>("Dni"));
 		}
 	}
-
+	/**
+	 * Cargara la informacion de la ventana de añadir franja
+	 */
 	public void cargarHoras(){
 		List<Horas> horas = h.getAllHoras();
 		List<Asignatura> asignaturasStr = pr.misAsignaturas(profesorActivo);
@@ -898,7 +951,9 @@ public class VistaIniciController {
 		ObservableList asignaturas = FXCollections.observableArrayList(asignaturasStr);
 		AsigFranja.setItems(asignaturas);
 	}
-
+	/**
+	 * Añade la franja seleccionada al profesor
+	 */
 	public void guardarFranja(){
 		String dia ="";
 		if (diasSemana.getValue().equals("LUNES")){
@@ -924,6 +979,9 @@ public class VistaIniciController {
 			alert.showAndWait();
 		}
 	}
+	/**
+	 * Elimina la UF seleccionada del profesor
+	 */
 	public void eliminarUFProfesor(){
 		Unidadformativa uforma = CBUfBorrar.getSelectionModel().getSelectedItem();
 		uforma.setProfesor(null);
@@ -941,7 +999,9 @@ public class VistaIniciController {
 		CBUfBorrar.getItems().clear();
 		cargarAsigborrar();
 	}
-
+	/**
+	 * Comprueba si el loggin se ha realizado con una password temporal o no y a partir del resultado mostrara unas opciones u otras
+	 */
 	public void comprobacionTemporal(){
 		if (passwordUsada.equals(profesorActivo.getPassword())){
 			if (profesorActivo.getPasswordTemp()!= null){
@@ -961,7 +1021,9 @@ public class VistaIniciController {
 			Opciones.setVisible(false);
 		}
 	}
-
+	/**
+	 * Elimina una falta de asistencia de los alumnos marcados
+	 */
 	public void eliminarFaltaAsistencia(){
 		Horas horaFalta = h.getHorasByRango(TextHoraAsistencia.getText());
 		if (horaFalta == null) {
@@ -1030,6 +1092,27 @@ public class VistaIniciController {
 				}
 				setCheckBox();
 			}
+		}
+	}
+	/**
+	 * Elimina la franja seleccionada del profesor
+	 */
+	public void eliminarFranjaProfesor(){
+		Franjas franja = new Franjas(CBHoraFranja.getSelectionModel().getSelectedItem(), AsigFranja.getSelectionModel().getSelectedItem(), profesorActivo, diasSemana.getSelectionModel().getSelectedItem());
+		try{
+			Alert alert2 = new Alert(AlertType.CONFIRMATION);
+			alert2.setHeaderText("Esta seguro que desea eliminar esta franja?");
+			Optional<ButtonType> result = alert2.showAndWait();
+	    	if(result.isPresent()&& result.get() == ButtonType.OK){
+	    		fr.eliminarFranja(franja.getIdFranja());
+	    		Alert alert = new Alert(AlertType.INFORMATION);
+	    		alert.setHeaderText("Franja creada");
+	    		alert.showAndWait();
+	    	}
+		} catch(Exception e){
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setHeaderText("Franja duplicada");
+			alert.showAndWait();
 		}
 	}
 }
