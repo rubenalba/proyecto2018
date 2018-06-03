@@ -89,7 +89,7 @@ public class VistaLoginController {
 	}
 
 	public void setUsuarioActivo(String usuarioActivo) {
-		this.usuarioActivo = usuarioActivo;
+		this.usuarioActivo= usuarioActivo;
 	}
 
 	/**
