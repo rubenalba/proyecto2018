@@ -37,7 +37,7 @@ public class ConfiguracionController {
 	private Button BtnVolverConfig;
 
 	@FXML
-	private PasswordField contraseñaTF;
+	private PasswordField contrasenyaTF;
 
 	@FXML
 	private PasswordField ConfirmarPWDTF;
@@ -74,7 +74,7 @@ public class ConfiguracionController {
 	public void actualizarPassword (ActionEvent event) {
 		profesorActivo();
 		System.out.println("HA entrado en el metodo");
-		if (contraseñaTF.getText().equals(ConfirmarPWDTF.getText()) && contraseñaTF.getLength() > 6) {
+		if (contrasenyaTF.getText().equals(ConfirmarPWDTF.getText()) && contrasenyaTF.getLength() > 6) {
 
 			Profesor mod = p.verProfesorByDni(profesorActivo.getDniProfesor());
 			SecretKey skey = passWordKeyGeneration(profesorActivo.getDniProfesor());
@@ -82,7 +82,7 @@ public class ConfiguracionController {
 			mod.setPassword(pwd);
 			try {
 				p.modificarProfesor(mod);
-				contraseñaTF.setText("");
+				contrasenyaTF.setText("");
 				ConfirmarPWDTF.setText("");
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setHeaderText("ContraseÃ±a cambiada");

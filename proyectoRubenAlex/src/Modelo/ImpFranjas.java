@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -127,13 +128,31 @@ public class ImpFranjas implements FranjaInterface{
 		Session session = factory.openSession();
 		Transaction tx = null;
 		String sql = "SELECT * FROM Franjas h WHERE h.DNI_Profesor LIKE '"+profesor.getDniProfesor()+"' AND h.Asignatura = "+asignatura.getIdAsignatura();
-		Franjas r = null;
+		//Franjas r = null;
 		List<Franjas> franjaList = new ArrayList<Franjas>();
 		try {
 			tx = session.beginTransaction();
 			franjaList = session.createNativeQuery(sql, Franjas.class).list();
 			tx.commit();
 
+		}catch  (HibernateException e) {
+			if (tx!=null) tx.rollback();
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		return franjaList;
+	}
+	public List<Franjas>completarHorario(String dni, String dia){
+		Session session = factory.openSession();
+		Transaction tx = null;
+		String sql = "SELECT f.* from franjas f where f.DNI_Profesor = '" + dni+"' and f.Dia = '"+ dia +"'";
+		Franjas r = null;
+		List<Franjas>franjaList = new ArrayList<Franjas>();
+		try {
+			tx = session.beginTransaction();
+			franjaList = session.createNativeQuery(sql, Franjas.class).list();
+			tx.commit();
 		}catch  (HibernateException e) {
 			if (tx!=null) tx.rollback();
 			e.printStackTrace();

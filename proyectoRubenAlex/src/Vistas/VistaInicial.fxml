@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="503.0" prefWidth="869.0" stylesheets="@../application/StyleVistaInici.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vistas.VistaIniciController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="503.0" prefWidth="869.0" stylesheets="@../application/StyleVistaInici.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vistas.VistaIniciController">
    <children>
       <ImageView fitHeight="612.0" fitWidth="1017.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -157,7 +157,7 @@
             </Menu>
          </menus>
       </MenuBar>
-      <AnchorPane fx:id="paneAddFranja" layoutX="357.0" layoutY="30.0" prefHeight="363.0" prefWidth="482.0">
+      <AnchorPane fx:id="paneAddFranja" layoutX="204.0" layoutY="30.0" prefHeight="363.0" prefWidth="482.0">
          <children>
             <ChoiceBox fx:id="CBHoraFranja" layoutX="39.0" layoutY="70.0" prefWidth="150.0" />
             <Label layoutX="48.0" layoutY="43.0" text="Hora" textFill="WHITE">
@@ -177,6 +177,15 @@
             <Button fx:id="volverFranja" layoutX="343.0" layoutY="261.0" mnemonicParsing="false" onAction="#back" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-radius: 10; -fx-text-fill: white;" text="Volver" />
             <Button fx:id="guardarFranja" layoutX="37.0" layoutY="260.0" mnemonicParsing="false" onAction="#guardarFranja" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 10;" text="Guardar" />
             <Button fx:id="btnEliminarFranja" layoutX="127.0" layoutY="260.0" mnemonicParsing="false" onAction="#eliminarFranjaProfesor" text="Eliminar" />
+            <TableView fx:id="diasTabla" layoutX="233.0" layoutY="26.0" prefHeight="200.0" prefWidth="377.0">
+              <columns>
+                <TableColumn fx:id="lunesCOL" prefWidth="75.0" text="Lunes" />
+                <TableColumn fx:id="martesCOL" prefWidth="75.0" text="Martes" />
+                  <TableColumn fx:id="mierCOL" prefWidth="75.0" text="Miércoles" />
+                  <TableColumn fx:id="juevesCOL" prefWidth="75.0" text="Jueves" />
+                  <TableColumn fx:id="viernesCOL" prefWidth="75.0" text="Viernes" />
+              </columns>
+            </TableView>
          </children>
       </AnchorPane>
    </children>

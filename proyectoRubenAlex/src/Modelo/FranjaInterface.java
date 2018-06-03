@@ -21,4 +21,5 @@ public interface FranjaInterface {
  public Franjas verFranjaByID(int idFranja);
  public Franjas verFranjaFalta(Horas Hora, Profesor profesor, String dia, Asignatura asignatura);
  public List<Franjas> verFranjaAsignatura(Profesor profesor, Asignatura asignatura);
+ public List<Franjas>completarHorario(String dni, String dia);
 }

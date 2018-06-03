@@ -96,8 +96,8 @@ public class MainDePruebas {
 	Ciclo ci = c.verCicloByName(se);
 		System.out.println(ci.getNombreCiclo());
 		String name = "M4 - Llenguatge de Marques";
-		Asignatura asi = as.verAsignaturaByName(name, se);
-		System.out.println(asi.getNombreAsignatura() + "<----");
+		//Asignatura asi = as.verAsignaturaByName(name, se);
+		//System.out.println(asi.getNombreAsignatura() + "<----");
 
 
 	}
@@ -161,11 +161,11 @@ public class MainDePruebas {
 	}*/
 
 
-	private static void eliminarFranja() {
+	/*private static void eliminarFranja() {
 		String id = "F1";
 		f.eliminarFranja(id);
 
-	}
+	}*/
 
 
 	private static void verFranjaById() {
