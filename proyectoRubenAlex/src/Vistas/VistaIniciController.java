@@ -1133,11 +1133,12 @@ public class VistaIniciController {
 	 */
 	public void eliminarFranjaProfesor(){
 		Franjas franja;
+		Horas hora = CBHoraFranja.getSelectionModel().getSelectedItem();
+		Asignatura asig =  AsigFranja.getSelectionModel().getSelectedItem();
+		String dia = diasSemana.getSelectionModel().getSelectedItem();
+		franja = fr.verFranjaFalta(hora, profesorActivo, dia, asig) ;
+
 		try{
-			Horas hora = CBHoraFranja.getSelectionModel().getSelectedItem();
-			Asignatura asig =  AsigFranja.getSelectionModel().getSelectedItem();
-			String dia = diasSemana.getSelectionModel().getSelectedItem();
-			franja = fr.verFranjaFalta(hora, profesorActivo, dia, asig) ;
 
 			Alert alert2 = new Alert(AlertType.CONFIRMATION);
 			alert2.setHeaderText("Esta seguro que desea eliminar esta franja?");
