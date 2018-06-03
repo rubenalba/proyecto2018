@@ -1137,8 +1137,9 @@ public class VistaIniciController {
 		Asignatura asig =  AsigFranja.getSelectionModel().getSelectedItem();
 		String dia = diasSemana.getSelectionModel().getSelectedItem();
 		franja = fr.verFranjaFalta(hora, profesorActivo, dia, asig) ;
-
+		
 		try{
+			
 
 			Alert alert2 = new Alert(AlertType.CONFIRMATION);
 			alert2.setHeaderText("Esta seguro que desea eliminar esta franja?");
