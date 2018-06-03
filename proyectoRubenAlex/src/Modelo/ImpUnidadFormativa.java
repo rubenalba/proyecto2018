@@ -21,8 +21,8 @@ public class ImpUnidadFormativa implements UnidadFormativaInterface{
 	static UnidadFormativaInterface uf = DAO.getUnidadFormativaInterface();
 
 	/**
-	 * Añade un uf a la bbdd
-	 * @param uf, objeto a añadir a la bbdd
+	 * AÃ±ade un uf a la bbdd
+	 * @param uf, objeto a aÃ±adir a la bbdd
 	 */
 	@Override
 	public void addUnidadFormativa(Unidadformativa unidad) {

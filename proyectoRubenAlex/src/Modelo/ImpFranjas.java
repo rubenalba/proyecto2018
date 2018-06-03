@@ -25,8 +25,8 @@ public class ImpFranjas implements FranjaInterface{
 
 
 	/**
-	 * Añade un franja a la bbdd
-	 * @param franja, objeto a añadir a la bbdd
+	 * AÃ±ade un franja a la bbdd
+	 * @param franja, objeto a aÃ±adir a la bbdd
 	 */
 	@Override
 	public void addFranja(Franjas franja) throws Exception {

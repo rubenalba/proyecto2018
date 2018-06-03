@@ -22,8 +22,8 @@ public class ImpMatricula  implements MatriculaInterface{
 	private static SessionFactory factory = SessionFactoryUtil.getSessionFactory();
 
 	/**
-	 * Añade una matricula a la base de datos
-	 * @param matricula a añadir
+	 * AÃ±ade una matricula a la base de datos
+	 * @param matricula a aÃ±adir
 	 */
 	@Override
 	public void matricularAlumno(Matricula matricula) {

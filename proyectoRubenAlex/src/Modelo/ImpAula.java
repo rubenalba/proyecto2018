@@ -20,8 +20,8 @@ public class ImpAula implements AulaInterface{
 	private static SessionFactory factory = SessionFactoryUtil.getSessionFactory();
 
 	/**
-	 * Añade un aula a la bbdd
-	 * @param aula, objeto a añadir a la bbdd
+	 * Aï¿½ade un aula a la bbdd
+	 * @param aula, objeto a aÃ±adir a la bbdd
 	 */
 	@Override
 	public void addAula(Aula aula) {

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.141">
+   <children>
+      <AnchorPane prefHeight="321.0" prefWidth="367.0">
+         <children>
+            <Label layoutX="32.0" layoutY="53.0" text="Authors:" />
+            <Label layoutX="88.0" layoutY="53.0" prefHeight="17.0" prefWidth="254.0" text="Alba Revilla, Rubén &amp; Rienda Costa, Alejandro" />
+            <Label layoutX="32.0" layoutY="87.0" text="Contact:" />
+            <Label layoutX="97.0" layoutY="104.0" text="rubenalbarevilla@gmail.com" />
+            <Label layoutX="97.0" layoutY="87.0" prefHeight="17.0" prefWidth="185.0" text="alexrien95@gmail.com" />
+            <Label layoutX="52.0" layoutY="267.0" prefHeight="17.0" prefWidth="275.0" text="Copyright © 2018. All rights reserved." />
+            <Label layoutX="52.0" layoutY="174.0" prefHeight="17.0" prefWidth="326.0" text="AttendApp (Alumni) it's property of the authors,    " />
+            <Label layoutX="101.0" layoutY="191.0" prefHeight="17.0" prefWidth="166.0" text="and  and can not  be used" />
+            <Label layoutX="118.0" layoutY="208.0" text="without their consent" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

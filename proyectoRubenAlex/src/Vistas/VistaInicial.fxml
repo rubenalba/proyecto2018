@@ -146,7 +146,7 @@
             <Menu fx:id="Opciones" mnemonicParsing="false" text="Opciones">
                <items>
                   <MenuItem fx:id="Ajustes" mnemonicParsing="false" onAction="#configuracion" text="Ajustes" />
-                  <MenuItem fx:id="BtnInfo" mnemonicParsing="false" text="Información" />
+                  <MenuItem fx:id="BtnInfo" mnemonicParsing="false" onAction="#informacion" text="Información" />
                </items>
             </Menu>
             <Menu fx:id="SalirMENU" mnemonicParsing="false" text="Salir">

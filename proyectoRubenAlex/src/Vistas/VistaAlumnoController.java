@@ -130,7 +130,13 @@ public class VistaAlumnoController {
 		refrescarLista();
 		if (mat.getNota() != null)
 			NotaAsigAlumno.setText(mat.getNota().toString());
-		else NotaAsigAlumno.setText("No puntuado");
+		else{
+			if (idioma =="es") {
+				NotaAsigAlumno.setText("No puntuado");
+			}else {
+				NotaAsigAlumno.setText("Sense puntuació");
+			}
+		}
 
 	}
 

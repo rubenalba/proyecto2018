@@ -301,10 +301,15 @@ public class VistaIniciController {
 		btnEliminarUFProf.setText(bundle.getString("btnEliminarUFProf"));
 		curLb.setText(bundle.getString("curLb"));
 		search.setText(bundle.getString("search"));
+		BtnInfo.setText(bundle.getString("BtnInfo"));
 		ColNombreBusqueda.setText(bundle.getString("ColNombreBusqueda"));
 		volverBTNAlumno.setText(bundle.getString("volverBTNAlumno"));
 		volverFranja.setText(bundle.getString("volverFranja"));
-		alumnoBuscar.setPromptText("Alumne a cercar");
+		if (lang =="cat") {
+			alumnoBuscar.setPromptText("Nom, Cognom o DNI");
+		}else {
+			alumnoBuscar.setPromptText("Nombre, apellido o DNI");
+		}
 		SalirMENU.setText(bundle.getString("SalirMENU"));
 		cerrarSession.setText(bundle.getString("cerrarSession"));
 
@@ -340,10 +345,6 @@ public class VistaIniciController {
 		cargarCursos();
 		vlc = obtenerlang();
 		cargarIdioma(vlc);
-		//cargarCiclo();
-		//cargarCiclo2();
-		//cargarAlumnos();
-		//cargarHoras();
 
 
 		VentanaAlumnos.setVisible(false);
@@ -718,6 +719,14 @@ public class VistaIniciController {
 	 */
 	public void configuracion(ActionEvent event) throws IOException{
 		Parent root = FXMLLoader.load(getClass().getResource("../Vistas/VistaConfiguracion.fxml"));
+		Scene scene = new Scene(root);
+		Stage stage = new Stage();
+		stage.setScene(scene);
+		stage.show();
+	}
+	
+	public void informacion(ActionEvent event) throws IOException{
+		Parent root = FXMLLoader.load(getClass().getResource("../Vistas/informacion.fxml"));
 		Scene scene = new Scene(root);
 		Stage stage = new Stage();
 		stage.setScene(scene);

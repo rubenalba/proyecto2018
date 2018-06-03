@@ -23,7 +23,7 @@ public class ImpAlumnos implements AlumnosInterface{
 	private static SessionFactory factory = SessionFactoryUtil.getSessionFactory();
 	/**
 	 *  Añade alumnos a la base de datos pasándole el alumno
-	 *   @pararm Alumno alumno
+	 *   @param Alumnos alumno
 	 */
 	@Override
 	public void addAlumno(Alumnos alumno) {
@@ -43,7 +43,7 @@ public class ImpAlumnos implements AlumnosInterface{
 	/**
 	 * 
 	 *  Elimina alumnos a la base de datos pasándole el dni
-	 *   @pararm String dni
+	 *   @param String dni
 	 */
 	@Override
 	public void eliminarAlumno(String dni) {
@@ -65,7 +65,7 @@ public class ImpAlumnos implements AlumnosInterface{
 
 	/**
 	 *  modifica alumnos a la base de datos pasándole el alumno
-	 *   @pararm Alumno alumno
+	 *   @param Alumnos alumno
 	 */
 	@Override
 	public void modificarAlumno(Alumnos alumnoModificado) {
@@ -85,7 +85,7 @@ public class ImpAlumnos implements AlumnosInterface{
 
 	/**
 	 *  Obtiene la lista de asistencias del alumno que se le pasa por medio del DNI
-	 *   @pararm String dni
+	 *   @param String dni
 	 */
 	@Override
 	public List<Asistencia> verAsistencia(String dni) {

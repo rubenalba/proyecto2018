@@ -34,7 +34,7 @@ public class ImpProfesor implements ProfesorInterface{
 	static CicloInterface c = DAO.getCicloInterface();
 
 	/**
-	 * añade un profesor a la base de datos
+	 * aÃ±ade un profesor a la base de datos
 	 */
 	@Override
 	public void addProfesor(Profesor profesor) {

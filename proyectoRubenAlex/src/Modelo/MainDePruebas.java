@@ -201,7 +201,7 @@ public class MainDePruebas {
 	}*/
 
 
-	private static void addNota() {
+	/*private static void addNota() {
 		String id = "47665701H";
 		int ufs = 1;
 		Double nota = 7.3;
@@ -214,7 +214,7 @@ public class MainDePruebas {
 		}
 
 
-	}
+	}*/
 
 
 	private static void eliminarMatricula() {
