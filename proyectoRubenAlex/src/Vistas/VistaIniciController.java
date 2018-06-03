@@ -101,7 +101,7 @@ public class VistaIniciController {
 	@FXML
 	private MenuItem BtnInfo;
 
-   
+
 	@FXML
 	private TableColumn<String, String> ColHorario;
 
@@ -1101,9 +1101,13 @@ public class VistaIniciController {
 	 * Elimina la franja seleccionada del profesor
 	 */
 	public void eliminarFranjaProfesor(){
-		Franjas franja = new Franjas(CBHoraFranja.getSelectionModel().getSelectedItem(), AsigFranja.getSelectionModel().getSelectedItem(), profesorActivo, diasSemana.getSelectionModel().getSelectedItem());
-		
+		Franjas franja;
 		try{
+			Horas hora = CBHoraFranja.getSelectionModel().getSelectedItem();
+			Asignatura asig =  AsigFranja.getSelectionModel().getSelectedItem();
+			String dia = diasSemana.getSelectionModel().getSelectedItem();
+			franja = fr.verFranjaFalta(hora, profesorActivo, dia, asig) ;
+
 			Alert alert2 = new Alert(AlertType.CONFIRMATION);
 			alert2.setHeaderText("Esta seguro que desea eliminar esta franja?");
 			Optional<ButtonType> result = alert2.showAndWait();
@@ -1116,10 +1120,10 @@ public class VistaIniciController {
 				System.out.println("no ha pasado nada");
 			}
 		} catch(Exception e){
-			System.out.println("esta en el catch y dice " + e.getMessage() + " franja tiene: " + franja.getIdFranja());
-			/*Alert alert = new Alert(AlertType.ERROR);
+			System.out.println("esta en el catch y dice " + e.getMessage());
+			Alert alert = new Alert(AlertType.ERROR);
 			alert.setHeaderText("Franja duplicada");
-			alert.showAndWait();*/
+			alert.showAndWait();
 		}
 	}
 }
